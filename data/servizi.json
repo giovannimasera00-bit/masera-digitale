@@ -1,0 +1,278 @@
+{
+  "updated": "2026-11",
+  "source": "Listino pubblicato su farmaciamasera.com/prezzi-servizi (prezzi inseriti da Giovanni nell'agenda)",
+  "groups": [
+    {
+      "slug": "cuore-pressione",
+      "name": "Cuore e pressione",
+      "intro": "Telemedicina: l'esame lo fai qui, il referto lo firma un cardiologo."
+    },
+    {
+      "slug": "sangue-urine",
+      "name": "Sangue e urine",
+      "intro": "Autoanalisi in farmacia, risultato in pochi minuti."
+    },
+    {
+      "slug": "intolleranze-allergie",
+      "name": "Intolleranze e allergie",
+      "intro": "Test che si prenotano: ti diamo noi le indicazioni per prepararti."
+    },
+    {
+      "slug": "pelle",
+      "name": "Pelle",
+      "intro": "Skin LAB e teledermatologia."
+    },
+    {
+      "slug": "tamponi",
+      "name": "Tamponi",
+      "intro": "Risultato in pochi minuti."
+    },
+    {
+      "slug": "test-natrix",
+      "name": "Test Natrix",
+      "intro": "Profili ormonali, microbioma, intolleranze e test genetici: alcuni si fanno a casa con il kit. Elenco completo [DA CONFERMARE]."
+    }
+  ],
+  "services": [
+    {
+      "slug": "ecg",
+      "name": "Elettrocardiogramma (ECG)",
+      "group": "cuore-pressione",
+      "price_eur": 35,
+      "duration_min": 30,
+      "preparation": "Depila il petto: altrimenti gli elettrodi non aderiscono e non registrano. Evita creme sul torace il giorno dell'esame.",
+      "resource": "cabina_analisi",
+      "bookable_online": true,
+      "note": "Alcune prestazioni gratuite SSN con ricetta MMG ed esenzione cardiologica, max 3 in 12 mesi"
+    },
+    {
+      "slug": "holter-cardiaco",
+      "name": "Holter cardiaco 24/48 ore",
+      "group": "cuore-pressione",
+      "price_eur": 70,
+      "duration_min": 30,
+      "preparation": "Depila il petto: altrimenti gli elettrodi non aderiscono e non registrano. Fai la doccia prima: durante la registrazione l'apparecchio non va bagnato.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "holter-pressorio",
+      "name": "Holter pressorio 24 ore",
+      "group": "cuore-pressione",
+      "price_eur": 55,
+      "duration_min": 30,
+      "preparation": "Indossa una maglia comoda, a maniche larghe.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "emoglobina-glicata",
+      "name": "Emoglobina glicata",
+      "group": "sangue-urine",
+      "price_eur": 15,
+      "duration_min": 15,
+      "preparation": "Non serve il digiuno.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "vitamina-d",
+      "name": "Vitamina D",
+      "group": "sangue-urine",
+      "price_eur": 10,
+      "duration_min": 15,
+      "preparation": "Non serve il digiuno.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "profilo-lipidico",
+      "name": "Profilo lipidico",
+      "group": "sangue-urine",
+      "price_eur": 18,
+      "duration_min": 15,
+      "preparation": "Meglio a digiuno da almeno 8 ore. [DA CONFERMARE]",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "emocromo",
+      "name": "Emocromo",
+      "group": "sangue-urine",
+      "price_eur": 12,
+      "duration_min": 15,
+      "preparation": "Non serve il digiuno.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "funzionalita-renale",
+      "name": "Funzionalità renale",
+      "group": "sangue-urine",
+      "price_eur": 20,
+      "duration_min": 15,
+      "preparation": "Meglio a digiuno da almeno 8 ore. [DA CONFERMARE]",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "profilo-completo",
+      "name": "Profilo completo",
+      "group": "sangue-urine",
+      "price_eur": 25,
+      "duration_min": 15,
+      "preparation": "Meglio a digiuno da almeno 8 ore. [DA CONFERMARE]",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "pcr",
+      "name": "Proteina C reattiva (PCR)",
+      "group": "sangue-urine",
+      "price_eur": 20,
+      "duration_min": 15,
+      "preparation": "Non serve il digiuno.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "coagulazione",
+      "name": "Coagulazione",
+      "group": "sangue-urine",
+      "price_eur": 22,
+      "duration_min": 15,
+      "preparation": "[DA CONFERMARE]",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "analisi-urine",
+      "name": "Analisi delle urine",
+      "group": "sangue-urine",
+      "price_eur": 6,
+      "duration_min": 15,
+      "preparation": "Porta il primo campione di urine del mattino in un contenitore sterile.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "breath-test-lattosio",
+      "name": "Breath test lattosio",
+      "group": "intolleranze-allergie",
+      "price_eur": 104,
+      "duration_min": 240,
+      "preparation": "A digiuno; il giorno prima segui la dieta che ti diamo. [DA CONFERMARE testo dieta]",
+      "resource": "cabina_analisi",
+      "bookable_online": true,
+      "note": "Presenza in farmacia circa 4 ore; referto in circa 10 giorni"
+    },
+    {
+      "slug": "breath-test-glucosio-lattulosio",
+      "name": "Breath test glucosio · lattulosio",
+      "group": "intolleranze-allergie",
+      "price_eur": 104,
+      "duration_min": 240,
+      "preparation": "Stessa preparazione del lattosio.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "profilo-allergie",
+      "name": "Profilo allergie (63 allergeni)",
+      "group": "intolleranze-allergie",
+      "price_eur": 218,
+      "duration_min": 15,
+      "preparation": "[DA CONFERMARE]",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "food-recaller",
+      "name": "Food Recaller",
+      "group": "intolleranze-allergie",
+      "price_eur": 149,
+      "duration_min": 15,
+      "preparation": "[DA CONFERMARE]",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "perme-recaller",
+      "name": "PerMè Recaller",
+      "group": "intolleranze-allergie",
+      "price_eur": 299,
+      "duration_min": 15,
+      "preparation": "[DA CONFERMARE]",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "analisi-pelle-viso",
+      "name": "Analisi della pelle e del viso",
+      "group": "pelle",
+      "price_eur": 25,
+      "duration_min": 15,
+      "preparation": "Vieni con la pelle pulita e senza trucco.",
+      "resource": "skinlab",
+      "bookable_online": true,
+      "note": "I 25 € si scalano dall'acquisto dei prodotti consigliati. Strumento SpectroSkin."
+    },
+    {
+      "slug": "analisi-cuoio-capelluto",
+      "name": "Analisi del cuoio capelluto",
+      "group": "pelle",
+      "price_eur": null,
+      "duration_min": 15,
+      "preparation": "[DA CONFERMARE]",
+      "resource": "skinlab",
+      "bookable_online": true,
+      "note": "Prezzo [DA CONFERMARE]"
+    },
+    {
+      "slug": "teledermatologia",
+      "name": "Visita teledermatologica dei nei",
+      "group": "pelle",
+      "price_eur": 59.9,
+      "duration_min": 15,
+      "preparation": "",
+      "resource": "cabina_analisi",
+      "bookable_online": true,
+      "note": "Fino a 3 nei, referto in 1 giorno"
+    },
+    {
+      "slug": "tampone-streptococco",
+      "name": "Tampone streptococco",
+      "group": "tamponi",
+      "price_eur": 22,
+      "duration_min": 15,
+      "preparation": "Per il mal di gola: capire se serve il medico per l'antibiotico.",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    },
+    {
+      "slug": "videoconsulenza",
+      "name": "Videoconsulenza con la farmacista",
+      "group": null,
+      "price_eur": 15,
+      "duration_min": 15,
+      "preparation": "",
+      "resource": "video",
+      "bookable_online": true,
+      "note": "15 € interamente trasformati in credito spendibile entro 12 mesi"
+    },
+    {
+      "slug": "chiacchierata-deblistering",
+      "name": "Chiacchierata sul deblistering",
+      "group": null,
+      "price_eur": 0,
+      "duration_min": 15,
+      "preparation": "",
+      "resource": "cabina_analisi",
+      "bookable_online": true
+    }
+  ],
+  "open_questions": [
+    "Vaccino antinfluenzale/COVID: tenerli tra i servizi prenotabili? [DA CONFERMARE]",
+    "Tampone COVID: prezzo [DA CONFERMARE]"
+  ]
+}

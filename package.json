@@ -1,0 +1,21 @@
+{
+  "name": "masera-digitale",
+  "private": true,
+  "packageManager": "pnpm@12.18.0",
+  "scripts": {
+    "dev": "turbo run dev --filter=@masera/web",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "tokens": "node scripts/build-tokens.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "turbo": "^2.11.11",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

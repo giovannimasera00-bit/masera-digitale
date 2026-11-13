@@ -1,0 +1,268 @@
+{
+  "brand": "Farmaestetica by Dottor Masera",
+  "note": "Durate stimate (medie di riferimento): mostrarle come 'circa'. Una sola risorsa: l'estetista (laser incluso). Pulizia cabina 10 minuti.",
+  "categories": [
+    {
+      "name": "Viso",
+      "items": [
+        {
+          "name": "Pulizia viso",
+          "duration_min_estimate": 60,
+          "price_eur": 55
+        },
+        {
+          "name": "Antirughe rigenerante",
+          "duration_min_estimate": 60,
+          "price_eur": 85
+        },
+        {
+          "name": "Idratazione viso",
+          "duration_min_estimate": 50,
+          "price_eur": 85
+        },
+        {
+          "name": "Occhi con maschera al collagene",
+          "duration_min_estimate": 30,
+          "price_eur": 55
+        },
+        {
+          "name": "Massaggio viso/collo",
+          "duration_min_estimate": 30,
+          "price_eur": 35
+        },
+        {
+          "name": "Radiofrequenza viso",
+          "duration_min_estimate": 40,
+          "price_eur": 59
+        },
+        {
+          "name": "Radiofrequenza viso + collo",
+          "duration_min_estimate": 50,
+          "price_eur": 79
+        }
+      ]
+    },
+    {
+      "name": "Corpo",
+      "items": [
+        {
+          "name": "Peeling corpo con scrub",
+          "duration_min_estimate": 45,
+          "price_eur": 55,
+          "package_5plus1_eur": 275
+        },
+        {
+          "name": "Massaggio estetico",
+          "duration_min_estimate": 50,
+          "price_eur": 65,
+          "package_5plus1_eur": 325
+        },
+        {
+          "name": "Mezzo massaggio",
+          "duration_min_estimate": 30,
+          "price_eur": 45,
+          "package_5plus1_eur": 225
+        },
+        {
+          "name": "Cellulite + fango",
+          "duration_min_estimate": 60,
+          "price_eur": 85,
+          "package_5plus1_eur": 425
+        },
+        {
+          "name": "Adipe + fango",
+          "duration_min_estimate": 60,
+          "price_eur": 85,
+          "package_5plus1_eur": 425
+        },
+        {
+          "name": "Pressoterapia",
+          "duration_min_estimate": 40,
+          "price_eur": 48,
+          "package_5plus1_eur": 240
+        }
+      ]
+    },
+    {
+      "name": "Mani e piedi",
+      "items": [
+        {
+          "name": "Pedicure estetica",
+          "duration_min_estimate": 45,
+          "price_eur": 40
+        },
+        {
+          "name": "Semipermanente piedi",
+          "duration_min_estimate": 30,
+          "price_eur": 25
+        }
+      ]
+    },
+    {
+      "name": "Cera",
+      "items": [
+        {
+          "name": "Gamba intera",
+          "duration_min_estimate": 40,
+          "price_eur": 35
+        },
+        {
+          "name": "Gamba intera + inguine",
+          "duration_min_estimate": 45,
+          "price_eur": 40
+        },
+        {
+          "name": "Gamba intera + brasiliano",
+          "duration_min_estimate": 45,
+          "price_eur": 45
+        },
+        {
+          "name": "Mezza gamba",
+          "duration_min_estimate": 25,
+          "price_eur": 25
+        },
+        {
+          "name": "Mezza gamba + inguine",
+          "duration_min_estimate": 30,
+          "price_eur": 30
+        },
+        {
+          "name": "Mezza gamba + brasiliano",
+          "duration_min_estimate": 30,
+          "price_eur": 35
+        },
+        {
+          "name": "Braccia",
+          "duration_min_estimate": 20,
+          "price_eur": 18
+        },
+        {
+          "name": "Inguine",
+          "duration_min_estimate": 15,
+          "price_eur": 11
+        },
+        {
+          "name": "Brasiliano",
+          "duration_min_estimate": 15,
+          "price_eur": 18
+        },
+        {
+          "name": "Baffetti",
+          "duration_min_estimate": 10,
+          "price_eur": 10
+        },
+        {
+          "name": "Sopracciglia",
+          "duration_min_estimate": 10,
+          "price_eur": 12
+        },
+        {
+          "name": "Ascelle",
+          "duration_min_estimate": 10,
+          "price_eur": 16
+        }
+      ]
+    },
+    {
+      "name": "Laser",
+      "items": [
+        {
+          "name": "Viso completo",
+          "duration_min_estimate": 20,
+          "price_eur": 55
+        },
+        {
+          "name": "Zigomi/guance",
+          "duration_min_estimate": 15,
+          "price_eur": 25
+        },
+        {
+          "name": "Mento/baffetto",
+          "duration_min_estimate": 15,
+          "price_eur": 25
+        },
+        {
+          "name": "Collo",
+          "duration_min_estimate": 15,
+          "price_eur": 30
+        },
+        {
+          "name": "Ascelle",
+          "duration_min_estimate": 20,
+          "price_eur": 45
+        },
+        {
+          "name": "Braccia",
+          "duration_min_estimate": 30,
+          "price_eur": 70
+        },
+        {
+          "name": "Avambracci",
+          "duration_min_estimate": 25,
+          "price_eur": 55
+        },
+        {
+          "name": "Mani o piedi",
+          "duration_min_estimate": 15,
+          "price_eur": 25
+        },
+        {
+          "name": "Schiena/petto",
+          "duration_min_estimate": 30,
+          "price_eur": 55
+        },
+        {
+          "name": "Addome/lombare",
+          "duration_min_estimate": 25,
+          "price_eur": 45
+        },
+        {
+          "name": "Linea alba",
+          "duration_min_estimate": 15,
+          "price_eur": 25
+        },
+        {
+          "name": "Inguine",
+          "duration_min_estimate": 20,
+          "price_eur": 35
+        },
+        {
+          "name": "Bikini",
+          "duration_min_estimate": 25,
+          "price_eur": 45
+        },
+        {
+          "name": "Glutei",
+          "duration_min_estimate": 25,
+          "price_eur": 55
+        },
+        {
+          "name": "Gambe complete",
+          "duration_min_estimate": 60,
+          "price_eur": 135
+        },
+        {
+          "name": "Coscia singola",
+          "duration_min_estimate": 30,
+          "price_eur": 55
+        },
+        {
+          "name": "Gambaletto singolo",
+          "duration_min_estimate": 30,
+          "price_eur": 45
+        }
+      ]
+    }
+  ],
+  "contacts": {
+    "address": "Via Garibaldi 103 / Via Ballerini 10, 20831 Seregno (MB)",
+    "phone": "0362 231660",
+    "whatsapp": "366 199 2302",
+    "instagram": "@farmaestetica.seregno",
+    "hours": {
+      "mon_fri": "09:30-19:30",
+      "sat": "08:30-18:30",
+      "sun": "chiuso"
+    }
+  }
+}

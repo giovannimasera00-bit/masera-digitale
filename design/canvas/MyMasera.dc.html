@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>MyMasera, area cliente</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,700&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2E3F2D}a:hover{color:#425D3A}
+button{font-family:inherit;cursor:pointer}
+.serif{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-variation-settings:'opsz' 14}
+.mm-card{transition:transform .8s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d}
+.mm-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.mm-tab{transition:background .25s,color .25s}
+@keyframes mmIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes mmRing{from{stroke-dashoffset:1}to{stroke-dashoffset:.32}}
+.mm-in{animation:mmIn .45s cubic-bezier(.2,.8,.2,1) both}
+.mm-ring{stroke-dasharray:1 1;stroke-dashoffset:1;animation:mmRing 1.4s cubic-bezier(.2,.8,.2,1) .3s forwards}
+@media (prefers-reduced-motion:reduce){.mm-card{transition:none}.mm-in{animation:none}.mm-ring{animation:none;stroke-dashoffset:.32}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F6F4EE; font-family: 'DM Sans', Arial, sans-serif; color: #1D1D1B; overflow: hidden; padding: 56px 20px 0">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px">
+<h1 class="serif" style="margin: 0; font-size: 34px; color: #2E3F2D">MyMasera</h1>
+<a href="HomeMobile.dc.html" aria-label="Torna alla home" style="width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1px solid #E2DED2; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E3F2D" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+</div>
+
+<div style="perspective: 1200px; margin-bottom: 8px">
+<button type="button" onClick="{{flip}}" aria-label="Gira la carta fedeltà" class="mm-card" style="position: relative; display: block; width: 100%; height: 206px; border: 0; padding: 0; background: transparent; transform: {{cardTransform}}">
+<span class="mm-face" style="position: absolute; inset: 0; border-radius: 24px; padding: 22px; box-sizing: border-box; text-align: left; color: #fff; background: radial-gradient(120% 140% at 90% 0%, #425D3A 0%, #2E3F2D 55%, #1a2419 100%); box-shadow: 0 18px 36px rgba(31,43,30,.3); display: flex; flex-direction: column; justify-content: space-between">
+<span style="display: flex; justify-content: space-between; align-items: center"><img src="/_blob/7ed3c256f2778c02a1e1c60dfeac9ff8" alt="Farmacia Masera" style="height: 36px; width: auto"><span style="font-size: 11px; letter-spacing: .18em; font-weight: 700; color: #C9DB6A">CARTA FEDELTÀ</span></span>
+<span style="display: flex; justify-content: space-between; align-items: flex-end"><span><span style="display: block; font-size: 12px; color: #D6D2C4">[Nome Cognome]</span><span class="serif" style="font-size: 44px; line-height: 1">[punti]</span><span style="font-size: 13px; color: #D6D2C4"> punti</span></span><span style="font-size: 12px; color: #C9DB6A; font-weight: 700">Tocca per il codice</span></span>
+</span>
+<span class="mm-face" style="position: absolute; inset: 0; border-radius: 24px; padding: 22px; box-sizing: border-box; background: #F4F1E8; border: 1px solid #E2DED2; transform: rotateY(180deg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px">
+<svg width="290" height="88" viewBox="0 0 290 88" role="img" aria-label="Codice a barre della carta fedeltà"><g fill="#1D1D1B"><sc-for list="{{bars}}" as="b" hint-placeholder-count="40"><rect x="{{b.x}}" y="0" width="{{b.w}}" height="88"></rect></sc-for></g></svg>
+<span style="font-size: 14px; letter-spacing: .3em; font-weight: 600; color: #2E3F2D">[codice carta]</span>
+</span>
+</button>
+</div>
+
+<div class="mm-in" style="display: flex; gap: 12px; margin: 14px 0 16px">
+<div style="flex: 1; background: #fff; border: 1px solid #E8E4D8; border-radius: 20px; padding: 14px; display: flex; gap: 12px; align-items: center">
+<svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="21" fill="none" stroke="#EFECE4" stroke-width="7"></circle><circle class="mm-ring" pathLength="1" cx="26" cy="26" r="21" fill="none" stroke="#A3BE19" stroke-width="7" stroke-linecap="round" transform="rotate(-90 26 26)"></circle></svg>
+<span><span style="display: block; font-size: 12px; color: #5a5a55">Al prossimo buono</span><b style="font-size: 15px">[mancano N punti]</b></span>
+</div>
+<div style="flex: 1; background: #2E3F2D; color: #fff; border-radius: 20px; padding: 14px">
+<span style="display: block; font-size: 12px; color: #9AB9AD">Credito in farmacia</span><b class="serif" style="font-size: 26px">[importo]</b><span style="display: block; font-size: 11px; color: #D6D2C4">valido 12 mesi</span>
+</div>
+</div>
+
+<div role="tablist" aria-label="Sezioni" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; background: #EBE7DC; border-radius: 999px; padding: 4px; margin-bottom: 14px">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+<button class="mm-tab" type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="border: 0; border-radius: 999px; padding: 11px 0; font-weight: 700; font-size: 14px; background: {{t.bg}}; color: {{t.fg}}; min-height: 44px">{{t.label}}</button>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
+<div class="mm-in" style="background: #fff; border: 1px solid #E8E4D8; border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; animation-delay: {{r.delay}}">
+<span style="flex: none; width: 42px; height: 42px; border-radius: 12px; background: {{r.iconBg}}; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #2E3F2D">{{r.tag}}</span>
+<span style="flex: 1; min-width: 0"><b style="display: block; font-size: 15px">{{r.title}}</b><span style="font-size: 13px; color: #5a5a55">{{r.sub}}</span></span>
+<span style="flex: none; font-size: 12px; font-weight: 700; padding: 7px 11px; border-radius: 999px; background: {{r.badgeBg}}; color: {{r.badgeFg}}">{{r.badge}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { flipped: false, tab: 0 }; }
+  renderVals() {
+    const st = this.state;
+    const pattern = [3,1,2,1,1,3,2,1,1,2,3,1,2,2,1,1,3,1,2,1,1,2,3,1,1,2,1,3,2,1,1,2,1,1,3,2,1,2,1,3];
+    let x = 4; const bars = [];
+    pattern.forEach((w, i) => { if (i % 2 === 0) bars.push({ x, w: w * 2 }); x += w * 2 + 1.6; });
+    const tabNames = ['Agenda', 'Ricette', 'Referti'];
+    const tabs = tabNames.map((label, i) => ({ label, on: st.tab === i ? 'true' : 'false', bg: st.tab === i ? '#fff' : 'transparent', fg: st.tab === i ? '#2E3F2D' : '#5a5a55', pick: () => this.setState({ tab: i }) }));
+    const data = [
+      [
+        { tag: '[gg]', title: '[Servizio prenotato]', sub: '[giorno] · [ora] · Cabina analisi', badge: 'Confermato', iconBg: '#E6EDCB', badgeBg: '#E6EDCB', badgeFg: '#2E3F2D' },
+        { tag: '[gg]', title: 'Videoconsulenza 15 min', sub: '[giorno] · [ora] · link via WhatsApp', badge: 'Da fare', iconBg: '#DCE7E2', badgeBg: '#F4F1E8', badgeFg: '#2E3F2D' }
+      ],
+      [
+        { tag: 'Rx', title: 'Preparazione galenica', sub: 'Foto inviata · preventivo pronto', badge: 'Approva', iconBg: '#EDE8DB', badgeBg: '#A3BE19', badgeFg: '#1a2419' },
+        { tag: 'Rx', title: 'Ricetta [farmaco]', sub: 'Pronta, ritiro o consegna oggi', badge: 'Pronta', iconBg: '#EDE8DB', badgeBg: '#E6EDCB', badgeFg: '#2E3F2D' }
+      ],
+      [
+        { tag: 'PDF', title: 'Emoglobina glicata', sub: 'Referto del [data]', badge: 'Apri', iconBg: '#DCE7E2', badgeBg: '#F4F1E8', badgeFg: '#2E3F2D' },
+        { tag: 'PDF', title: 'Elettrocardiogramma', sub: 'Referto del [data]', badge: 'Apri', iconBg: '#DCE7E2', badgeBg: '#F4F1E8', badgeFg: '#2E3F2D' }
+      ]
+    ];
+    const rows = data[st.tab].map((r, i) => ({ ...r, delay: (i * 0.07) + 's' }));
+    return {
+      bars, tabs, rows,
+      cardTransform: st.flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+      flip: () => this.setState({ flipped: !st.flipped })
+    };
+  }
+}
+</script>
+</body>
+</html>

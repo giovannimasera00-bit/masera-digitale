@@ -1,0 +1,186 @@
+{
+  "brand": "Miamo Lounge (dentro Farmaestetica)",
+  "note": "Durate da listino Miamo. Colore: blu Miamo nelle sue schede.",
+  "lines": [
+    {
+      "name": "Viso Renew",
+      "items": [
+        {
+          "name": "Chron-Intense",
+          "duration_min": 50,
+          "price_eur": 75
+        },
+        {
+          "name": "Epigenetic Power",
+          "duration_min": 50,
+          "price_eur": 70
+        },
+        {
+          "name": "Femin-IN-Time",
+          "duration_min": 50,
+          "price_eur": 75
+        },
+        {
+          "name": "Hydrashine",
+          "duration_min": 50,
+          "price_eur": 70
+        },
+        {
+          "name": "Second Skin",
+          "duration_min": 50,
+          "price_eur": 65
+        }
+      ]
+    },
+    {
+      "name": "Viso Restore",
+      "items": [
+        {
+          "name": "Dermotopical",
+          "duration_min": 50,
+          "price_eur": 60
+        },
+        {
+          "name": "Skin Fight",
+          "duration_min": 50,
+          "price_eur": 65
+        }
+      ]
+    },
+    {
+      "name": "Viso Balance",
+      "items": [
+        {
+          "name": "Purity Skin",
+          "duration_min": 50,
+          "price_eur": 55
+        },
+        {
+          "name": "Acnever Plus",
+          "duration_min": 50,
+          "price_eur": 55
+        },
+        {
+          "name": "Ultra Bright",
+          "duration_min": 50,
+          "price_eur": 65
+        },
+        {
+          "name": "Mom to be",
+          "duration_min": 50,
+          "price_eur": 65
+        },
+        {
+          "name": "Reminer A.G.E.",
+          "duration_min": 50,
+          "price_eur": 70
+        },
+        {
+          "name": "Miamo Man",
+          "duration_min": 50,
+          "price_eur": 65
+        }
+      ]
+    },
+    {
+      "name": "Viso con elettroporazione + radiofrequenza",
+      "items": [
+        {
+          "name": "Chron-Intense",
+          "duration_min": 70,
+          "price_eur": 140
+        },
+        {
+          "name": "Femin-IN-Time",
+          "duration_min": 70,
+          "price_eur": 140
+        },
+        {
+          "name": "Epigenetic Power",
+          "duration_min": 70,
+          "price_eur": 130
+        },
+        {
+          "name": "Hydrashine",
+          "duration_min": 70,
+          "price_eur": 130
+        },
+        {
+          "name": "Second Skin",
+          "duration_min": 70,
+          "price_eur": 130
+        },
+        {
+          "name": "Purity Skin",
+          "duration_min": 70,
+          "price_eur": 130
+        },
+        {
+          "name": "Miamo Man",
+          "duration_min": 70,
+          "price_eur": 130
+        }
+      ]
+    },
+    {
+      "name": "Express",
+      "items": [
+        {
+          "name": "Epigenetic Shot",
+          "duration_min": 30,
+          "price_eur": 40
+        },
+        {
+          "name": "Hydra Shot",
+          "duration_min": 30,
+          "price_eur": 40
+        },
+        {
+          "name": "Restore Shot",
+          "duration_min": 30,
+          "price_eur": 40
+        },
+        {
+          "name": "Reminer Shot",
+          "duration_min": 30,
+          "price_eur": 40
+        },
+        {
+          "name": "Purity Shot",
+          "duration_min": 30,
+          "price_eur": 35
+        }
+      ]
+    },
+    {
+      "name": "Corpo",
+      "items": [
+        {
+          "name": "Tone Restore",
+          "duration_min": 60,
+          "price_eur": 70
+        },
+        {
+          "name": "Multi-Action Slimming",
+          "duration_min": 60,
+          "price_eur": 70
+        },
+        {
+          "name": "Draining Ice",
+          "duration_min": 60,
+          "price_eur": 70
+        },
+        {
+          "name": "Tone Restore con elettroporazione/radiofrequenza",
+          "duration_min": 80,
+          "price_eur": 150
+        },
+        {
+          "name": "Multi-Action Slimming con elettroporazione/radiofrequenza",
+          "duration_min": 80,
+          "price_eur": 150
+        }
+      ]
+    }
+  ]
+}

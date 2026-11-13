@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Skin LAB by Farmacia Masera</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,700&amp;family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F1E8}
+a{color:#3a332b}a:hover{color:#1D1D1B}
+button{font-family:inherit;cursor:pointer}
+.serif{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-variation-settings:'opsz' 14}
+@keyframes skDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes skRise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes skScan{0%{transform:translateY(0)}50%{transform:translateY(176px)}100%{transform:translateY(0)}}
+@keyframes skFill{from{width:0}}
+@keyframes skSwap{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.sk-arch{stroke-dasharray:1 1;stroke-dashoffset:1;animation:skDraw 2.8s cubic-bezier(.65,0,.35,1) forwards}
+.sk-rise{opacity:0;animation:skRise .9s cubic-bezier(.2,.8,.2,1) forwards}
+.sk-scan{animation:skScan 4s ease-in-out infinite}
+.sk-fill{animation:skFill 1.4s cubic-bezier(.2,.8,.2,1) both}
+.sk-swap{animation:skSwap .45s cubic-bezier(.2,.8,.2,1) both}
+.sk-tab{transition:background .25s,color .25s}
+@media (prefers-reduced-motion:reduce){.sk-arch,.sk-rise,.sk-fill,.sk-swap{animation:none;opacity:1;stroke-dashoffset:0}.sk-scan{animation:none}}
+</style>
+</helmet>
+<div style="font-family: 'DM Sans', Arial, sans-serif; color: #1D1D1B; background: #F4F1E8; min-height: 100vh">
+
+<section style="position: relative; overflow: hidden; background: linear-gradient(150deg, #8C7D6C 0%, #6E6153 55%, #4f453b 100%); color: #fff">
+<svg viewBox="0 0 1440 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%">
+<g fill="none" stroke="#D6D2C4" stroke-width="1.6" stroke-opacity=".35">
+<path class="sk-arch" pathLength="1" d="M-80 640V470a420 420 0 0 1 840 0V640"></path>
+<path class="sk-arch" pathLength="1" style="animation-delay:.2s" d="M560 640V430a420 420 0 0 1 840 0V640"></path>
+<path class="sk-arch" pathLength="1" style="animation-delay:.4s" d="M640 640V440a340 340 0 0 1 680 0V640"></path>
+</g>
+</svg>
+<div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 72px 32px 88px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 560px; min-width: 0">
+<a href="Main.dc.html" style="text-decoration: none; font-weight: 700; font-size: 14px; color: #F4F1E8">← Farmacia Masera</a>
+<p class="sk-rise" style="margin: 40px 0 0; line-height: .9; animation-delay: .15s"><span class="serif" style="font-size: 96px">Skin</span><span style="display: block; font-size: 74px; font-weight: 300; letter-spacing: .1em">LAB</span></p>
+<p class="sk-rise" style="margin: 14px 0 30px; font-size: 13px; letter-spacing: .22em; font-weight: 700; color: #F4F1E8; animation-delay: .3s">BY FARMACIA MASERA</p>
+<h1 class="serif sk-rise" style="margin: 0; font-size: clamp(36px, 4.4vw, 56px); line-height: 1.05; max-width: 640px; animation-delay: .45s">Prima guardiamo la tua pelle. Poi scegliamo insieme.</h1>
+<p class="sk-rise" style="margin: 22px 0 30px; font-size: 18px; line-height: 1.6; color: #F4F1E8; max-width: 560px; animation-delay: .6s">Un'analisi strumentale del viso con la farmacista, i risultati spiegati semplici e una routine fatta per te, che ritrovi passo per passo nell'app.</p>
+<div class="sk-rise" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; animation-delay: .75s">
+<a href="Prenota.dc.html" style="background: #F4F1E8; color: #3a332b; text-decoration: none; font-weight: 700; padding: 17px 28px; border-radius: 999px">Prenota l'analisi · 25 €</a>
+<span style="font-size: 15px; color: #F4F1E8; max-width: 260px">I 25 € li scali dall'acquisto dei prodotti consigliati.</span>
+</div>
+</div>
+<div class="sk-rise" style="flex: 0 1 340px; min-width: 0; animation-delay: .9s">
+<div style="background: #F4F1E8; color: #1D1D1B; border-radius: 28px; padding: 26px; box-shadow: 0 24px 50px rgba(30,24,18,.3)">
+<p style="margin: 0 0 14px; font-size: 12px; letter-spacing: .18em; font-weight: 700; color: #6E6153">IL TUO REPORT · ESEMPIO</p>
+<div style="position: relative; height: 190px; border-radius: 18px; background: radial-gradient(70% 60% at 50% 45%, #E9DFD2 0%, #D8CBBB 100%); overflow: hidden; margin-bottom: 18px">
+<svg viewBox="0 0 300 190" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%"><g fill="none" stroke="#8C7D6C" stroke-width="1.5" opacity=".6"><ellipse cx="150" cy="96" rx="62" ry="80"></ellipse><path d="M122 80q8-6 16 0M162 80q8-6 16 0M140 122q10 8 20 0"></path></g></svg>
+<div class="sk-scan" style="position: absolute; left: 0; right: 0; top: 6px; height: 3px; background: #8C7D6C; box-shadow: 0 0 14px rgba(140,125,108,.9)"></div>
+</div>
+<sc-for list="{{params}}" as="p" hint-placeholder-count="4">
+<div style="margin-bottom: 10px">
+<div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px"><b>{{p.n}}</b><span style="color: #5a5148">{{p.v}}</span></div>
+<div style="height: 7px; border-radius: 4px; background: #E6DFD4; overflow: hidden"><div class="sk-fill" style="height: 100%; border-radius: 4px; background: #8C7D6C; width: {{p.w}}; animation-delay: {{p.d}}"></div></div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 40px">
+<h2 class="serif" style="margin: 0 0 32px; font-size: clamp(38px, 4.6vw, 58px); line-height: 1; color: #3a332b">Come funziona.</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px">
+<sc-for list="{{how}}" as="h" hint-placeholder-count="3">
+<div style="background: #fff; border: 1px solid #E6DFD4; border-radius: 26px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<span class="serif" style="font-size: 54px; line-height: 1; color: #B7A999">{{h.n}}</span>
+<b style="font-size: 20px">{{h.t}}</b>
+<span style="font-size: 15px; line-height: 1.6; color: #4a4540">{{h.d}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 40px 32px">
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch">
+<div style="flex: 1 1 420px; min-width: 0; background: #3a332b; color: #fff; border-radius: 28px; padding: 32px">
+<p style="margin: 0 0 12px; font-size: 12px; letter-spacing: .2em; font-weight: 700; color: #D6D2C4">LE ANALISI</p>
+<div role="tablist" aria-label="Tipo di analisi" style="display: flex; gap: 6px; margin-bottom: 20px">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+<button class="sk-tab" type="button" role="tab" aria-selected="{{t.sel}}" onClick="{{t.pick}}" style="border: 1.5px solid #D6D2C4; background: {{t.bg}}; color: {{t.fg}}; font-weight: 700; font-size: 14px; padding: 11px 18px; border-radius: 999px; min-height: 44px">{{t.label}}</button>
+</sc-for>
+</div>
+<sc-for list="{{tabCards}}" as="c" hint-placeholder-count="1">
+<sc-if value="{{c.on}}" hint-placeholder-val="{{ true }}">
+<div class="sk-swap">
+<p class="serif" style="margin: 0 0 10px; font-size: 32px; line-height: 1.08">{{c.title}}</p>
+<p style="margin: 0 0 18px; font-size: 16px; line-height: 1.6; color: #E8E2D8">{{c.text}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px">
+<sc-for list="{{c.facts}}" as="f" hint-placeholder-count="3"><span style="font-size: 13px; font-weight: 700; background: rgba(244,241,232,.12); border: 1px solid rgba(244,241,232,.25); padding: 8px 12px; border-radius: 999px">{{f}}</span></sc-for>
+</div>
+<p style="margin: 0; font-size: 14px; color: #D6D2C4">{{c.prep}}</p>
+</div>
+</sc-if>
+</sc-for>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; background: #fff; border: 1px solid #E6DFD4; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 12px; letter-spacing: .2em; font-weight: 700; color: #6E6153">DOPO L'ANALISI</p>
+<p class="serif" style="margin: 0; font-size: 32px; line-height: 1.08; color: #3a332b">La tua routine, nel telefono.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #4a4540">La farmacista segna i prodotti che ti ha consigliato, quanto usarne e quando. Tu la ritrovi nell'app MyMasera, mattina e sera, e spunti i passaggi man mano.</p>
+<a href="SkinLab.dc.html" style="align-self: flex-start; margin-top: auto; background: #3a332b; color: #fff; text-decoration: none; font-weight: 700; padding: 14px 22px; border-radius: 999px">Guarda com'è la routine</a>
+</div>
+</div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 48px 32px 96px">
+<p style="margin: 0 0 14px; font-size: 12px; letter-spacing: .2em; font-weight: 700; color: #6E6153">I MARCHI CHE USIAMO PER LE ROUTINE</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{brands}}" as="b" hint-placeholder-count="8"><span style="font-weight: 700; font-size: 15px; padding: 11px 18px; border-radius: 999px; background: #fff; border: 1px solid #E6DFD4; color: #3a332b">{{b}}</span></sc-for>
+</div>
+<div style="display: flex; height: 10px; margin-top: 56px; border-radius: 5px; overflow: hidden"><i style="flex: 1; background: #3a332b"></i><i style="flex: 1; background: #6E6153"></i><i style="flex: 1; background: #B7A999"></i><i style="flex: 1; background: #D6D2C4"></i><i style="flex: 1; background: #E9DFD2"></i></div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2300}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { tab: 0 }; }
+  renderVals() {
+    const st = this.state.tab;
+    const defs = [
+      { label: 'Viso', title: 'Analisi della pelle del viso', text: 'Con lo strumento SpectroSkin la farmacista misura diversi parametri della pelle del viso. Alla fine ti spiega cosa è emerso e, se vuoi, ricevi il report in PDF.', facts: ['Circa 15 minuti', '25 €, scalabili sui prodotti', 'Su appuntamento'], prep: 'Vieni con la pelle pulita e senza trucco.' },
+      { label: 'Cuoio capelluto', title: 'Analisi di capelli e cuoio capelluto', text: 'Con una microcamera osserviamo da vicino cuoio capelluto e capello, per capire il problema reale e scegliere il prodotto o il trattamento più adatto.', facts: ['Circa 15 minuti', 'Su appuntamento', '[prezzo]'], prep: 'Quando prenoti ti diciamo come prepararti.' }
+    ];
+    const tabs = defs.map((d, i) => ({ label: d.label, sel: st === i ? 'true' : 'false', bg: st === i ? '#F4F1E8' : 'transparent', fg: st === i ? '#3a332b' : '#F4F1E8', pick: () => this.setState({ tab: i }) }));
+    const tabCards = defs.map((d, i) => ({ ...d, on: st === i }));
+    return {
+      tabs, tabCards,
+      params: [
+        { n: 'Idratazione', v: '[valore]', w: '64%', d: '1.1s' },
+        { n: 'Sebo', v: '[valore]', w: '42%', d: '1.25s' },
+        { n: 'Elasticità', v: '[valore]', w: '71%', d: '1.4s' },
+        { n: 'Macchie', v: '[valore]', w: '33%', d: '1.55s' }
+      ],
+      how: [
+        { n: '01', t: 'Prenoti l’analisi', d: 'Dal sito, dall’app o al banco. Dura circa 15 minuti e costa 25 €, che poi scali dall’acquisto dei prodotti.' },
+        { n: '02', t: 'Guardiamo la tua pelle', d: 'La farmacista fa l’analisi strumentale e ti spiega i risultati con parole semplici, senza venderti niente a tutti i costi.' },
+        { n: '03', t: 'Ti portiamo a casa la routine', d: 'Pochi prodotti scelti per te, con dosi e ordine. Li trovi nell’app MyMasera e puoi riordinarli quando finiscono.' }
+      ],
+      brands: ['Miamo', 'SkinCeuticals', 'La Roche-Posay', 'Caudalie', 'Dolomia', 'Bakel', 'Farmacisti Preparatori', 'Ceramol', 'TriUnico', 'Lovren']
+    };
+  }
+}
+</script>
+</body>
+</html>

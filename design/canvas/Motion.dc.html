@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Sistema di movimento</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,700&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.serif{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-variation-settings:'opsz' 14}
+@keyframes mvDraw{0%{stroke-dashoffset:1}55%,100%{stroke-dashoffset:0}}
+@keyframes mvRise{0%{opacity:0;transform:translateY(22px)}25%,85%{opacity:1;transform:none}100%{opacity:0}}
+@keyframes mvBar{0%{transform:scaleX(0)}40%,100%{transform:scaleX(1)}}
+@keyframes mvPulse{0%{box-shadow:0 0 0 0 rgba(163,190,25,.6)}100%{box-shadow:0 0 0 16px rgba(163,190,25,0)}}
+@keyframes mvFlip{0%,30%{transform:rotateY(0)}50%,80%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}
+@keyframes mvCheck{0%,15%{stroke-dashoffset:1}45%,100%{stroke-dashoffset:0}}
+@keyframes mvPop{0%,10%{transform:scale(.6)}30%{transform:scale(1.08)}40%,100%{transform:scale(1)}}
+.mv-arch{stroke-dasharray:1 1;animation:mvDraw 3.4s cubic-bezier(.65,0,.35,1) infinite}
+.mv-rise{opacity:0;animation:mvRise 3.4s cubic-bezier(.2,.8,.2,1) infinite}
+.mv-bar{transform-origin:left;animation:mvBar 3s cubic-bezier(.2,.8,.2,1) infinite}
+.mv-pulse{animation:mvPulse 1.8s ease-out infinite}
+.mv-flip{animation:mvFlip 4s cubic-bezier(.3,1.3,.5,1) infinite;transform-style:preserve-3d}
+.mv-check{stroke-dasharray:1 1;animation:mvCheck 2.6s ease-out infinite}
+.mv-pop{animation:mvPop 2.6s cubic-bezier(.2,.8,.2,1) infinite}
+@media (prefers-reduced-motion:reduce){.mv-arch,.mv-rise,.mv-bar,.mv-pulse,.mv-flip,.mv-check,.mv-pop{animation:none;opacity:1;stroke-dashoffset:0}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; box-sizing: border-box; padding: 64px; background: #1a2419; color: #F4F1E8; font-family: 'DM Sans', Arial, sans-serif; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px">
+<h1 class="serif" style="margin: 0; font-size: 64px; line-height: 1">Si muove con calma.<br><span style="color: #C9DB6A">Mai per fare scena.</span></h1>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; font-size: 14px">
+<div style="background: rgba(244,241,232,.07); border-radius: 16px; padding: 14px 18px"><b style="display: block; color: #C9DB6A">Veloce · 200 ms</b>tocchi, pulsanti</div>
+<div style="background: rgba(244,241,232,.07); border-radius: 16px; padding: 14px 18px"><b style="display: block; color: #C9DB6A">Base · 450 ms</b>schede, liste</div>
+<div style="background: rgba(244,241,232,.07); border-radius: 16px; padding: 14px 18px"><b style="display: block; color: #C9DB6A">Lenta · 900 ms</b>ingressi di pagina</div>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; flex: 1">
+
+<div style="background: #2E3F2D; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="height: 150px; display: flex; align-items: flex-end; justify-content: center"><svg width="220" height="140" viewBox="0 0 220 140" aria-hidden="true"><g fill="none" stroke="#9AB9AD" stroke-width="2.5"><path class="mv-arch" pathLength="1" d="M10 140V110a100 100 0 0 1 200 0V140"></path><path class="mv-arch" pathLength="1" style="animation-delay:.15s" d="M40 140V110a70 70 0 0 1 140 0V140"></path><path class="mv-arch" pathLength="1" style="animation-delay:.3s" d="M70 140V110a40 40 0 0 1 80 0V140"></path></g></svg></div>
+<b class="serif" style="font-size: 28px">01 · L'arco</b>
+<span style="font-size: 14px; line-height: 1.5; color: #D6D2C4">Gli archi del logo si disegnano all'ingresso di ogni pagina. È la firma del marchio: c'è solo lì.</span>
+</div>
+
+<div style="background: #2E3F2D; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 4px">
+<span class="mv-rise serif" style="font-size: 34px">Medicina</span>
+<span class="mv-rise serif" style="font-size: 34px; animation-delay: .15s">per tradizione.</span>
+<span class="mv-rise serif" style="font-size: 34px; color: #C9DB6A; animation-delay: .3s">Dal 1908.</span>
+</div>
+<b class="serif" style="font-size: 28px">02 · La risalita</b>
+<span style="font-size: 14px; line-height: 1.5; color: #D6D2C4">I titoli salgono una riga alla volta, a 150 ms di distanza. Il testo normale compare tutto insieme.</span>
+</div>
+
+<div style="background: #2E3F2D; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 18px">
+<div style="display: flex; height: 12px; border-radius: 6px; overflow: hidden"><i class="mv-bar" style="flex: 1; background: #F4F1E8"></i><i class="mv-bar" style="flex: 1; background: #A3BE19; animation-delay: .1s"></i><i class="mv-bar" style="flex: 1; background: #9AB9AD; animation-delay: .2s"></i><i class="mv-bar" style="flex: 1; background: #D6D2C4; animation-delay: .3s"></i><i class="mv-bar" style="flex: 1; background: #B7A999; animation-delay: .4s"></i></div>
+<div style="height: 8px; border-radius: 4px; background: rgba(244,241,232,.15); overflow: hidden"><div class="mv-bar" style="height: 100%; width: 70%; background: linear-gradient(90deg, #A3BE19, #9AB9AD); border-radius: 4px"></div></div>
+</div>
+<b class="serif" style="font-size: 28px">03 · La barra</b>
+<span style="font-size: 14px; line-height: 1.5; color: #D6D2C4">La barra a cinque colori si riempie da sinistra. Diventa anche l'indicatore di ogni progresso: consegna, routine, punti.</span>
+</div>
+
+<div style="background: #2E3F2D; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="height: 150px; display: flex; align-items: center; justify-content: center"><span style="display: flex; align-items: center; gap: 14px; background: #F4F1E8; color: #1a2419; padding: 14px 22px; border-radius: 999px; font-weight: 700; font-size: 18px"><span class="mv-pulse" style="width: 14px; height: 14px; border-radius: 50%; background: #A3BE19"></span>Aperto ora</span></div>
+<b class="serif" style="font-size: 28px">04 · Il respiro</b>
+<span style="font-size: 14px; line-height: 1.5; color: #D6D2C4">Le cose vive respirano: "aperto ora", la consegna in corso, il timer della ZTL. Solo i dati in tempo reale si muovono da soli.</span>
+</div>
+
+<div style="background: #2E3F2D; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="height: 150px; display: flex; align-items: center; justify-content: center; perspective: 800px"><div class="mv-flip" style="width: 200px; height: 120px; border-radius: 16px; background: radial-gradient(120% 140% at 90% 0%, #425D3A 0%, #2E3F2D 55%, #1a2419 100%); border: 1px solid #425D3A; display: flex; align-items: center; justify-content: center"><img src="/_blob/7ed3c256f2778c02a1e1c60dfeac9ff8" alt="" style="height: 34px; width: auto"></div></div>
+<b class="serif" style="font-size: 28px">05 · La carta</b>
+<span style="font-size: 14px; line-height: 1.5; color: #D6D2C4">Gli oggetti fisici, come la carta fedeltà, si girano con una piccola molla. Davanti il saldo, dietro il codice per il banco.</span>
+</div>
+
+<div style="background: #2E3F2D; border-radius: 24px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="height: 150px; display: flex; align-items: center; justify-content: center"><svg class="mv-pop" width="96" height="96" viewBox="0 0 112 112" aria-hidden="true"><circle cx="56" cy="56" r="54" fill="#A3BE19"></circle><path class="mv-check" pathLength="1" d="M34 58l15 15 30-32" fill="none" stroke="#1a2419" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+<b class="serif" style="font-size: 28px">06 · La spunta</b>
+<span style="font-size: 14px; line-height: 1.5; color: #D6D2C4">Ogni conferma finisce con una spunta che si disegna: prenotazione, ordine, passo della routine fatto.</span>
+</div>
+</div>
+<p style="margin: 0; font-size: 14px; color: #9AB9AD">Curva di uscita per tutto: cubic-bezier(.2, .8, .2, 1). Chi ha attivato "riduci movimento" sul telefono vede tutto fermo, già al suo posto.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

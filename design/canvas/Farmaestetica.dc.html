@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Farma Estetica by Dottor Masera</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,700&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EEF1EC}
+a{color:#2E3F2D}a:hover{color:#1a2419}
+button{font-family:inherit;cursor:pointer}
+.serif{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-variation-settings:'opsz' 14}
+@keyframes feDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes feRise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes feUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes feSwap{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.fe-arch{stroke-dasharray:1 1;stroke-dashoffset:1;animation:feDraw 2.6s cubic-bezier(.65,0,.35,1) forwards}
+.fe-rise{opacity:0;animation:feRise .9s cubic-bezier(.2,.8,.2,1) forwards}
+.fe-up{animation:feUp 2.4s ease-in-out infinite}
+.fe-row{animation:feSwap .45s cubic-bezier(.2,.8,.2,1) both}
+.fe-tab{transition:background .25s,color .25s}
+.fe-row:hover{background:#F6F8F4}
+@media (prefers-reduced-motion:reduce){.fe-arch,.fe-rise,.fe-row{animation:none;opacity:1;stroke-dashoffset:0}.fe-up{animation:none}}
+</style>
+</helmet>
+<div style="font-family: 'DM Sans', Arial, sans-serif; color: #1D1D1B; background: #EEF1EC; min-height: 100vh">
+
+<section style="position: relative; overflow: hidden; background: #9AB9AD">
+<svg viewBox="0 0 1440 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%">
+<g fill="none" stroke="#F4F1E8" stroke-width="1.6" stroke-opacity=".45">
+<path class="fe-arch" pathLength="1" d="M820 640V420a300 300 0 0 1 600 0V640"></path>
+<path class="fe-arch" pathLength="1" style="animation-delay:.15s" d="M880 640V430a240 240 0 0 1 480 0V640"></path>
+<path class="fe-arch" pathLength="1" style="animation-delay:.3s" d="M940 640V440a180 180 0 0 1 360 0V640"></path>
+<path class="fe-arch" pathLength="1" style="animation-delay:.45s" d="M1000 640V450a120 120 0 0 1 240 0V640"></path>
+</g>
+</svg>
+<div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 72px 32px 88px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 1 1 560px; min-width: 0">
+<a href="Main.dc.html" style="text-decoration: none; font-weight: 700; font-size: 14px">← Farmacia Masera</a>
+<div class="fe-rise" style="margin: 34px 0 8px; display: flex; align-items: center; gap: 16px; animation-delay: .15s">
+<img src="/_blob/4b73b2f6c62a273b824d8a7a1b031ab4" alt="" style="width: 64px; height: 64px">
+<span style="display: block; line-height: 1.02"><b style="display: block; font-size: 30px; font-weight: 800; letter-spacing: .02em; color: #2E3F2D">FARMA</b><b style="display: block; font-size: 30px; font-weight: 800; letter-spacing: .02em; color: #2E3F2D">ESTETICA</b></span>
+</div>
+<p class="fe-rise" style="margin: 0 0 28px; font-size: 13px; letter-spacing: .22em; font-weight: 700; color: #2E3F2D; animation-delay: .25s">BY DOTTOR MASERA</p>
+<h1 class="serif fe-rise" style="margin: 0; font-size: clamp(48px, 6.5vw, 86px); line-height: 1; color: #1a2419; animation-delay: .4s">La bellezza, un piano sopra la farmacia.</h1>
+<p class="fe-rise" style="margin: 24px 0 32px; font-size: 19px; line-height: 1.6; color: #1f2b1e; max-width: 560px; animation-delay: .55s">Trattamenti viso e corpo, laser e la Miamo Lounge, con la nostra estetista e il consiglio della farmacia al piano di sotto.</p>
+<div class="fe-rise" style="display: flex; flex-wrap: wrap; gap: 12px; animation-delay: .7s">
+<a href="Prenota.dc.html" style="background: #2E3F2D; color: #fff; text-decoration: none; font-weight: 700; padding: 17px 28px; border-radius: 999px">Prenota un trattamento</a>
+<a href="https://wa.me/393661992302" style="border: 1.5px solid #2E3F2D; color: #2E3F2D; text-decoration: none; font-weight: 700; padding: 16px 26px; border-radius: 999px">WhatsApp 366 199 2302</a>
+</div>
+</div>
+<div class="fe-rise" style="flex: 0 1 300px; min-width: 0; animation-delay: .8s">
+<div style="background: #F4F1E8; border-radius: 28px; padding: 28px; text-align: center; box-shadow: 0 24px 50px rgba(26,36,25,.18)">
+<p style="margin: 0 0 6px; font-size: 13px; letter-spacing: .2em; font-weight: 800; color: #2E3F2D">PIANO 1</p>
+<div style="width: 40px; height: 2px; background: #2E3F2D; margin: 0 auto 18px"></div>
+<span class="fe-up" style="display: inline-flex; width: 78px; height: 78px; border-radius: 50%; background: #2E3F2D; align-items: center; justify-content: center"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></span>
+<p style="margin: 18px 0 0; font-size: 15px; line-height: 1.5; color: #3d3d39">Entri dalla farmacia, via Garibaldi 103, oppure da via Ballerini 10.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; justify-content: space-between; margin-bottom: 28px">
+<h2 class="serif" style="margin: 0; font-size: clamp(40px, 5vw, 60px); line-height: 1; color: #2E3F2D">Il listino.</h2>
+<p style="margin: 0; font-size: 15px; color: #4a4a46; max-width: 380px">I tempi sono indicativi. Per i corpo c'è anche il pacchetto da 5 sedute più 1 in omaggio.</p>
+</div>
+<div role="tablist" aria-label="Categorie di trattamenti" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+<button class="fe-tab" type="button" role="tab" aria-selected="{{c.sel}}" onClick="{{c.pick}}" style="border: 1.5px solid #2E3F2D; background: {{c.bg}}; color: {{c.fg}}; font-weight: 700; font-size: 15px; padding: 12px 20px; border-radius: 999px; min-height: 46px">{{c.label}}</button>
+</sc-for>
+</div>
+<div style="background: #fff; border: 1px solid #DCE3DD; border-radius: 28px; overflow: hidden">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+<div class="fe-row" style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 26px; border-bottom: 1px solid #EEF1EC; animation-delay: {{r.d}}">
+<span style="min-width: 0"><b style="display: block; font-size: 17px">{{r.n}}</b><span style="font-size: 14px; color: #5a5a55">{{r.t}}</span></span>
+<span style="display: flex; align-items: center; gap: 16px; flex: none">
+<b class="serif" style="font-size: 26px; color: #2E3F2D">{{r.p}}</b>
+<a href="Prenota.dc.html" aria-label="Prenota {{r.n}}" style="width: 44px; height: 44px; border-radius: 50%; background: #9AB9AD; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a2419" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></a>
+</span>
+</div>
+</sc-for>
+</div>
+<p style="margin: 14px 4px 0; font-size: 13px; color: #5a5a55">{{note}}</p>
+</section>
+
+<section style="max-width: 1280px; margin: 0 auto; padding: 40px 32px 96px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px">
+<div style="background: #D6D2C4; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 12px; letter-spacing: .2em; font-weight: 800; color: #2E3F2D">BUONO REGALO</p>
+<p class="serif" style="margin: 0; font-size: 36px; line-height: 1.05; color: #1a2419">Regala un momento per sé.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #2b2b28">Scegli un trattamento o un importo: prepariamo il buono e lo ritiri in farmacia, già pronto da regalare.</p>
+<a href="Prodotto.dc.html" style="align-self: flex-start; margin-top: 6px; background: #2E3F2D; color: #fff; text-decoration: none; font-weight: 700; padding: 14px 22px; border-radius: 999px">Crea il buono</a>
+</div>
+<div style="background: #2E3F2D; color: #fff; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 12px; letter-spacing: .2em; font-weight: 800; color: #9AB9AD">ORARI</p>
+<p class="serif" style="margin: 0; font-size: 36px; line-height: 1.05">Ti aspettiamo al piano 1.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.8; color: #E8E5DA">Lunedì–venerdì 9:30–19:30<br>Sabato 8:30–18:30<br>Domenica chiuso</p>
+<p style="margin: 0; font-size: 15px; color: #D6D2C4">Telefono 0362 231660 · Instagram @farmaestetica.seregno</p>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { cat: 0 }; }
+  renderVals() {
+    const data = [
+      { label: 'Viso', note: 'Il laser lo esegue solo la nostra estetista.', rows: [
+        ['Pulizia del viso', 'circa 60 min', '55 €'], ['Trattamento antirughe rigenerante', 'circa 60 min', '85 €'], ['Trattamento idratante', 'circa 60 min', '85 €'], ['Contorno occhi con maschera al collagene', 'circa 30 min', '55 €'], ['Massaggio viso e collo', 'circa 25 min', '35 €'], ['Radiofrequenza viso · viso e collo', 'circa 30–40 min', '59 € · 79 €'] ] },
+      { label: 'Corpo', note: 'Pacchetto 5 sedute + 1 in omaggio al prezzo di 5.', rows: [
+        ['Peeling con scrub', 'circa 45 min · pacchetto 275 €', '55 €'], ['Massaggio estetico', 'circa 50 min · pacchetto 325 €', '65 €'], ['Mezzo massaggio', 'circa 30 min · pacchetto 225 €', '45 €'], ['Trattamento cellulite con fango', 'circa 60 min · pacchetto 425 €', '85 €'], ['Trattamento adipe con fango', 'circa 60 min · pacchetto 425 €', '85 €'], ['Pressoterapia', 'circa 40 min · pacchetto 240 €', '48 €'] ] },
+      { label: 'Laser', note: 'Il laser lo esegue solo la nostra estetista.', rows: [
+        ['Viso completo', 'circa 20 min', '55 €'], ['Ascelle', 'circa 15 min', '45 €'], ['Inguine · bikini', 'circa 15–20 min', '35 € · 45 €'], ['Braccia', 'circa 30 min', '70 €'], ['Gambe complete', 'circa 60 min', '135 €'], ['Schiena o petto', 'circa 30 min', '55 €'] ] },
+      { label: 'Cera e mani-piedi', note: 'Prezzi della cera con inguine o brasiliano in aggiunta: chiedi in cabina.', rows: [
+        ['Gamba intera', 'circa 40 min', '35 €'], ['Mezza gamba', 'circa 25 min', '25 €'], ['Braccia', 'circa 20 min', '18 €'], ['Sopracciglia', 'circa 15 min', '12 €'], ['Pedicure estetica', 'circa 45 min', '40 €'], ['Semipermanente piedi', 'circa 30 min', '25 €'] ] },
+      { label: 'Miamo Lounge', note: 'Protocolli Miamo eseguiti con i prodotti professionali Miamo.', rows: [
+        ['Renew · Chron-Intense', '50 min', '75 €'], ['Renew · Hydrashine', '50 min', '70 €'], ['Balance · Purity Skin', '50 min', '55 €'], ['Restore · Skin Fight', '50 min', '65 €'], ['Express · Hydra o Restore Shot', '30 min', '40 €'], ['Chron-Intense con elettroporazione e radiofrequenza', '70 min', '140 €'] ] }
+    ];
+    const st = this.state.cat;
+    const cats = data.map((c, i) => ({ label: c.label, sel: st === i ? 'true' : 'false', bg: st === i ? '#2E3F2D' : 'transparent', fg: st === i ? '#fff' : '#2E3F2D', pick: () => this.setState({ cat: i }) }));
+    const rows = data[st].rows.map((r, i) => ({ n: r[0], t: r[1], p: r[2], d: (i * 0.05) + 's' }));
+    return { cats, rows, note: data[st].note };
+  }
+}
+</script>
+</body>
+</html>

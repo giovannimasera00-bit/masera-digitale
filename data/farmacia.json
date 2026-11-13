@@ -1,0 +1,183 @@
+{
+  "name": "Farmacia Masera",
+  "legal_name": "Farmacia S. Valeria – Farmacia Dott. Masera Giuseppe",
+  "vat": "[DA INSERIRE]",
+  "address": {
+    "street": "Via Garibaldi 103",
+    "zip": "20831",
+    "city": "Seregno",
+    "province": "MB",
+    "country": "IT"
+  },
+  "geo": {
+    "lat": 45.6510625,
+    "lng": 9.201046
+  },
+  "hours": {
+    "mon": [
+      [
+        "08:30",
+        "19:30"
+      ]
+    ],
+    "tue": [
+      [
+        "08:30",
+        "19:30"
+      ]
+    ],
+    "wed": [
+      [
+        "08:30",
+        "19:30"
+      ]
+    ],
+    "thu": [
+      [
+        "08:30",
+        "19:30"
+      ]
+    ],
+    "fri": [
+      [
+        "08:30",
+        "19:30"
+      ]
+    ],
+    "sat": [
+      [
+        "08:30",
+        "12:30"
+      ],
+      [
+        "15:00",
+        "19:00"
+      ]
+    ],
+    "sun": []
+  },
+  "whatsapp": "+39 373 770 5485",
+  "instagram": [
+    "@farmaciamasera",
+    "@dottormasera"
+  ],
+  "claims": [
+    "Medicina per tradizione. Dal 1908.",
+    "Quattro generazioni, una sola missione: la tua salute."
+  ],
+  "delivery": {
+    "seregno": {
+      "zip": [
+        "20831"
+      ],
+      "cutoff": "16:00",
+      "days": "mon-sat",
+      "eta": "19:00",
+      "price_eur": 0,
+      "payment": [
+        "pos",
+        "contanti",
+        "online facoltativo"
+      ],
+      "prescriptions": true,
+      "after_cutoff": "giorno lavorativo successivo, oppure ritiro al locker o in farmacia"
+    },
+    "italia": {
+      "eta": "2-3 giorni lavorativi",
+      "free_over_eur": 59,
+      "price_below_threshold_eur": "[DA CONFERMARE]",
+      "payment": [
+        "online"
+      ],
+      "prescriptions": false
+    }
+  },
+  "ztl": {
+    "active_since": "2026-11-01",
+    "steps": [
+      "Entra in ZTL da via Garibaldi (varco all'incrocio con via Fratelli Cairoli).",
+      "Parcheggia negli spazi riservati alla Farmacia Masera, davanti alla farmacia, massimo 30 minuti.",
+      "Al banco comunica la targa."
+    ],
+    "valid_for": "acquisto farmaci o prestazioni sanitarie",
+    "closing": "Tutto qui."
+  },
+  "deblistering": {
+    "price_per_day_eur": 1,
+    "price_per_month_eur": 28
+  },
+  "robot": {
+    "model": "Medistore HL",
+    "maker": "Label Elettronica (Limena, PD)",
+    "manipulator": "V5",
+    "length_m": 5.72,
+    "height_m": 3.9,
+    "max_pack_height_mm": 145,
+    "chutes": 3,
+    "counter_height_cm": 93,
+    "installed": "2026-09-21",
+    "packs_capacity": "[DA CONFERMARE]",
+    "seconds_per_pick": "[DA CONFERMARE]"
+  },
+  "timeline": [
+    {
+      "year": "1908",
+      "text": "Inizia la tradizione medica con il Prof. Giuseppe Masera, chirurgo."
+    },
+    {
+      "year": "1918",
+      "text": "Medaglia d'argento al valor militare sul Piave."
+    },
+    {
+      "year": "1963",
+      "text": "Il dott. Gianfranco Colombo apre la Farmacia Santa Valeria."
+    },
+    {
+      "year": "fine anni '60",
+      "text": "Il Dr. Vittorio Masera rileva la farmacia."
+    },
+    {
+      "year": "2002",
+      "text": "Il Dr. Giuseppe Masera diventa titolare."
+    },
+    {
+      "year": "2024",
+      "text": "Il Dr. Giovanni Masera, quarta generazione."
+    },
+    {
+      "year": "2026",
+      "text": "La farmacia si rinnova: robot, banco nuovo, cabine. Accesso in ZTL."
+    }
+  ],
+  "brand": {
+    "colors": {
+      "verde_scuro": "#2E3F2D",
+      "verde": "#425D3A",
+      "mela": "#A3BE19",
+      "salvia": "#9AB9AD",
+      "beige_chiaro": "#D6D2C4",
+      "beige_scuro": "#B7A999",
+      "nero": "#1D1D1B",
+      "carta": "#F4F1E8"
+    },
+    "skinlab": [
+      "#B7A999",
+      "#8C7D6C",
+      "#6E6153",
+      "#3A332B"
+    ],
+    "fonts": {
+      "display": "Bodoni Moda italic (opsz 11-14)",
+      "text": "DM Sans"
+    },
+    "motion": {
+      "fast_ms": 200,
+      "base_ms": 450,
+      "slow_ms": 900,
+      "ease_out": "cubic-bezier(.2,.8,.2,1)",
+      "ease_in_out": "cubic-bezier(.65,0,.35,1)",
+      "spring": "cubic-bezier(.3,1.3,.5,1)",
+      "stagger_ms": 150
+    }
+  }
+}

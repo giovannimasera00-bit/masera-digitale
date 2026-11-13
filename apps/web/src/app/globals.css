@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "@masera/ui/styles.css";
+
+/* Tailwind deve leggere anche le classi dei componenti condivisi. */
+@source "../../../../packages/ui/src";
+
+html {
+  background: var(--color-carta);
+  color: var(--color-verde-scuro);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem; /* 16 px minimo per il corpo */
+  line-height: 1.55;
+}
+
+::selection {
+  background: var(--color-mela);
+  color: var(--color-verde-scuro);
+}

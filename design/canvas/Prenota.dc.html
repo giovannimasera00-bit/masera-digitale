@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Agenda Masera, prenotazione</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,700&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2E3F2D}a:hover{color:#425D3A}
+.serif{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-variation-settings:'opsz' 14}
+button{font-family:inherit;cursor:pointer}
+.p-chip,.p-slot,.p-day,.p-svc{transition:background .25s,color .25s,transform .25s,border-color .25s}
+.p-chip:active,.p-slot:active,.p-day:active{transform:scale(.95)}
+@keyframes pIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes pDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes pPop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+.p-in{animation:pIn .45s cubic-bezier(.2,.8,.2,1) both}
+.p-pop{animation:pPop .6s cubic-bezier(.2,.8,.2,1) both}
+.p-check{stroke-dasharray:1 1;stroke-dashoffset:1;animation:pDraw .6s ease-out .35s forwards}
+@media (prefers-reduced-motion:reduce){.p-in,.p-pop{animation:none}.p-check{animation:none;stroke-dashoffset:0}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F6F4EE; font-family: 'DM Sans', Arial, sans-serif; color: #1D1D1B; position: relative; overflow: hidden">
+
+<sc-if value="{{notDone}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 56px 20px 0">
+<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px">
+<a href="HomeMobile.dc.html" aria-label="Indietro" style="width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1px solid #E2DED2; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2E3F2D" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></a>
+<p style="margin: 0; font-size: 12px; letter-spacing: .2em; font-weight: 700; color: #425D3A">AGENDA MASERA</p>
+</div>
+<h1 class="serif" style="margin: 0 0 16px; font-size: 34px; line-height: 1.05; color: #2E3F2D">Cosa ti serve?</h1>
+
+<div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin: 0 -20px 14px; padding-left: 20px; padding-right: 20px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+<button class="p-chip" type="button" onClick="{{c.pick}}" style="flex: none; border: 1.5px solid {{c.border}}; background: {{c.bg}}; color: {{c.fg}}; font-weight: 700; font-size: 14px; padding: 11px 16px; border-radius: 999px; min-height: 44px">{{c.label}}</button>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px">
+<sc-for list="{{services}}" as="s" hint-placeholder-count="3">
+<button class="p-svc p-in" type="button" onClick="{{s.pick}}" style="text-align: left; border: 1.5px solid {{s.border}}; background: {{s.bg}}; border-radius: 18px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #1D1D1B; animation-delay: {{s.delay}}">
+<span><b style="display: block; font-size: 15px">{{s.name}}</b><span style="font-size: 13px; color: #5a5a55">{{s.dur}}</span></span>
+<span style="font-weight: 700; font-size: 15px; color: #2E3F2D; white-space: nowrap">{{s.price}}</span>
+</button>
+</sc-for>
+</div>
+
+<p style="margin: 0 0 10px; font-size: 13px; font-weight: 700; color: #425D3A; letter-spacing: .12em">GIORNO</p>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; margin-bottom: 16px">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="6">
+<button class="p-day" type="button" onClick="{{d.pick}}" style="border: 0; border-radius: 16px; padding: 10px 0; background: {{d.bg}}; color: {{d.fg}}; display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: 58px">
+<span style="font-size: 11px; font-weight: 600; text-transform: uppercase">{{d.dow}}</span><b style="font-size: 19px">{{d.num}}</b>
+</button>
+</sc-for>
+</div>
+
+<p style="margin: 0 0 10px; font-size: 13px; font-weight: 700; color: #425D3A; letter-spacing: .12em">ORARIO</p>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{slots}}" as="t" hint-placeholder-count="8">
+<button class="p-slot" type="button" onClick="{{t.pick}}" style="border: 1.5px solid {{t.border}}; border-radius: 14px; padding: 11px 0; background: {{t.bg}}; color: {{t.fg}}; font-weight: 700; font-size: 14px; min-height: 44px">{{t.label}}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="position: absolute; left: 16px; right: 16px; bottom: 22px; background: #1a2419; color: #fff; border-radius: 24px; padding: 14px 14px 14px 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 16px 32px rgba(0,0,0,.25)">
+<span style="flex: 1; min-width: 0"><span style="display: block; font-size: 12px; color: #9AB9AD">{{sumTop}}</span><b style="display: block; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{sumBottom}}</b></span>
+<button type="button" onClick="{{confirm}}" style="border: 0; background: {{ctaBg}}; color: #1a2419; font-weight: 700; font-size: 15px; padding: 14px 18px; border-radius: 999px; min-height: 48px">Conferma</button>
+</div>
+</sc-if>
+
+<sc-if value="{{done}}" hint-placeholder-val="{{ false }}">
+<div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 32px; text-align: center; background: radial-gradient(120% 90% at 50% 20%, #425D3A 0%, #2E3F2D 50%, #1a2419 100%); color: #fff">
+<svg class="p-pop" width="112" height="112" viewBox="0 0 112 112" aria-hidden="true"><circle cx="56" cy="56" r="54" fill="#A3BE19"></circle><path class="p-check" pathLength="1" d="M34 58l15 15 30-32" fill="none" stroke="#1a2419" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<h2 class="serif p-in" style="margin: 28px 0 10px; font-size: 38px; line-height: 1.05; animation-delay: .5s">Ti aspettiamo.</h2>
+<p class="p-in" style="margin: 0 0 6px; font-size: 17px; color: #E8E5DA; animation-delay: .6s">{{sumBottom}}</p>
+<p class="p-in" style="margin: 0 0 30px; font-size: 14px; color: #D6D2C4; animation-delay: .7s">Ti ricordiamo l'appuntamento il giorno prima su WhatsApp.</p>
+<button class="p-in" type="button" onClick="{{reset}}" style="animation-delay: .8s; border: 1.5px solid #F4F1E8; background: transparent; color: #fff; font-weight: 700; font-size: 15px; padding: 14px 24px; border-radius: 999px; min-height: 48px">Prenota un altro servizio</button>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { cat: 'analisi', svc: 0, day: 1, slot: null, done: false }; }
+  renderVals() {
+    const st = this.state;
+    const catalog = {
+      analisi: [{ name: 'Emoglobina glicata', dur: '15 min · risultato subito', price: '15 €' }, { name: 'Vitamina D', dur: '15 min', price: '10 €' }, { name: 'Profilo lipidico', dur: '15 min', price: '18 €' }, { name: 'Emocromo', dur: '15 min', price: '12 €' }],
+      cuore: [{ name: 'Elettrocardiogramma', dur: '30 min · refertato da un cardiologo', price: '35 €' }, { name: 'Holter pressorio 24 h', dur: '30 min', price: '55 €' }, { name: 'Holter cardiaco', dur: '30 min', price: '70 €' }],
+      pelle: [{ name: 'Analisi della pelle', dur: '15 min · SkinLab', price: '[prezzo]' }, { name: 'Visita teledermatologica', dur: '15 min · referto dal dermatologo', price: '59,90 €' }],
+      estetica: [{ name: 'Trattamento viso Farmaestetica', dur: '60 min · by Dottor Masera', price: '[prezzo]' }, { name: 'Miamo Lounge', dur: '45 min', price: '[prezzo]' }],
+      consulenza: [{ name: 'Videoconsulenza con il farmacista', dur: '15 min · i 15 € ti tornano come credito', price: '15 €' }]
+    };
+    const labels = [['analisi', 'Analisi'], ['cuore', 'Cuore'], ['pelle', 'Pelle'], ['estetica', 'Estetica'], ['consulenza', 'Consulenza']];
+    const cats = labels.map(([id, label]) => {
+      const on = st.cat === id;
+      return { label, bg: on ? '#2E3F2D' : '#fff', fg: on ? '#fff' : '#2E3F2D', border: on ? '#2E3F2D' : '#D6D2C4', pick: () => this.setState({ cat: id, svc: 0, slot: null }) };
+    });
+    const list = catalog[st.cat];
+    const services = list.map((s, i) => {
+      const on = st.svc === i;
+      return { ...s, delay: (i * 0.06) + 's', bg: on ? '#E6EDCB' : '#fff', border: on ? '#425D3A' : '#E8E4D8', pick: () => this.setState({ svc: i }) };
+    });
+    const dows = ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'];
+    const base = new Date(); const days = []; let k = 0;
+    while (days.length < 6) { const dt = new Date(base.getFullYear(), base.getMonth(), base.getDate() + k); k++; if (dt.getDay() === 0) continue; days.push(dt); }
+    const dayVals = days.map((dt, i) => {
+      const on = st.day === i;
+      return { dow: dows[dt.getDay()], num: dt.getDate(), bg: on ? '#2E3F2D' : '#fff', fg: on ? '#fff' : '#2E3F2D', pick: () => this.setState({ day: i, slot: null }) };
+    });
+    const isSat = days[st.day].getDay() === 6;
+    const times = isSat ? ['9:00', '9:30', '10:15', '11:00', '11:45', '15:30', '16:15', '17:30'] : ['9:00', '9:45', '10:30', '11:15', '14:30', '15:15', '16:45', '18:00'];
+    const busy = [1, 4];
+    const slots = times.map((t, i) => {
+      const off = busy.indexOf((i + st.day) % 8) >= 0;
+      const on = st.slot === t;
+      return { label: t, bg: on ? '#A3BE19' : (off ? '#EFECE4' : '#fff'), fg: off ? '#9a978e' : '#1a2419', border: on ? '#A3BE19' : (off ? '#EFECE4' : '#D6D2C4'), pick: off ? () => {} : () => this.setState({ slot: t }) };
+    });
+    const svc = list[st.svc];
+    const dt = days[st.day];
+    const months = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
+    const when = dows[dt.getDay()] + ' ' + dt.getDate() + ' ' + months[dt.getMonth()] + (st.slot ? ' · ' + st.slot : '');
+    return {
+      cats, services, days: dayVals, slots,
+      notDone: !st.done, done: st.done,
+      sumTop: st.slot ? when : 'Scegli un orario',
+      sumBottom: svc.name + (st.slot ? ', ' + when : ''),
+      ctaBg: st.slot ? '#A3BE19' : '#6f7a5a',
+      confirm: () => { if (st.slot) this.setState({ done: true }); },
+      reset: () => this.setState({ done: false, slot: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+/* Stili condivisi Masera: token + gesti del movimento. Importare dopo "tailwindcss". */
+@import "./tokens.css";
+
+@theme {
+  --font-display: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  --font-sans: var(--font-dm-sans), "DM Sans", Arial, sans-serif;
+}
+
+/* Titoli: Bodoni corsivo grassetto, asse ottico basso (più leggibile). Mai sotto i 28 px. */
+.fm-display {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-variation-settings: "opsz" 14;
+  letter-spacing: -0.01em;
+}
+
+/* Le animazioni partono in pausa e si avviano una volta sola quando l'elemento entra in vista (classe is-in). */
+
+/* 1 · L'arco */
+@keyframes fm-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.fm-arch path { stroke-dasharray: 1 1; animation: fm-draw 1600ms var(--ease-percorso) both; }
+.fm-arch path:nth-child(2) { animation-delay: 150ms; }
+.fm-arch path:nth-child(3) { animation-delay: 300ms; }
+.fm-arch:not(.is-in) path { animation-play-state: paused; }
+
+/* 2 · La risalita */
+@keyframes fm-rise { from { opacity: 0; transform: translateY(0.6em); } to { opacity: 1; transform: none; } }
+.fm-rise-line { display: block; animation: fm-rise var(--fm-dur-slow) var(--ease-masera) both; }
+.fm-rise:not(.is-in) .fm-rise-line { animation-play-state: paused; }
+
+/* 3 · La barra */
+@keyframes fm-fill { from { transform: scaleX(0); } }
+.fm-bar-fill { transform-origin: left center; animation: fm-fill var(--fm-dur-slow) var(--ease-masera) both; }
+.fm-bar:not(.is-in) .fm-bar-fill { animation-play-state: paused; }
+
+/* 4 · Il respiro (solo dati in tempo reale) */
+@keyframes fm-breathe {
+  0% { box-shadow: 0 0 0 0 rgb(163 190 25 / 0.6); }
+  100% { box-shadow: 0 0 0 10px rgb(163 190 25 / 0); }
+}
+.fm-breathe { animation: fm-breathe 1800ms ease-out infinite; }
+
+/* Pulsanti: risposta al tocco */
+.fm-press { transition: transform var(--fm-dur-fast) var(--ease-masera), background-color var(--fm-dur-fast) var(--ease-masera), color var(--fm-dur-fast) var(--ease-masera); }
+.fm-press:active { transform: scale(0.97); }
+
+/* Focus sempre visibile */
+.fm-focus:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--color-carta), 0 0 0 6px var(--color-verde-scuro); }
+
+/* Riduci movimento: tutto fermo e già al suo posto.
+   Vale la preferenza del dispositivo, salvo l'interruttore della pagina /design (data-motion su <html>). */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) .fm-arch path,
+  :root:not([data-motion="full"]) .fm-rise-line,
+  :root:not([data-motion="full"]) .fm-bar-fill,
+  :root:not([data-motion="full"]) .fm-breathe { animation: none !important; }
+  :root:not([data-motion="full"]) .fm-press { transition: none; }
+  :root:not([data-motion="full"]) .fm-press:active { transform: none; }
+}
+[data-motion="reduce"] .fm-arch path,
+[data-motion="reduce"] .fm-rise-line,
+[data-motion="reduce"] .fm-bar-fill,
+[data-motion="reduce"] .fm-breathe { animation: none !important; }
+[data-motion="reduce"] .fm-press { transition: none; }
+[data-motion="reduce"] .fm-press:active { transform: none; }

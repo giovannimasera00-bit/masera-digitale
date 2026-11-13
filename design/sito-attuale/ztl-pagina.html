@@ -1,0 +1,178 @@
+<style>
+.fz{--vs:#2E3F2D;--v:#425D3A;--mela:#A3BE19;--salvia:#9AB9AD;--bc:#D6D2C4;--bs:#B7A999;--nero:#1D1D1B;font-family:'DM Sans',Arial,Helvetica,sans-serif;color:#1D1D1B;line-height:1.55;max-width:1100px;margin:0 auto;}
+.fz *{box-sizing:border-box;}
+.fz .serif{font-family:'Bodoni Moda','Bodoni MT',Didot,Georgia,serif;font-style:italic;font-weight:700;}
+.fz .hero{background:#2E3F2D;color:#fff;border-radius:6px 6px 0 0;padding:56px 40px 30px;position:relative;overflow:hidden;}
+.fz .kicker{display:inline-block;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#2E3F2D;background:#A3BE19;padding:7px 14px;border-radius:999px;margin:0 0 18px;}
+.fz h1{font-size:50px;line-height:1.05;margin:0 0 14px;color:#fff;max-width:720px;}
+.fz .lead{font-size:19px;color:#E9E7DF;max-width:620px;margin:0 0 26px;}
+.fz .scena{background:#F4F2EC;border-radius:10px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.25);}
+.fz .scena svg{display:block;width:100%;height:auto;}
+.fz .bar{display:flex;height:8px;}.fz .bar span{flex:1;}
+/* ---- animazioni scena (ciclo 12s) ---- */
+.fz .auto{animation:fzCar 12s cubic-bezier(.45,.05,.35,1) infinite;}
+@keyframes fzCar{0%{transform:translateX(-170px)}12%{transform:translateX(120px)}20%{transform:translateX(120px)}38%{transform:translateX(622px)}88%{transform:translateX(622px);opacity:1}94%{transform:translateX(622px);opacity:0}95%{transform:translateX(-170px);opacity:0}100%{transform:translateX(-170px);opacity:1}}
+.fz .ruota{transform-box:fill-box;transform-origin:center;animation:fzRuota 12s linear infinite;}
+@keyframes fzRuota{0%{transform:rotate(0)}12%{transform:rotate(720deg)}20%{transform:rotate(720deg)}38%{transform:rotate(1800deg)}100%{transform:rotate(1800deg)}}
+.fz .sbarra{transform-box:view-box;transform-origin:262px 196px;animation:fzSbarra 12s ease-in-out infinite;}
+@keyframes fzSbarra{0%,13%{transform:rotate(0)}18%,32%{transform:rotate(-80deg)}37%,100%{transform:rotate(0)}}
+.fz .luce-r{animation:fzRosso 12s steps(1) infinite;}
+@keyframes fzRosso{0%{opacity:1}14%{opacity:.15}35%{opacity:1}100%{opacity:1}}
+.fz .luce-v{animation:fzVerde 12s steps(1) infinite;}
+@keyframes fzVerde{0%{opacity:.15}14%{opacity:1}35%{opacity:.15}100%{opacity:.15}}
+.fz .riga{animation:fzRiga 1.2s linear infinite;}
+@keyframes fzRiga{to{stroke-dashoffset:-48}}
+.fz .timer{opacity:0;animation:fzFade 12s infinite;}
+@keyframes fzFade{0%,39%{opacity:0;transform:translateY(8px)}43%,88%{opacity:1;transform:translateY(0)}93%,100%{opacity:0}}
+.fz .anello{stroke-dasharray:126;stroke-dashoffset:126;animation:fzAnello 12s linear infinite;}
+@keyframes fzAnello{0%,42%{stroke-dashoffset:126}86%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
+.fz .fumetto{opacity:0;transform-box:fill-box;transform-origin:bottom left;animation:fzPop 12s cubic-bezier(.3,1.6,.5,1) infinite;}
+@keyframes fzPop{0%,56%{opacity:0;transform:scale(.6)}61%,88%{opacity:1;transform:scale(1)}93%,100%{opacity:0;transform:scale(.9)}}
+.fz .tutto{opacity:0;animation:fzTutto 12s infinite;}
+@keyframes fzTutto{0%,70%{opacity:0}75%,88%{opacity:1}93%,100%{opacity:0}}
+.fz .p-spot{animation:fzSpot 12s infinite;}
+@keyframes fzSpot{0%,30%{fill:#fff;fill-opacity:.0}36%,88%{fill:#A3BE19;fill-opacity:.35}94%,100%{fill-opacity:0}}
+/* ---- passi sincronizzati ---- */
+.fz .passi{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#fff;border-radius:0 0 10px 10px;}
+.fz .passo{padding:22px 22px 24px;border-top:5px solid #D6D2C4;position:relative;}
+.fz .passo .num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#D6D2C4;color:#2E3F2D;font-weight:700;font-size:17px;margin-bottom:10px;}
+.fz .passo h3{margin:0 0 4px;font-size:18px;color:#2E3F2D;}
+.fz .passo p{margin:0;font-size:15px;color:#4a4a46;}
+.fz .passo.p1,.fz .passo.p1 .num{animation:fzP1 12s infinite;}
+.fz .passo.p2,.fz .passo.p2 .num{animation:fzP2 12s infinite;}
+.fz .passo.p3,.fz .passo.p3 .num{animation:fzP3 12s infinite;}
+@keyframes fzP1{0%,30%{border-color:#A3BE19;background-color:#A3BE19;}31%,100%{border-color:#D6D2C4;background-color:#D6D2C4;}}
+@keyframes fzP2{0%,31%{border-color:#D6D2C4;background-color:#D6D2C4;}32%,55%{border-color:#A3BE19;background-color:#A3BE19;}56%,100%{border-color:#D6D2C4;background-color:#D6D2C4;}}
+@keyframes fzP3{0%,56%{border-color:#D6D2C4;background-color:#D6D2C4;}57%,90%{border-color:#A3BE19;background-color:#A3BE19;}91%,100%{border-color:#D6D2C4;background-color:#D6D2C4;}}
+.fz .passo.p1,.fz .passo.p2,.fz .passo.p3{background-color:#fff !important;}
+/* ---- resto pagina ---- */
+.fz section{padding:52px 40px;}
+.fz h2{font-size:36px;color:#2E3F2D;margin:0 0 10px;line-height:1.1;}
+.fz .sub{font-size:17px;color:#4a4a46;max-width:640px;margin:0 0 28px;}
+.fz .tuttoqui{text-align:center;padding:46px 20px 40px;background:#D6D2C4;}
+.fz .tuttoqui .big{font-size:64px;color:#2E3F2D;line-height:1;display:inline-block;position:relative;}
+.fz .tuttoqui .big:after{content:"";position:absolute;left:0;bottom:-8px;height:6px;width:100%;background:#A3BE19;border-radius:3px;transform-origin:left;animation:fzSott 2.4s ease-out infinite alternate;}
+@keyframes fzSott{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.fz .tuttoqui p{margin:18px auto 0;max-width:560px;font-size:16px;color:#2E3F2D;}
+.fz .info{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.fz .info div{background:#F4F2EC;border-radius:8px;padding:22px;border-left:5px solid #425D3A;}
+.fz .info .v{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-size:34px;color:#425D3A;line-height:1;}
+.fz .info h3{margin:8px 0 4px;color:#2E3F2D;font-size:17px;}
+.fz .info p{margin:0;font-size:15px;color:#4a4a46;}
+.fz details{background:#F4F2EC;border-radius:8px;padding:16px 20px;margin:0 0 10px;}
+.fz summary{cursor:pointer;font-weight:700;color:#2E3F2D;font-size:16px;}
+.fz details p{margin:10px 0 0;font-size:15px;color:#4a4a46;}
+.fz .cta{background:#2E3F2D;color:#fff;text-align:center;padding:44px 24px;border-radius:0 0 6px 6px;}
+.fz .cta .serif{font-size:30px;display:block;margin-bottom:16px;}
+.fz .cta a{display:inline-block;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:999px;margin:4px;font-size:15px;}
+.fz .cta a.pieno{background:#A3BE19;color:#2E3F2D;}
+.fz .cta a.vuoto{border:2px solid #fff;color:#fff;}
+@media(max-width:760px){.fz .hero{padding:40px 18px 22px}.fz h1{font-size:34px}.fz section{padding:40px 18px}.fz .passi{grid-template-columns:1fr}.fz .tuttoqui .big{font-size:46px}}
+@media(prefers-reduced-motion:reduce){.fz *{animation:none !important}.fz .timer,.fz .fumetto,.fz .tutto{opacity:1}.fz .auto{transform:translateX(622px)}}
+</style>
+
+<div class="fz">
+  <div class="hero">
+    <span class="kicker">Novità dal 1° novembre 2026</span>
+    <h1 class="serif">In farmacia anche in ZTL. Gratis.</h1>
+    <p class="lead">Da oggi puoi entrare nella zona a traffico limitato del centro di Seregno e parcheggiare davanti alla Farmacia Masera. Bastano tre passi.</p>
+
+    <div class="scena" role="img" aria-label="Animazione: un'auto entra in ZTL da via Garibaldi, parcheggia negli spazi riservati alla Farmacia Masera per massimo 30 minuti e il cliente comunica la targa al banco.">
+      <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
+        <!-- cielo e marciapiede -->
+        <rect width="800" height="360" fill="#F4F2EC"/>
+        <g fill="none" stroke="#D6D2C4" stroke-width="6" opacity=".7">
+          <path d="M-40 170 A170 170 0 0 1 300 170"/><path d="M0 170 A130 130 0 0 1 260 170"/><path d="M40 170 A90 90 0 0 1 220 170"/>
+        </g>
+        <rect x="0" y="196" width="800" height="18" fill="#D6D2C4"/>
+        <!-- strada -->
+        <rect x="0" y="214" width="800" height="96" fill="#4E4C46"/>
+        <line class="riga" x1="0" y1="262" x2="800" y2="262" stroke="#F4F2EC" stroke-width="4" stroke-dasharray="24 24" opacity=".55"/>
+        <rect x="0" y="310" width="800" height="50" fill="#D6D2C4"/>
+        <text x="24" y="340" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#2E3F2D" letter-spacing="2">VIA GARIBALDI</text>
+        <!-- farmacia -->
+        <rect x="520" y="44" width="262" height="152" fill="#fff" stroke="#B7A999" stroke-width="2"/>
+        <rect x="520" y="44" width="262" height="40" fill="#2E3F2D"/>
+        <text x="651" y="70" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="700" fill="#fff" letter-spacing="3">FARMACIA MASERA</text>
+        <g transform="translate(540 104)"><rect x="0" y="0" width="70" height="70" fill="#9AB9AD" opacity=".55"/><rect x="190" y="0" width="34" height="70" fill="#9AB9AD" opacity=".55"/></g>
+        <rect x="628" y="104" width="46" height="92" fill="#425D3A"/>
+        <g transform="translate(560 126)"><rect x="9" y="0" width="12" height="30" fill="#A3BE19"/><rect x="0" y="9" width="30" height="12" fill="#A3BE19"/></g>
+        <!-- stalli riservati -->
+        <rect class="p-spot" x="636" y="220" width="140" height="84" fill="#A3BE19" fill-opacity="0" stroke="#fff" stroke-width="3" stroke-dasharray="10 8"/>
+        <g transform="translate(784 180)"><rect x="-1" y="24" width="3" height="16" fill="#2E3F2D"/><rect x="-12" width="24" height="24" rx="4" fill="#1d6fd1"/><text x="0" y="18" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#fff">P</text></g>
+        <text x="706" y="298" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#fff" letter-spacing="1">RISERVATO FARMACIA</text>
+        <!-- varco ZTL -->
+        <rect x="252" y="120" width="8" height="96" fill="#2E3F2D"/>
+        <circle cx="256" cy="104" r="26" fill="#fff" stroke="#C8352B" stroke-width="7"/>
+        <text x="256" y="110" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#1D1D1B">ZTL</text>
+        <rect x="266" y="136" width="18" height="40" rx="5" fill="#1D1D1B"/>
+        <circle class="luce-r" cx="275" cy="147" r="6" fill="#E0463A"/>
+        <circle class="luce-v" cx="275" cy="165" r="6" fill="#7CD14A"/>
+        <g class="sbarra"><rect x="258" y="191" width="170" height="10" rx="5" fill="#fff" stroke="#C8352B" stroke-width="2"/><rect x="300" y="191" width="20" height="10" fill="#C8352B"/><rect x="350" y="191" width="20" height="10" fill="#C8352B"/><rect x="400" y="191" width="20" height="10" fill="#C8352B"/></g>
+        <circle cx="262" cy="196" r="7" fill="#2E3F2D"/>
+        <!-- auto -->
+        <g class="auto">
+          <g transform="translate(0 222)">
+            <path d="M10 46 L10 28 Q12 20 22 18 L42 16 L58 2 Q62 0 68 0 L106 0 Q114 0 118 6 L130 18 L146 22 Q156 25 156 34 L156 46 Z" fill="#A3BE19"/>
+            <path d="M62 6 L104 6 Q108 6 110 9 L119 19 L52 19 Z" fill="#E9F0D0"/>
+            <rect x="84" y="6" width="4" height="13" fill="#A3BE19"/>
+            <rect x="146" y="30" width="10" height="6" rx="2" fill="#FFE27A"/>
+            <g class="ruota"><circle cx="40" cy="48" r="13" fill="#1D1D1B"/><circle cx="40" cy="48" r="5" fill="#B7A999"/><rect x="38" y="36" width="4" height="24" fill="#4E4C46"/></g>
+            <g class="ruota"><circle cx="126" cy="48" r="13" fill="#1D1D1B"/><circle cx="126" cy="48" r="5" fill="#B7A999"/><rect x="124" y="36" width="4" height="24" fill="#4E4C46"/></g>
+          </g>
+        </g>
+        <!-- timer 30 minuti -->
+        <g class="timer">
+          <circle cx="740" cy="150" r="24" fill="#fff" stroke="#D6D2C4" stroke-width="6"/>
+          <circle class="anello" cx="740" cy="150" r="20" fill="none" stroke="#2E3F2D" stroke-width="6" transform="rotate(-90 740 150)"/>
+          <text x="740" y="156" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#2E3F2D">30'</text>
+        </g>
+        <!-- fumetto targa -->
+        <g class="fumetto">
+          <path d="M330 34 h170 a12 12 0 0 1 12 12 v52 a12 12 0 0 1 -12 12 h-120 l-24 18 l4 -18 h-30 a12 12 0 0 1 -12 -12 v-52 a12 12 0 0 1 12 -12 z" fill="#fff" stroke="#2E3F2D" stroke-width="2"/>
+          <text x="415" y="56" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#425D3A" letter-spacing="1">AL BANCO DICI LA TARGA</text>
+          <rect x="350" y="66" width="130" height="32" rx="5" fill="#fff" stroke="#1D1D1B" stroke-width="2"/>
+          <rect x="350" y="66" width="18" height="32" rx="3" fill="#1d4fb8"/>
+          <text x="422" y="89" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#1D1D1B" letter-spacing="2">AB 123 CD</text>
+        </g>
+        <text class="tutto" x="410" y="160" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="700" font-size="34" fill="#2E3F2D">Tutto qui.</text>
+      </svg>
+      <div class="passi">
+        <div class="passo p1"><span class="num">1</span><h3>Entra da via Garibaldi</h3><p>Accedi alla ZTL dall'ingresso di via Garibaldi.</p></div>
+        <div class="passo p2"><span class="num">2</span><h3>Parcheggia da noi</h3><p>Usa gli spazi riservati alla Farmacia Masera, per massimo 30 minuti.</p></div>
+        <div class="passo p3"><span class="num">3</span><h3>Dicci la targa</h3><p>Comunica la targa ai farmacisti al banco. Al resto pensiamo noi.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="bar"><span style="background:#2E3F2D"></span><span style="background:#A3BE19"></span><span style="background:#9AB9AD"></span><span style="background:#D6D2C4"></span><span style="background:#B7A999"></span></div>
+
+  <div class="tuttoqui">
+    <span class="big serif">Tutto qui.</span>
+    <p>Nessuna registrazione, nessun modulo, nessun costo. Valido per l'acquisto di farmaci o per prestazioni sanitarie.</p>
+  </div>
+
+  <section>
+    <h2 class="serif">In breve</h2>
+    <p class="sub">Un risultato ottenuto dai Dottori Giuseppe e Giovanni Masera dopo tanti confronti con Comune e Polizia Locale, per una farmacia sempre più vicina e accessibile.</p>
+    <div class="info">
+      <div><span class="v">0 €</span><h3>Accesso gratuito</h3><p>Entrare in ZTL per venire in farmacia non costa nulla.</p></div>
+      <div><span class="v">30'</span><h3>Sosta massima</h3><p>Negli spazi riservati alla Farmacia Masera in via Garibaldi.</p></div>
+      <div><span class="v">1</span><h3>Una sola cosa da fare</h3><p>Comunicare la targa ai farmacisti al banco.</p></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <h2 class="serif">Domande frequenti</h2>
+    <details><summary>Devo registrare la targa prima di entrare?</summary><p>No. Entri, parcheggi e comunichi la targa ai farmacisti al banco.</p></details>
+    <details><summary>Da dove devo entrare?</summary><p>Dall'ingresso della ZTL di via Garibaldi.</p></details>
+    <details><summary>Per quanto tempo posso restare?</summary><p>Al massimo 30 minuti, negli spazi riservati alla Farmacia Masera.</p></details>
+    <details><summary>Vale per qualsiasi acquisto?</summary><p>Vale per l'acquisto di farmaci o per prestazioni sanitarie in farmacia.</p></details>
+    <details><summary>Quanto costa?</summary><p>Niente: l'accesso è gratuito.</p></details>
+  </section>
+
+  <div class="cta">
+    <span class="serif">Ti aspettiamo in via Garibaldi 103</span>
+    <a class="pieno" href="https://www.google.com/maps/search/?api=1&amp;query=Farmacia+Masera+Via+Garibaldi+103+Seregno">Apri in Google Maps</a>
+    <a class="vuoto" href="https://wa.me/393737705485">Scrivici su WhatsApp</a>
+  </div>
+</div>

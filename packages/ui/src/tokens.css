@@ -1,0 +1,26 @@
+/* FILE GENERATO da data/farmacia.json con `pnpm tokens`. Non modificarlo a mano. */
+@theme {
+  --color-verde-scuro: #2E3F2D;
+  --color-verde: #425D3A;
+  --color-mela: #A3BE19;
+  --color-salvia: #9AB9AD;
+  --color-beige-chiaro: #D6D2C4;
+  --color-beige-scuro: #B7A999;
+  --color-nero: #1D1D1B;
+  --color-carta: #F4F1E8;
+  --color-bianco: #FFFFFF;
+  --color-tortora-1: #B7A999;
+  --color-tortora-2: #8C7D6C;
+  --color-tortora-3: #6E6153;
+  --color-tortora-4: #3A332B;
+  --ease-masera: cubic-bezier(.2,.8,.2,1);
+  --ease-percorso: cubic-bezier(.65,0,.35,1);
+  --ease-molla: cubic-bezier(.3,1.3,.5,1);
+}
+
+:root {
+  --fm-dur-fast: 200ms;
+  --fm-dur-base: 450ms;
+  --fm-dur-slow: 900ms;
+  --fm-stagger: 150ms;
+}

@@ -1,0 +1,113 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@1,6..96,600;1,6..96,700&family=DM+Sans:wght@400;500;700&display=swap');
+.fmp{--vs:#2E3F2D;--v:#425D3A;--mela:#A3BE19;--salvia:#9AB9AD;--bc:#D6D2C4;--bs:#B7A999;--nero:#1D1D1B;font-family:'DM Sans',Arial,sans-serif;color:var(--nero);line-height:1.55;max-width:1100px;margin:0 auto;}
+.fmp *{box-sizing:border-box;}
+.fmp .serif{font-family:'Bodoni Moda','Bodoni MT',Georgia,serif;font-style:italic;font-weight:700;}
+.fmp .bar{display:flex;height:8px;}
+.fmp .bar span{flex:1;}
+.fmp .hero{position:relative;overflow:hidden;background:var(--vs);color:#fff;padding:72px 40px 64px;border-radius:4px 4px 0 0;}
+.fmp .hero svg.archi{position:absolute;right:-120px;bottom:-200px;width:620px;opacity:.16;}
+.fmp .kicker{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--mela);font-weight:700;margin:0 0 14px;}
+.fmp .hero h1{font-size:54px;line-height:1.05;margin:0 0 18px;color:#fff;max-width:640px;}
+.fmp .hero p.lead{font-size:19px;max-width:560px;margin:0 0 28px;color:#E9E7DF;}
+.fmp .data{display:inline-block;background:var(--mela);color:var(--vs);font-weight:700;padding:12px 20px;border-radius:999px;font-size:16px;}
+.fmp .btns{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;}
+.fmp a.btn{display:inline-block;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:999px;font-size:15px;}
+.fmp a.btn.pieno{background:#fff;color:var(--vs);}
+.fmp a.btn.vuoto{border:2px solid #fff;color:#fff;}
+.fmp section{padding:56px 40px;}
+.fmp h2{font-size:38px;color:var(--vs);margin:0 0 10px;line-height:1.1;}
+.fmp .sub{font-size:17px;color:#4a4a46;max-width:640px;margin:0 0 32px;}
+.fmp .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
+.fmp .card{background:#F4F2EC;border-radius:6px;padding:24px;border-top:4px solid var(--v);}
+.fmp .card .n{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-size:40px;color:var(--mela);line-height:1;}
+.fmp .card h3{font-size:18px;color:var(--vs);margin:10px 0 6px;}
+.fmp .card p{margin:0;font-size:15px;color:#4a4a46;}
+.fmp .ztl{background:var(--bc);}
+.fmp .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;counter-reset:s;}
+.fmp .step{position:relative;padding:28px 26px 26px 26px;background:#fff;border-right:1px solid var(--bc);}
+.fmp .step:last-child{border-right:0;}
+.fmp .step .num{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:var(--vs);color:#fff;font-weight:700;font-size:18px;margin-bottom:14px;}
+.fmp .step h3{margin:0 0 6px;color:var(--vs);font-size:19px;}
+.fmp .step p{margin:0;font-size:15px;}
+.fmp .tuttoqui{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-size:34px;color:var(--vs);margin:26px 0 4px;}
+.fmp .nota{font-size:13px;color:#5a574f;}
+.fmp .famiglia{background:var(--vs);color:#fff;}
+.fmp .famiglia h2{color:#fff;}
+.fmp .famiglia .sub{color:#E9E7DF;}
+.fmp .timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;}
+.fmp .gen{border-left:3px solid var(--mela);padding:4px 0 4px 18px;}
+.fmp .gen .q{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--salvia);font-weight:700;}
+.fmp .gen h3{margin:6px 0 4px;font-size:20px;color:#fff;}
+.fmp .gen p{margin:0;font-size:14.5px;color:#DCDAD1;}
+.fmp .contatti{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
+.fmp .contatti div{background:#F4F2EC;border-radius:6px;padding:22px;}
+.fmp .contatti h3{margin:0 0 8px;color:var(--vs);font-size:17px;}
+.fmp .contatti p{margin:0;font-size:15px;}
+.fmp .contatti a{color:var(--v);font-weight:700;}
+.fmp .claim{text-align:center;padding:40px 20px 28px;}
+.fmp .claim .serif{font-size:30px;color:var(--vs);}
+@media(max-width:700px){.fmp .hero{padding:52px 22px 48px}.fmp .hero h1{font-size:38px}.fmp section{padding:44px 22px}.fmp h2{font-size:30px}.fmp .step{border-right:0;border-bottom:1px solid var(--bc)}}
+</style>
+
+<div class="fmp">
+  <div class="hero">
+    <svg class="archi" viewBox="0 0 600 600" aria-hidden="true"><g fill="none" stroke="#A3BE19" stroke-width="10">
+      <path d="M60 600 A240 240 0 0 1 540 600"/><path d="M110 600 A190 190 0 0 1 490 600"/><path d="M160 600 A140 140 0 0 1 440 600"/><path d="M210 600 A90 90 0 0 1 390 600"/><path d="M260 600 A40 40 0 0 1 340 600"/></g></svg>
+    <p class="kicker">Farmacia Masera · Seregno</p>
+    <h1 class="serif">La nuova Farmacia Masera</h1>
+    <p class="lead">Più spazio, più servizi, più tempo per te. Dopo mesi di lavori, senza mai chiudere un giorno, la farmacia di famiglia si rinnova.</p>
+    <span class="data">Reinaugurazione · sabato 21 novembre 2026</span>
+    <div class="btns">
+      <a class="btn pieno" href="https://www.farmaciamasera.com/servizi">Prenota un servizio</a>
+      <a class="btn vuoto" href="https://wa.me/393737705485">Scrivici su WhatsApp</a>
+    </div>
+  </div>
+  <div class="bar"><span style="background:#2E3F2D"></span><span style="background:#A3BE19"></span><span style="background:#9AB9AD"></span><span style="background:#D6D2C4"></span><span style="background:#B7A999"></span></div>
+
+  <section>
+    <h2 class="serif">Cosa trovi di nuovo</h2>
+    <p class="sub">Abbiamo ripensato ogni spazio per farti aspettare meno e dedicarti più attenzione.</p>
+    <div class="grid">
+      <div class="card"><div class="n">1</div><h3>Il robot di magazzino</h3><p>Prepara i farmaci in pochi secondi: le farmaciste restano al banco con te, non tra gli scaffali.</p></div>
+      <div class="card"><div class="n">5</div><h3>Postazioni al banco</h3><p>Più persone servite insieme, meno coda nelle ore di punta.</p></div>
+      <div class="card"><div class="n">2</div><h3>Cabine dedicate</h3><p>Una cabina analisi più ampia per ECG, Holter, esami del sangue e pressione, e una cabina per l'analisi di pelle e capello.</p></div>
+      <div class="card"><div class="n">1</div><h3>Banco cosmesi</h3><p>Uno spazio dedicato alla dermocosmesi e a Skin LAB, con consulenza personalizzata.</p></div>
+    </div>
+  </section>
+
+  <section class="ztl">
+    <h2 class="serif">Arrivare è semplicissimo</h2>
+    <p class="sub">Puoi entrare in ZTL gratuitamente per venire in farmacia.</p>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><h3>Entra da via Garibaldi</h3><p>Accedi alla ZTL dall'ingresso di via Garibaldi.</p></div>
+      <div class="step"><span class="num">2</span><h3>Parcheggia da noi</h3><p>Usa gli spazi riservati alla Farmacia Masera, per massimo 30 minuti.</p></div>
+      <div class="step"><span class="num">3</span><h3>Dicci la targa</h3><p>Comunica la targa ai farmacisti al banco.</p></div>
+    </div>
+    <p class="tuttoqui">Tutto qui.</p>
+    <p class="nota">Valido per l'acquisto di farmaci o per prestazioni sanitarie.</p>
+  </section>
+
+  <section class="famiglia">
+    <h2 class="serif">Quattro generazioni, una sola missione: la tua salute</h2>
+    <p class="sub">Da oltre cento anni la famiglia Masera è un punto di riferimento sanitario per Seregno e la Brianza.</p>
+    <div class="timeline">
+      <div class="gen"><span class="q">Prima generazione</span><h3>Prof. Giuseppe Masera</h3><p>Chirurgo, per oltre 35 anni all'ospedale di Carate Brianza. Medaglia d'argento al valor militare nel 1918.</p></div>
+      <div class="gen"><span class="q">Seconda generazione</span><h3>Dr. Vittorio Masera</h3><p>A fine anni '60 rileva la Farmacia Santa Valeria e ne fa un luogo di consiglio e di ascolto.</p></div>
+      <div class="gen"><span class="q">Terza generazione</span><h3>Dr. Giuseppe Masera</h3><p>Titolare dal 2002: integrazione, galenica e divulgazione scientifica.</p></div>
+      <div class="gen"><span class="q">Quarta generazione</span><h3>Dr. Giovanni Masera</h3><p>Servizi innovativi, digitale e divulgazione con il progetto Dottor Masera.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="serif">Ti aspettiamo</h2>
+    <div class="contatti">
+      <div><h3>Dove siamo</h3><p>Via Garibaldi 103<br>20831 Seregno (MB)</p></div>
+      <div><h3>Orari</h3><p>Lun–ven 8:30–19:30 continuato<br>Sabato 8:30–12:30 e 15:00–19:00</p></div>
+      <div><h3>Contatti</h3><p>Tel. <a href="tel:+390362231660">0362 231660</a><br>WhatsApp <a href="https://wa.me/393737705485">373 770 5485</a></p></div>
+    </div>
+  </section>
+
+  <div class="claim"><span class="serif">medicina per tradizione dal 1908</span></div>
+  <div class="bar"><span style="background:#2E3F2D"></span><span style="background:#A3BE19"></span><span style="background:#9AB9AD"></span><span style="background:#D6D2C4"></span><span style="background:#B7A999"></span></div>
+</div>

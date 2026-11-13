@@ -1,0 +1,71 @@
+<style>
+.fsv{font-family:'DM Sans',system-ui,Arial,sans-serif;color:#1D1D1B;max-width:1100px;margin:0 auto 40px}
+.fsv *{box-sizing:border-box}
+.fsv .k{font-size:13px;letter-spacing:.22em;font-weight:700;color:#425D3A;margin:0 0 10px}
+.fsv h2.t{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-variation-settings:'opsz' 11;font-size:clamp(34px,4.5vw,52px);line-height:1.04;color:#2E3F2D;margin:0 0 14px}
+.fsv .lead{font-size:18px;line-height:1.6;color:#3d3d39;max-width:720px;margin:0 0 22px}
+.fsv .nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.fsv .nav a{display:inline-block;padding:11px 18px;border-radius:999px;border:1.5px solid #2E3F2D;color:#2E3F2D;font-weight:700;font-size:15px;text-decoration:none;transition:background .25s,color .25s}
+.fsv .nav a:hover{background:#2E3F2D;color:#fff}
+.fsv .grp{background:#fff;border:1px solid #E2DED2;border-radius:24px;padding:26px 26px 10px;margin:0 0 18px;scroll-margin-top:140px}
+.fsv .grp h3{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-variation-settings:'opsz' 11;font-size:30px;color:#2E3F2D;margin:0 0 4px}
+.fsv .grp .gs{font-size:15px;color:#4a4a46;margin:0 0 12px}
+.fsv .row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 0;border-top:1px solid #EFECE4}
+.fsv .row b{display:block;font-size:17px}
+.fsv .row .m{font-size:14px;color:#4a4a46;margin-top:3px;line-height:1.45}
+.fsv .row .p{flex:none;text-align:right;font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:700;font-size:24px;color:#2E3F2D;white-space:nowrap}
+.fsv .row .d{display:block;font-family:'DM Sans',Arial,sans-serif;font-style:normal;font-size:13px;font-weight:600;color:#425D3A}
+.fsv .cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;background:#2E3F2D;color:#fff;border-radius:24px;padding:24px 28px;margin:26px 0 10px}
+.fsv .cta p{margin:0;font-size:17px;color:#F4F1E8}
+.fsv .cta a{display:inline-block;background:#A3BE19;color:#1a2419;font-weight:700;text-decoration:none;padding:14px 22px;border-radius:999px}
+.fsv .note{font-size:13px;color:#4a4a46;margin:8px 4px 0}
+.fsv .bar{display:flex;height:6px;max-width:220px;border-radius:3px;overflow:hidden;margin:0 0 22px}.fsv .bar i{flex:1}
+@media(max-width:600px){.fsv .grp{padding:20px 18px 6px}.fsv .row .p{font-size:20px}}
+</style>
+<div class="fsv">
+<p class="k">SERVIZI E PREZZI</p>
+<h2 class="t">Cosa possiamo fare per te, e quanto costa.</h2>
+<div class="bar"><i style="background:#2E3F2D"></i><i style="background:#A3BE19"></i><i style="background:#9AB9AD"></i><i style="background:#D6D2C4"></i><i style="background:#B7A999"></i></div>
+<p class="lead">I servizi divisi per bisogno, con prezzo, durata e come prepararti. Le autoanalisi del sangue si fanno con una goccia di sangue dal dito e il risultato arriva in pochi minuti.</p>
+<div class="nav"><a href="#fsv-cuore">Cuore e pressione</a><a href="#fsv-sangue">Sangue e urine</a><a href="#fsv-intolleranze">Intolleranze e allergie</a><a href="#fsv-pelle">Pelle</a><a href="#fsv-tamponi">Tamponi</a><a href="#fsv-natrix">Test Natrix</a></div>
+
+<div class="grp" id="fsv-cuore"><h3>Cuore e pressione</h3><p class="gs">Telemedicina: l'esame lo fai qui, il referto lo firma un cardiologo.</p>
+<div class="row"><span><b>Elettrocardiogramma (ECG)</b><span class="m">Evita creme sul torace il giorno dell'esame.</span></span><span class="p">35 €<span class="d">30 min</span></span></div>
+<div class="row"><span><b>Holter cardiaco</b><span class="m">Ti applichiamo l'apparecchio e lo riporti dopo la registrazione. Fai la doccia prima: durante la registrazione non va bagnato.</span></span><span class="p">70 €<span class="d">30 min</span></span></div>
+<div class="row"><span><b>Holter pressorio 24 ore</b><span class="m">Misura la pressione per tutta la giornata, anche di notte. Indossa una maglia comoda, a maniche larghe.</span></span><span class="p">55 €<span class="d">30 min</span></span></div>
+</div>
+
+<div class="grp" id="fsv-sangue"><h3>Sangue e urine</h3><p class="gs">Autoanalisi in farmacia, risultato in pochi minuti.</p>
+<div class="row"><span><b>Emoglobina glicata</b><span class="m">Il valore medio della glicemia degli ultimi mesi. Non serve il digiuno.</span></span><span class="p">15 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Vitamina D</b><span class="m">Non serve il digiuno.</span></span><span class="p">10 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Profilo lipidico</b><span class="m">Colesterolo, trigliceridi e glicemia. Meglio a digiuno da almeno 8 ore.</span></span><span class="p">18 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Emocromo</b><span class="m">Globuli rossi, bianchi e piastrine. Non serve il digiuno.</span></span><span class="p">12 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Funzionalità renale</b><span class="m">Meglio a digiuno da almeno 8 ore.</span></span><span class="p">20 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Profilo completo</b><span class="m">Fegato, reni, pancreas e altri parametri. Meglio a digiuno da almeno 8 ore.</span></span><span class="p">25 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Proteina C reattiva (PCR)</b><span class="m">Un indice di infiammazione. Non serve il digiuno.</span></span><span class="p">20 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Coagulazione</b><span class="m">Tempo di protrombina, fibrinogeno e altri parametri.</span></span><span class="p">22 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Analisi delle urine</b><span class="m">Porta il primo campione di urine del mattino in un contenitore sterile.</span></span><span class="p">6 €<span class="d">15 min</span></span></div>
+</div>
+
+<div class="grp" id="fsv-intolleranze"><h3>Intolleranze e allergie</h3><p class="gs">Test che si prenotano: ti diamo noi le indicazioni per prepararti.</p>
+<div class="row"><span><b>Breath test lattosio</b><span class="m">Si soffia in un sacchetto a intervalli regolari. A digiuno; il giorno prima segui la dieta che ti diamo.</span></span><span class="p">104 €<span class="d">circa 4 ore</span></span></div>
+<div class="row"><span><b>Breath test glucosio · lattulosio</b><span class="m">Per valutare la contaminazione batterica dell'intestino tenue. Stessa preparazione del lattosio.</span></span><span class="p">104 €<span class="d">circa 4 ore</span></span></div>
+<div class="row"><span><b>Profilo allergie</b><span class="m">63 allergeni tra inalanti e alimenti.</span></span><span class="p">218 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Food Recaller</b><span class="m">Infiammazione legata al cibo e profilo nutrizionale.</span></span><span class="p">149 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>PerMè Recaller</b><span class="m">La versione avanzata, con zuccheri e altri parametri.</span></span><span class="p">299 €<span class="d">15 min</span></span></div>
+</div>
+
+<div class="grp" id="fsv-pelle"><h3>Pelle</h3><p class="gs">Skin LAB e teledermatologia.</p>
+<div class="row"><span><b>Analisi della pelle e del viso</b><span class="m">Con la farmacista e lo strumento SpectroSkin. I 25 € li scali dall'acquisto dei prodotti consigliati. Vieni con la pelle pulita e senza trucco.</span></span><span class="p">25 €<span class="d">15 min</span></span></div>
+<div class="row"><span><b>Visita teledermatologica dei nei</b><span class="m">Fotografiamo i nei e un dermatologo li valuta a distanza.</span></span><span class="p">59,90 €<span class="d">15 min</span></span></div>
+</div>
+
+<div class="grp" id="fsv-tamponi"><h3>Tamponi</h3><p class="gs">Risultato in pochi minuti.</p>
+<div class="row"><span><b>Tampone streptococco</b><span class="m">Per il mal di gola: capire se serve il medico per l'antibiotico.</span></span><span class="p">22 €<span class="d">15 min</span></span></div>
+</div>
+
+<div class="grp" id="fsv-natrix"><h3>Test Natrix</h3><p class="gs">Profili ormonali, microbioma, intolleranze e test genetici: alcuni si fanno a casa con il kit e li analizza il laboratorio. Te li spieghiamo al banco e trovi l'elenco completo qui sotto.</p></div>
+
+<div class="cta"><p>Prenoti online, al banco o su WhatsApp al 373 770 5485.</p><a href="/prenotazione-servizi">Prenota un servizio</a></div>
+<p class="note">Prezzi aggiornati a novembre 2026. Quando prenoti, la farmacista ti conferma come prepararti. Qui sotto trovi l'elenco completo di tutti i servizi.</p>
+</div>

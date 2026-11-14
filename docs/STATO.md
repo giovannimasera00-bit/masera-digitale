@@ -50,7 +50,6 @@ Aggiornato da Claude Code a fine di ogni sessione.
 ### Da decidere sulla homepage
 - Testo barra di stato: proposto "Accesso in ZTL per i clienti" (il brief dice "Accesso libero in ZTL").
 - Marchi della veterinaria: `[DA CONFERMARE]` visibile nella scheda Reparti.
-- La mappa ZTL in home è **statica** per ora: quella animata arriva con la pagina `/ztl`.
 - Il canvas indicava 10 minuti per l'analisi della pelle: ho usato 15 minuti e 25 € come da brief e `servizi.json`.
 - I link a pagine non ancora fatte (servizi, prenota, ztl, robot, famiglia, legali…) per ora portano a "pagina non trovata".
 
@@ -74,6 +73,20 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - I pulsanti **Prenota** portano a `/prenota?servizio=…`: la pagina arriva con Agenda Masera (prossimo pezzo della Fase 1).
 - Vaccini e tampone COVID: esclusi finché non decidi (domande aperte in `servizi.json`).
 
+### Fase 1a – ZTL (branch `fase1/ztl`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1-ztl-giovanni-7bbb.vercel.app/ztl (serve l'accesso Vercel).
+- Componente `<ZtlMap />` (`apps/web/src/components/ztl/`): geometria reale del prototipo `design/canvas/ZtlMap.dc.html`
+  (generata con `node scripts/build-ztl-map.mjs`). L'auto arriva da via Cairoli, passa il varco (al 51% del percorso, tratteggio
+  sincronizzato), entra nello stallo riservato, parte il timer 30', compare la targa, "Tutto qui.". **Si gioca una volta** quando
+  entra in vista, poi resta ferma sullo stato finale; pulsante "Rivedi il percorso". Con "riduci movimento" mostra subito lo stato finale.
+- Usata in `/ztl` e in homepage (al posto della mappa statica, eliminata).
+- `/ztl`: testi ripresi dalla pagina ZTL già pubblicata: 3 passi, "Tutto qui." (nessuna registrazione, nessun modulo, nessun costo),
+  "In breve" con 0 € · 30' · 1, domande frequenti (con dati strutturati `FAQPage`), indirizzo, Google Maps, WhatsApp, orari.
+- Pillola sul varco: "ACCESSO CLIENTI" (il prototipo diceva "ACCESSO LIBERO"), coerente con la barra in alto.
+- Nuovo test sulle **regole fisse nei testi** (dati e sito): mai "Carepy", mai "Farmaestetica by Farmacia Masera",
+  nessun parcheggio a pagamento, niente "sconti pazzi". Totale test: 59.
+- Provata a 390 px e 1440 px; al telefono le scritte dentro la mappa sono piccole, ma i 3 passi sono scritti sotto in grande.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -85,7 +98,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Prossima pagina della Fase 1 (ordine della guida): ZTL con la mappa animata (`/ztl`).
+- Ok o correzioni sulla pagina ZTL (anteprima sopra), poi "unisci".
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

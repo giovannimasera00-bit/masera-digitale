@@ -1,0 +1,64 @@
+/* Mappa ZTL animata (riferimento: design/canvas/ZtlMap.dc.html).
+   Il percorso si gioca UNA volta quando la mappa entra in vista e si ferma sullo stato finale.
+   Il tratteggio del percorso è sincronizzato con l'auto: il varco è al 51% del percorso (27% del tempo). */
+
+.zm-sans { font-family: var(--font-sans), Arial, sans-serif; }
+.zm-display { font-family: var(--font-display), Georgia, serif; font-style: italic; font-weight: 700; font-variation-settings: "opsz" 14; }
+
+.zm * { animation-duration: 12s; animation-iteration-count: 1; animation-fill-mode: both; animation-play-state: paused; }
+.zm.is-in * { animation-play-state: running; }
+
+@keyframes zmRoute { 0%, 5% { stroke-dashoffset: 1; } 27% { stroke-dashoffset: 0.49; } 40%, 100% { stroke-dashoffset: 0; } }
+@keyframes zmCar {
+  0%, 5% { transform: translate(-40px, 221px) rotate(0deg); }
+  27% { transform: translate(228px, 220px) rotate(0deg); }
+  29.5% { transform: translate(248px, 210px) rotate(-18deg); }
+  40%, 100% { transform: translate(488px, 204px) rotate(-1.4deg); }
+}
+@keyframes zmGate { 0%, 24% { fill: #e04b3c; } 25%, 100% { fill: #a3be19; } }
+@keyframes zmOut { 0%, 24% { opacity: 1; } 25%, 100% { opacity: 0; } }
+@keyframes zmIn25 { 0%, 25% { opacity: 0; } 27%, 100% { opacity: 1; } }
+@keyframes zmIn42 { 0%, 42% { opacity: 0; } 44.5%, 100% { opacity: 1; } }
+@keyframes zmIn56 { 0%, 56% { opacity: 0; } 58.5%, 100% { opacity: 1; } }
+@keyframes zmIn78 { 0%, 78% { opacity: 0; } 80.5%, 100% { opacity: 1; } }
+@keyframes zmRing { 0%, 42% { stroke-dashoffset: 1; } 62%, 100% { stroke-dashoffset: 0; } }
+@keyframes zmType { 0%, 61% { transform: scaleX(0); } 75%, 100% { transform: scaleX(1); } }
+@keyframes zmSlot { 0%, 40% { fill-opacity: 0.14; } 44% { fill-opacity: 0.5; } 48% { fill-opacity: 0.2; } 52%, 100% { fill-opacity: 0.14; } }
+
+.zm-route { stroke-dasharray: 1 1; animation-name: zmRoute; animation-timing-function: linear; }
+.zm-car { animation-name: zmCar; animation-timing-function: ease-in-out; }
+.zm-gate { animation-name: zmGate; }
+.zm-out { animation-name: zmOut; }
+.zm-in25 { animation-name: zmIn25; }
+.zm-in42 { animation-name: zmIn42; }
+.zm-in56 { animation-name: zmIn56; }
+.zm-in78 { animation-name: zmIn78; }
+.zm-ring { stroke-dasharray: 1 1; animation-name: zmRing; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); }
+.zm-type { transform-box: fill-box; transform-origin: left center; animation-name: zmType; animation-timing-function: steps(9); }
+.zm-slot { animation-name: zmSlot; }
+
+/* Stato finale: con "riduci movimento" (dispositivo o interruttore). */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) .zm * { animation: none !important; }
+  :root:not([data-motion="full"]) .zm-in25,
+  :root:not([data-motion="full"]) .zm-in42,
+  :root:not([data-motion="full"]) .zm-in56,
+  :root:not([data-motion="full"]) .zm-in78 { opacity: 1; }
+  :root:not([data-motion="full"]) .zm-route,
+  :root:not([data-motion="full"]) .zm-ring { stroke-dashoffset: 0; }
+  :root:not([data-motion="full"]) .zm-car { transform: translate(488px, 204px) rotate(-1.4deg); }
+  :root:not([data-motion="full"]) .zm-out { opacity: 0; }
+  :root:not([data-motion="full"]) .zm-gate { fill: #a3be19; }
+  :root:not([data-motion="full"]) .zm-replay { display: none; }
+}
+[data-motion="reduce"] .zm * { animation: none !important; }
+[data-motion="reduce"] .zm-in25,
+[data-motion="reduce"] .zm-in42,
+[data-motion="reduce"] .zm-in56,
+[data-motion="reduce"] .zm-in78 { opacity: 1; }
+[data-motion="reduce"] .zm-route,
+[data-motion="reduce"] .zm-ring { stroke-dashoffset: 0; }
+[data-motion="reduce"] .zm-car { transform: translate(488px, 204px) rotate(-1.4deg); }
+[data-motion="reduce"] .zm-out { opacity: 0; }
+[data-motion="reduce"] .zm-gate { fill: #a3be19; }
+[data-motion="reduce"] .zm-replay { display: none; }

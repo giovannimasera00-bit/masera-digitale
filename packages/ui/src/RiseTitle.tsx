@@ -24,6 +24,8 @@ export function RiseTitle({
       {lines.map((line, i) => (
         <span key={i} className="fm-rise-line" style={{ animationDelay: `${i * stagger}ms` }}>
           {line}
+          {/* Spazio tra le righe: invisibile, ma i lettori di schermo non attaccano le parole. */}
+          {i < lines.length - 1 ? " " : null}
         </span>
       ))}
     </Tag>

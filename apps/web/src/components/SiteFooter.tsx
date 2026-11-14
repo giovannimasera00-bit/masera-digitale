@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { farmacia, farmaciaHours, formatWeeklyHours, FREE_SHIPPING_ITALY_EUR, SEREGNO_CUTOFF } from "@masera/core";
 import { ColorBar } from "@masera/ui";
-import { links } from "@/content/home";
+import { features, links } from "@/content/home";
 
 const legal = [
   { label: "Privacy", href: "/privacy" },
@@ -51,7 +51,7 @@ export function SiteFooter() {
             </address>
           </div>
           <div>
-            <h2 className="text-[16px] font-semibold">Spedizioni</h2>
+            <h2 className="text-[16px] font-semibold">Spedizioni{features.shop ? "" : " · shop online in arrivo"}</h2>
             <p className="mt-2 text-[15px] text-beige-chiaro">
               Seregno: in giornata, gratis (ordine entro le {SEREGNO_CUTOFF})
               <br />

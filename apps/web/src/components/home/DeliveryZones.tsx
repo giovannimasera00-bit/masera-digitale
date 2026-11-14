@@ -1,10 +1,16 @@
 import { FREE_SHIPPING_ITALY_EUR, SEREGNO_CUTOFF, SEREGNO_ETA } from "@masera/core";
 import { ColorBar } from "@masera/ui";
+import { features } from "@/content/home";
 
 /** Le due strade di consegna. Regole da data/farmacia.json, uguali in tutto il sito. */
 export function DeliveryZones() {
   return (
     <section aria-label="Come ti arriva l'ordine" className="mx-auto max-w-7xl px-4 md:px-8">
+      {!features.shop && (
+        <p className="mb-4 inline-flex items-center gap-2 rounded-full border-2 border-dashed border-beige-scuro px-4 py-2 text-[15px] font-medium">
+          Lo shop online è in arrivo: ecco come funzioneranno le consegne.
+        </p>
+      )}
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-3xl bg-verde-scuro p-7 text-carta md:p-10">
           <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-mela">Seregno</p>

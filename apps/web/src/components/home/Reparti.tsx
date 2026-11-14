@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState, type KeyboardEvent } from "react";
-import { Button } from "@masera/ui";
-import { links, reparti } from "@/content/home";
+import { Button, ComingSoon } from "@masera/ui";
+import { isOn, links, reparti } from "@/content/home";
 
 /** I reparti come schede (tab), navigabili anche con le frecce della tastiera. */
 export function Reparti() {
@@ -72,9 +72,13 @@ export function Reparti() {
               ))}
             </ul>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button variant="primario" href={r.href}>
-                {r.cta}
-              </Button>
+              {isOn(r.feature) ? (
+                <Button variant="primario" href={r.href}>
+                  {r.cta}
+                </Button>
+              ) : (
+                <ComingSoon label="Shop online" />
+              )}
               <Button variant="secondario" href={links.whatsapp}>
                 Chiedi consiglio
               </Button>

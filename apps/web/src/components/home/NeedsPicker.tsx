@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { formatMinutes, seregnoDelivery, FREE_SHIPPING_ITALY_EUR, type SeregnoDelivery } from "@masera/core";
-import { Button, Chip, ColorBar } from "@masera/ui";
-import { links, needs } from "@/content/home";
+import { Button, Chip, ColorBar, ComingSoon } from "@masera/ui";
+import { featureOf, isOn, links, needs, type Feature } from "@/content/home";
 
 type NeedId = (typeof needs)[number]["id"];
 
 /** "Di cosa hai bisogno oggi?": i chip cambiano la card accanto. La card Consegna è in tempo reale. */
 export function NeedsPicker({ initialDelivery }: { initialDelivery: SeregnoDelivery }) {
-  const [need, setNeed] = useState<NeedId>("consegna");
+  const [need, setNeed] = useState<NeedId>(isOn("shop") ? "consegna" : "analisi");
   const [delivery, setDelivery] = useState(initialDelivery);
 
   useEffect(() => {
@@ -65,14 +65,14 @@ export function NeedsPicker({ initialDelivery }: { initialDelivery: SeregnoDeliv
                 label="Tempo che resta prima delle 16:00"
               />
             )}
-            <Foot note={`Resto d'Italia: 2–3 giorni lavorativi, gratis sopra ${FREE_SHIPPING_ITALY_EUR} €`} cta="Vai allo shop" href={links.shop} />
+            <Foot note={`Resto d'Italia: 2–3 giorni lavorativi, gratis sopra ${FREE_SHIPPING_ITALY_EUR} €`} cta="Vai allo shop" href={links.shop} feature="shop" comingLabel="Shop online" />
           </>
         ) : (
           <>
             <Head kicker={current.kicker} badge={current.badge} />
             <p className="fm-display mt-3 text-[30px] leading-tight md:text-[34px]">{current.title}</p>
             <p className="mt-2 text-[17px]">{current.text}</p>
-            <Foot note={current.note} cta={current.cta} href={current.href} />
+            <Foot note={current.note} cta={current.cta} href={current.href} feature={featureOf(current)} comingLabel="Invia la ricetta" />
           </>
         )}
       </div>
@@ -89,13 +89,29 @@ function Head({ kicker, badge }: { kicker: string; badge: string }) {
   );
 }
 
-function Foot({ note, cta, href }: { note: string; cta: string; href: string }) {
+function Foot({
+  note,
+  cta,
+  href,
+  feature,
+  comingLabel,
+}: {
+  note: string;
+  cta: string;
+  href: string;
+  feature?: Feature;
+  comingLabel: string;
+}) {
   return (
     <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-beige-chiaro pt-5">
       <span className="text-[15px] text-verde">{note}</span>
-      <Button variant="cta" href={href}>
-        {cta}
-      </Button>
+      {isOn(feature) ? (
+        <Button variant="cta" href={href}>
+          {cta}
+        </Button>
+      ) : (
+        <ComingSoon label={comingLabel} />
+      )}
     </div>
   );
 }

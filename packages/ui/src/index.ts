@@ -8,3 +8,4 @@ export { OpenBadge } from "./OpenBadge";
 export { MotionToggle, type MotionMode } from "./MotionToggle";
 export { contrastRatio, AA } from "./contrast";
 export * from "./tokens";
+export { ComingSoon } from "./ComingSoon";

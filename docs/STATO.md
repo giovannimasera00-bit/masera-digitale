@@ -42,9 +42,12 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Provata a 390 px e 1440 px, nessuno scorrimento laterale, "riduci movimento" ferma tutto (anche la striscia e il furgone).
 - Foto: ieri/oggi ritagliate dalla grafica della home attuale, robot da `design/robot/IMG_8685.jpg` (`node scripts/prepare-images.mjs`).
 
+- **Funzioni "in arrivo"** (decisione di Giovanni, 14/11/2026): shop, MyMasera, Invia una ricetta (Fase 2) e
+  videoconsulenza (Fase 3) compaiono con l'etichetta "in arrivo" e **nessun link**. Interruttori in
+  `apps/web/src/content/home.ts` → `features`: quando una funzione è pronta si mette `true` e tornano i pulsanti.
+  Verificato: nella homepage non c'è nessun link a `/shop`, `/my`, `/ricetta`, `/linee`.
+
 ### Da decidere sulla homepage
-- **Shop e MyMasera non esisteranno ancora al giorno dello switch** (arrivano in Fase 2), ma la homepage li promuove
-  ("Vai allo shop", consegne, "La farmacia in tasca"). Al lancio della Fase 1: nasconderli, oppure mostrarli come "in arrivo"?
 - Testo barra di stato: proposto "Accesso in ZTL per i clienti" (il brief dice "Accesso libero in ZTL").
 - Marchi della veterinaria: `[DA CONFERMARE]` visibile nella scheda Reparti.
 - La mappa ZTL in home è **statica** per ora: quella animata arriva con la pagina `/ztl`.

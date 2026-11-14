@@ -1,12 +1,14 @@
-import { Button } from "@masera/ui";
-import { links, myMaseraFeatures } from "@/content/home";
+import { Button, ComingSoon } from "@masera/ui";
+import { features, links, myMaseraFeatures } from "@/content/home";
 
 export function MyMaseraTeaser() {
   return (
     <section id="mymasera" aria-labelledby="my-t" className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
       <div className="grid gap-10 rounded-[40px] bg-verde-scuro p-7 text-carta md:p-12 lg:grid-cols-2 lg:items-center">
         <div>
-          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-mela">MyMasera · sito e app</p>
+          <p className="text-[13px] font-semibold uppercase tracking-[0.16em] text-mela">
+            MyMasera · {features.mymasera ? "sito e app" : "in arrivo"}
+          </p>
           <h2 id="my-t" className="fm-display mt-3 text-[40px] leading-tight md:text-[56px]">
             La farmacia in tasca.
           </h2>
@@ -15,9 +17,13 @@ export function MyMaseraTeaser() {
             Tutto con lo stesso account, sul sito e nell&apos;app.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button variant="cta" href={links.my}>
-              Scopri MyMasera
-            </Button>
+            {features.mymasera ? (
+              <Button variant="cta" href={links.my}>
+                Scopri MyMasera
+              </Button>
+            ) : (
+              <ComingSoon label="MyMasera" tone="dark" />
+            )}
             <Button variant="primario" href={links.skinlab} className="!bg-transparent !text-carta ring-2 ring-carta/50 hover:!bg-verde">
               Com&apos;è la SkinLab Routine
             </Button>

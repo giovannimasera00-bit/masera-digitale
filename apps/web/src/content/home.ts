@@ -2,6 +2,21 @@
 // arrivano da data/*.json tramite @masera/core. Più avanti questi testi passeranno su Sanity.
 import { formatPrice, minPrice, service } from "@masera/core";
 
+/**
+ * Funzioni non ancora attive: al loro posto il sito mostra "in arrivo" e nessun link.
+ * Quando una funzione è pronta basta mettere true qui.
+ */
+export const features = {
+  shop: false, // Fase 2
+  mymasera: false, // Fase 2
+  ricetta: false, // Fase 2 – Invia una ricetta
+  videoconsulenza: false, // Fase 3
+};
+export type Feature = keyof typeof features;
+export const isOn = (f?: Feature) => (f ? features[f] : true);
+/** La funzione a cui appartiene un elemento dei testi (se ce l'ha). */
+export const featureOf = (x: object): Feature | undefined => ("feature" in x ? (x.feature as Feature) : undefined);
+
 export const links = {
   prenota: "/prenota",
   shop: "/shop",
@@ -17,11 +32,11 @@ export const links = {
   whatsapp: "https://wa.me/393737705485",
 } as const;
 
-export const nav = [
+export const nav: { label: string; href: string; feature?: Feature }[] = [
   { label: "Servizi", href: links.servizi },
   { label: "Reparti", href: "/#reparti" },
-  { label: "Shop", href: links.shop },
-  { label: "Ricette", href: links.ricetta },
+  { label: "Shop", href: links.shop, feature: "shop" },
+  { label: "Ricette", href: links.ricetta, feature: "ricetta" },
   { label: "Il robot", href: links.robot },
   { label: "La famiglia", href: links.famiglia },
 ];
@@ -78,6 +93,7 @@ export const needs = [
     note: "Ritiro in farmacia, al locker o consegna in serata",
     cta: "Invia la ricetta",
     href: links.ricetta,
+    feature: "ricetta",
   },
 ] as const;
 
@@ -96,6 +112,7 @@ export const quickActions = [
     text: "Non inseguiamo lo sconto: ti aiutiamo a scegliere il prodotto giusto. A Seregno arriva in giornata.",
     cta: "Vai allo shop",
     href: links.shop,
+    feature: "shop",
     tone: "beige",
   },
   {
@@ -104,6 +121,7 @@ export const quickActions = [
     text: "Fotografa la ricetta e ti mandiamo il preventivo. Per legge vale solo a Seregno.",
     cta: "Invia la ricetta",
     href: links.ricetta,
+    feature: "ricetta",
     tone: "salvia",
   },
   {
@@ -112,6 +130,7 @@ export const quickActions = [
     text: `${video.duration_min} minuti con una farmacista a ${formatPrice(video.price_eur)}, interamente scalati dalla spesa entro 12 mesi.`,
     cta: "Prenota la chiamata",
     href: links.prenota,
+    feature: "videoconsulenza",
     tone: "scuro",
   },
 ] as const;
@@ -129,7 +148,7 @@ export const marquee = [
   "Tamponi",
 ];
 
-export const reparti = [
+export const reparti: { name: string; title: string; text: string; brands: string[]; cta: string; href: string; feature?: Feature }[] = [
   {
     name: "Dermocosmesi",
     title: "Pelle e bellezza, con il consiglio delle farmaciste.",
@@ -137,6 +156,7 @@ export const reparti = [
     brands: ["Miamo", "SkinCeuticals", "La Roche-Posay", "Caudalie", "Dolomia", "Bakel", "Farmacisti Preparatori", "Ceramol", "Dercos", "Triunico"],
     cta: "Vedi la dermocosmesi",
     href: "/shop/dermocosmesi",
+    feature: "shop",
   },
   {
     name: "Integratori",
@@ -145,6 +165,7 @@ export const reparti = [
     brands: ["Dottor Masera", "LDF", "Unifarco"],
     cta: "Scopri la linea Dottor Masera",
     href: "/linee/dottor-masera",
+    feature: "shop",
   },
   {
     name: "Alimenti speciali",
@@ -153,6 +174,7 @@ export const reparti = [
     brands: ["Keylife", "Dietalab"],
     cta: "Vedi gli alimenti",
     href: "/shop/alimenti-speciali",
+    feature: "shop",
   },
   {
     name: "Veterinaria",
@@ -161,6 +183,7 @@ export const reparti = [
     brands: ["[DA CONFERMARE i marchi]"],
     cta: "Vedi la veterinaria",
     href: "/shop/veterinaria",
+    feature: "shop",
   },
   {
     name: "Galenica",

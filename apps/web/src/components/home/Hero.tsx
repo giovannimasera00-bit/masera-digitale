@@ -1,6 +1,6 @@
 import { farmacia, seregnoDelivery } from "@masera/core";
-import { Button, RiseTitle } from "@masera/ui";
-import { links } from "@/content/home";
+import { Button, ComingSoon, RiseTitle } from "@masera/ui";
+import { features, links } from "@/content/home";
 import { HeroArches } from "./HeroArches";
 import { NeedsPicker } from "./NeedsPicker";
 
@@ -18,15 +18,22 @@ export function Hero() {
             lines={["Medicina", "per tradizione.", <span key="1908" className="text-mela">Dal 1908.</span>]}
           />
           <p className="mt-6 max-w-xl text-[18px] leading-relaxed text-beige-chiaro">
-            {farmacia.claims[1]} Prenoti analisi e consulenze, ordini online in tutta Italia e a Seregno ricevi tutto in giornata.
+            {farmacia.claims[1]}{" "}
+            {features.shop
+              ? "Prenoti analisi e consulenze, ordini online in tutta Italia e a Seregno ricevi tutto in giornata."
+              : "Prenoti analisi e consulenze in pochi tocchi. Presto anche lo shop online, con consegna in giornata a Seregno."}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button variant="cta" href={links.prenota}>
               Prenota un servizio
             </Button>
-            <Button variant="primario" href={links.shop} className="!bg-carta !text-verde-scuro hover:!bg-bianco">
-              Vai allo shop
-            </Button>
+            {features.shop ? (
+              <Button variant="primario" href={links.shop} className="!bg-carta !text-verde-scuro hover:!bg-bianco">
+                Vai allo shop
+              </Button>
+            ) : (
+              <ComingSoon label="Shop online" tone="dark" />
+            )}
           </div>
         </div>
         <NeedsPicker initialDelivery={delivery} />

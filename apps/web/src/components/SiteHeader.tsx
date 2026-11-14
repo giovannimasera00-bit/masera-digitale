@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { Button } from "@masera/ui";
-import { links, nav } from "@/content/home";
+import { features, isOn, links, nav } from "@/content/home";
 
 /** Testata con menu principale. Sul telefono il menu si apre con un pulsante grande. */
 export function SiteHeader() {
@@ -28,16 +28,24 @@ export function SiteHeader() {
           <ul className="flex items-center gap-1">
             {nav.map((n) => (
               <li key={n.href}>
-                <Link href={n.href} className="fm-focus rounded-full px-3 py-2 text-[16px] font-medium text-verde-scuro hover:bg-beige-chiaro/60">
-                  {n.label}
-                </Link>
+                {isOn(n.feature) ? (
+                  <Link href={n.href} className="fm-focus rounded-full px-3 py-2 text-[16px] font-medium text-verde-scuro hover:bg-beige-chiaro/60">
+                    {n.label}
+                  </Link>
+                ) : (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-2 text-[16px] font-medium text-verde">
+                    {n.label}
+                    <span className="rounded-full bg-beige-chiaro px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide">in arrivo</span>
+                  </span>
+                )}
               </li>
             ))}
           </ul>
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button href={links.my} variant="primario" className="!min-h-11 !px-5">
+          {/* Finché MyMasera non è attivo, il pulsante porta alla sezione che lo presenta ("in arrivo"). */}
+          <Button href={features.mymasera ? links.my : "/#mymasera"} variant="primario" className="!min-h-11 !px-5">
             MyMasera
           </Button>
           <button
@@ -59,13 +67,20 @@ export function SiteHeader() {
         <ul className="mx-auto max-w-7xl px-4 py-2">
           {nav.map((n) => (
             <li key={n.href}>
-              <Link
-                href={n.href}
-                onClick={() => setOpen(false)}
-                className="fm-focus flex min-h-12 items-center rounded-xl px-3 text-[18px] font-medium text-verde-scuro"
-              >
-                {n.label}
-              </Link>
+              {isOn(n.feature) ? (
+                <Link
+                  href={n.href}
+                  onClick={() => setOpen(false)}
+                  className="fm-focus flex min-h-12 items-center rounded-xl px-3 text-[18px] font-medium text-verde-scuro"
+                >
+                  {n.label}
+                </Link>
+              ) : (
+                <span className="flex min-h-12 items-center gap-2 px-3 text-[18px] font-medium text-verde">
+                  {n.label}
+                  <span className="rounded-full bg-beige-chiaro px-2 py-0.5 text-[12px] font-semibold uppercase tracking-wide">in arrivo</span>
+                </span>
+              )}
             </li>
           ))}
         </ul>

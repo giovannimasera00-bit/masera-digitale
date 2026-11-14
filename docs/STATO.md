@@ -54,6 +54,27 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il canvas indicava 10 minuti per l'analisi della pelle: ho usato 15 minuti e 25 € come da brief e `servizi.json`.
 - I link a pagine non ancora fatte (servizi, prenota, ztl, robot, famiglia, legali…) per ora portano a "pagina non trovata".
 
+### Fase 1b – Servizi e prezzi (branch `fase1/servizi`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1-servizi-giovanni-7bbb.vercel.app/servizi (serve l'accesso Vercel).
+- `/servizi`: 6 gruppi per bisogno (navigazione a pillole), per ogni servizio nome, descrizione breve, "Come prepararti",
+  prezzo, durata e pulsante Prenota. Riquadro "Come prenotare", "Prezzi aggiornati a novembre 2026", sezione "Anche in farmacia".
+- `/servizi/[slug]`: una scheda per ognuno dei 21 servizi del listino, con prezzo, durata, dove, preparazione, note,
+  riquadro Prenota (online + WhatsApp), altri servizi dello stesso gruppo. Indirizzi sbagliati → pagina non trovata.
+- Dati strutturati per Google: `Service` con prezzo su ogni scheda, `BreadcrumbList` sulle due pagine.
+- Layout comune (barra in alto, menu, piè di pagina) spostato in `app/(sito)/layout.tsx`: vale per tutte le pagine nuove.
+- `data/servizi.json`: aggiunte le **descrizioni brevi già pubblicate** sul listino del sito attuale; nota dell'ECG riscritta
+  senza sigle ("ricetta del medico di base" invece di "MMG"), stesso contenuto. Durate oltre le 2 ore mostrate come "circa 4 ore".
+- 7 nuovi test sui dati dei servizi (slug unici, gruppi esistenti, durate del brief, "depila il petto" per ECG e Holter). Totale: 54.
+- Provate a 390 px e 1440 px, nessuno scorrimento laterale.
+
+### Da decidere su Servizi
+- Preparazioni ancora `[DA CONFERMARE]` e visibili: profilo lipidico, funzionalità renale, profilo completo (digiuno 8 ore),
+  coagulazione, breath test (testo della dieta), profilo allergie, Food Recaller, PerMè Recaller, cuoio capelluto.
+- Prezzo dell'analisi del cuoio capelluto: `[DA CONFERMARE]`.
+- Test Natrix: manca l'elenco, per ora "te li spieghiamo al banco o su WhatsApp".
+- I pulsanti **Prenota** portano a `/prenota?servizio=…`: la pagina arriva con Agenda Masera (prossimo pezzo della Fase 1).
+- Vaccini e tampone COVID: esclusi finché non decidi (domande aperte in `servizi.json`).
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -65,7 +86,8 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Prossima pagina della Fase 1: Servizi e prezzi (`/servizi`, da `data/servizi.json`).
+- Ok o correzioni su Servizi e prezzi (anteprima sopra), poi "unisci".
+- Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";
   timeline 2026 "cinque postazioni al banco" o "banco nuovo"; piano Vercel Pro prima di condividere i link.

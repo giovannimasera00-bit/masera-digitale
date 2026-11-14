@@ -37,17 +37,19 @@
     {
       "slug": "ecg",
       "name": "Elettrocardiogramma (ECG)",
+      "description": "",
       "group": "cuore-pressione",
       "price_eur": 35,
       "duration_min": 30,
       "preparation": "Depila il petto: altrimenti gli elettrodi non aderiscono e non registrano. Evita creme sul torace il giorno dell'esame.",
       "resource": "cabina_analisi",
       "bookable_online": true,
-      "note": "Alcune prestazioni gratuite SSN con ricetta MMG ed esenzione cardiologica, max 3 in 12 mesi"
+      "note": "Con la ricetta del medico di base e l'esenzione cardiologica può essere gratuito con il Servizio Sanitario (al massimo 3 volte in 12 mesi)."
     },
     {
       "slug": "holter-cardiaco",
       "name": "Holter cardiaco 24/48 ore",
+      "description": "Ti applichiamo l'apparecchio e lo riporti dopo la registrazione.",
       "group": "cuore-pressione",
       "price_eur": 70,
       "duration_min": 30,
@@ -58,6 +60,7 @@
     {
       "slug": "holter-pressorio",
       "name": "Holter pressorio 24 ore",
+      "description": "Misura la pressione per tutta la giornata, anche di notte.",
       "group": "cuore-pressione",
       "price_eur": 55,
       "duration_min": 30,
@@ -68,6 +71,7 @@
     {
       "slug": "emoglobina-glicata",
       "name": "Emoglobina glicata",
+      "description": "Il valore medio della glicemia degli ultimi mesi.",
       "group": "sangue-urine",
       "price_eur": 15,
       "duration_min": 15,
@@ -78,6 +82,7 @@
     {
       "slug": "vitamina-d",
       "name": "Vitamina D",
+      "description": "",
       "group": "sangue-urine",
       "price_eur": 10,
       "duration_min": 15,
@@ -88,6 +93,7 @@
     {
       "slug": "profilo-lipidico",
       "name": "Profilo lipidico",
+      "description": "Colesterolo, trigliceridi e glicemia.",
       "group": "sangue-urine",
       "price_eur": 18,
       "duration_min": 15,
@@ -98,6 +104,7 @@
     {
       "slug": "emocromo",
       "name": "Emocromo",
+      "description": "Globuli rossi, bianchi e piastrine.",
       "group": "sangue-urine",
       "price_eur": 12,
       "duration_min": 15,
@@ -108,6 +115,7 @@
     {
       "slug": "funzionalita-renale",
       "name": "Funzionalità renale",
+      "description": "",
       "group": "sangue-urine",
       "price_eur": 20,
       "duration_min": 15,
@@ -118,6 +126,7 @@
     {
       "slug": "profilo-completo",
       "name": "Profilo completo",
+      "description": "Fegato, reni, pancreas e altri parametri.",
       "group": "sangue-urine",
       "price_eur": 25,
       "duration_min": 15,
@@ -128,6 +137,7 @@
     {
       "slug": "pcr",
       "name": "Proteina C reattiva (PCR)",
+      "description": "Un indice di infiammazione.",
       "group": "sangue-urine",
       "price_eur": 20,
       "duration_min": 15,
@@ -138,6 +148,7 @@
     {
       "slug": "coagulazione",
       "name": "Coagulazione",
+      "description": "Tempo di protrombina, fibrinogeno e altri parametri.",
       "group": "sangue-urine",
       "price_eur": 22,
       "duration_min": 15,
@@ -148,6 +159,7 @@
     {
       "slug": "analisi-urine",
       "name": "Analisi delle urine",
+      "description": "",
       "group": "sangue-urine",
       "price_eur": 6,
       "duration_min": 15,
@@ -158,6 +170,7 @@
     {
       "slug": "breath-test-lattosio",
       "name": "Breath test lattosio",
+      "description": "Si soffia in un sacchetto a intervalli regolari.",
       "group": "intolleranze-allergie",
       "price_eur": 104,
       "duration_min": 240,
@@ -169,6 +182,7 @@
     {
       "slug": "breath-test-glucosio-lattulosio",
       "name": "Breath test glucosio · lattulosio",
+      "description": "Per valutare la contaminazione batterica dell'intestino tenue.",
       "group": "intolleranze-allergie",
       "price_eur": 104,
       "duration_min": 240,
@@ -179,6 +193,7 @@
     {
       "slug": "profilo-allergie",
       "name": "Profilo allergie (63 allergeni)",
+      "description": "63 allergeni tra inalanti e alimenti.",
       "group": "intolleranze-allergie",
       "price_eur": 218,
       "duration_min": 15,
@@ -189,6 +204,7 @@
     {
       "slug": "food-recaller",
       "name": "Food Recaller",
+      "description": "Infiammazione legata al cibo e profilo nutrizionale.",
       "group": "intolleranze-allergie",
       "price_eur": 149,
       "duration_min": 15,
@@ -199,6 +215,7 @@
     {
       "slug": "perme-recaller",
       "name": "PerMè Recaller",
+      "description": "La versione avanzata, con zuccheri e altri parametri.",
       "group": "intolleranze-allergie",
       "price_eur": 299,
       "duration_min": 15,
@@ -209,6 +226,7 @@
     {
       "slug": "analisi-pelle-viso",
       "name": "Analisi della pelle e del viso",
+      "description": "Con la farmacista e lo strumento SpectroSkin.",
       "group": "pelle",
       "price_eur": 25,
       "duration_min": 15,
@@ -220,6 +238,7 @@
     {
       "slug": "analisi-cuoio-capelluto",
       "name": "Analisi del cuoio capelluto",
+      "description": "",
       "group": "pelle",
       "price_eur": null,
       "duration_min": 15,
@@ -231,6 +250,7 @@
     {
       "slug": "teledermatologia",
       "name": "Visita teledermatologica dei nei",
+      "description": "Fotografiamo i nei e un dermatologo li valuta a distanza.",
       "group": "pelle",
       "price_eur": 59.9,
       "duration_min": 15,
@@ -242,6 +262,7 @@
     {
       "slug": "tampone-streptococco",
       "name": "Tampone streptococco",
+      "description": "",
       "group": "tamponi",
       "price_eur": 22,
       "duration_min": 15,
@@ -252,6 +273,7 @@
     {
       "slug": "videoconsulenza",
       "name": "Videoconsulenza con la farmacista",
+      "description": "",
       "group": null,
       "price_eur": 15,
       "duration_min": 15,
@@ -263,6 +285,7 @@
     {
       "slug": "chiacchierata-deblistering",
       "name": "Chiacchierata sul deblistering",
+      "description": "",
       "group": null,
       "price_eur": 0,
       "duration_min": 15,

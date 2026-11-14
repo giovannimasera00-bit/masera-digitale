@@ -30,7 +30,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   Verificato: risponde da `fra1` (Francoforte), `noindex` attivo, `robots.txt` blocca tutto,
   Vercel Authentication (Standard Protection) attiva sulle anteprime. Piano Hobby: l'indirizzo principale è raggiungibile da chi ha il link.
 
-### Fase 1a – Homepage (branch `fase1/homepage`, in revisione)
+### Fase 1a – Homepage (unita in main il 14/11/2026, online su https://masera-digitale.vercel.app)
 - Anteprima: https://masera-digitale-git-fase1-homepage-giovanni-7bbb.vercel.app (serve l'accesso Vercel).
 - Sezioni come BRIEF §6: barra di stato, testata con menu (anche da telefono), hero con archi, "Di cosa hai bisogno oggi?",
   4 azioni rapide, Seregno / Tutta Italia, striscia servizi (con pulsante "Ferma"), reparti a schede, ZTL, robot,
@@ -65,7 +65,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni sulla homepage (anteprima sopra), poi "unisci" per portarla su main.
+- Prossima pagina della Fase 1: Servizi e prezzi (`/servizi`, da `data/servizi.json`).
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";
   timeline 2026 "cinque postazioni al banco" o "banco nuovo"; piano Vercel Pro prima di condividere i link.

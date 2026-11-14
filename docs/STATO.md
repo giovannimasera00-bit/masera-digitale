@@ -26,9 +26,13 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Regione Vercel `fra1` in `apps/web/vercel.json`. Istruzioni passo passo in `docs/VERCEL.md`.
 - Provato a 390 px e 1440 px.
 
+- **Online su Vercel** (14/11/2026): https://masera-digitale.vercel.app, codice su GitHub `giovannimasera00-bit/masera-digitale`.
+  Verificato: risponde da `fra1` (Francoforte), `noindex` attivo, `robots.txt` blocca tutto,
+  Vercel Authentication (Standard Protection) attiva sulle anteprime. Piano Hobby: l'indirizzo principale è raggiungibile da chi ha il link.
+
 ## Manca per chiudere la Fase 0
-- Repository su GitHub e primo deploy su Vercel (servono gli account di Giovanni: vedi `docs/VERCEL.md`).
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
+- Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
 
 ## Scelte provvisorie (da confermare)
 - L'**arco** è ridisegnato a mano (3 archi annidati, come nel canvas): da sostituire con i tracciati del logo vettoriale.

@@ -54,8 +54,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il canvas indicava 10 minuti per l'analisi della pelle: ho usato 15 minuti e 25 € come da brief e `servizi.json`.
 - I link a pagine non ancora fatte (servizi, prenota, ztl, robot, famiglia, legali…) per ora portano a "pagina non trovata".
 
-### Fase 1b – Servizi e prezzi (branch `fase1/servizi`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1-servizi-giovanni-7bbb.vercel.app/servizi (serve l'accesso Vercel).
+### Fase 1a – Servizi e prezzi (unita in main il 14/11/2026, online su https://masera-digitale.vercel.app/servizi)
 - `/servizi`: 6 gruppi per bisogno (navigazione a pillole), per ogni servizio nome, descrizione breve, "Come prepararti",
   prezzo, durata e pulsante Prenota. Riquadro "Come prenotare", "Prezzi aggiornati a novembre 2026", sezione "Anche in farmacia".
 - `/servizi/[slug]`: una scheda per ognuno dei 21 servizi del listino, con prezzo, durata, dove, preparazione, note,
@@ -86,7 +85,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni su Servizi e prezzi (anteprima sopra), poi "unisci".
+- Prossima pagina della Fase 1 (ordine della guida): ZTL con la mappa animata (`/ztl`).
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

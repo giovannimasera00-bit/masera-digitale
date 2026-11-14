@@ -30,6 +30,27 @@ Aggiornato da Claude Code a fine di ogni sessione.
   Verificato: risponde da `fra1` (Francoforte), `noindex` attivo, `robots.txt` blocca tutto,
   Vercel Authentication (Standard Protection) attiva sulle anteprime. Piano Hobby: l'indirizzo principale è raggiungibile da chi ha il link.
 
+### Fase 1a – Homepage (branch `fase1/homepage`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1-homepage-giovanni-7bbb.vercel.app (serve l'accesso Vercel).
+- Sezioni come BRIEF §6: barra di stato, testata con menu (anche da telefono), hero con archi, "Di cosa hai bisogno oggi?",
+  4 azioni rapide, Seregno / Tutta Italia, striscia servizi (con pulsante "Ferma"), reparti a schede, ZTL, robot,
+  ieri/oggi, MyMasera, footer con orari, indirizzo, spedizioni, ragione sociale. Dati strutturati `Pharmacy` per Google.
+- Prezzi, durate, orari e regole di consegna arrivano da `data/*.json`; i testi stanno in `apps/web/src/content/home.ts` (poi su Sanity).
+- Nuova logica in `packages/core` con test: consegna Seregno (entro le 16, sabato sì, domenica no), zona dal CAP,
+  soglia 59 €, prezzi e orari formattati. Totale test: 47.
+- Card "Consegna": il conto alla rovescia compare solo nelle ultime 4 ore prima delle 16 (informazione vera, non urgenza finta).
+- Provata a 390 px e 1440 px, nessuno scorrimento laterale, "riduci movimento" ferma tutto (anche la striscia e il furgone).
+- Foto: ieri/oggi ritagliate dalla grafica della home attuale, robot da `design/robot/IMG_8685.jpg` (`node scripts/prepare-images.mjs`).
+
+### Da decidere sulla homepage
+- **Shop e MyMasera non esisteranno ancora al giorno dello switch** (arrivano in Fase 2), ma la homepage li promuove
+  ("Vai allo shop", consegne, "La farmacia in tasca"). Al lancio della Fase 1: nasconderli, oppure mostrarli come "in arrivo"?
+- Testo barra di stato: proposto "Accesso in ZTL per i clienti" (il brief dice "Accesso libero in ZTL").
+- Marchi della veterinaria: `[DA CONFERMARE]` visibile nella scheda Reparti.
+- La mappa ZTL in home è **statica** per ora: quella animata arriva con la pagina `/ztl`.
+- Il canvas indicava 10 minuti per l'analisi della pelle: ho usato 15 minuti e 25 € come da brief e `servizi.json`.
+- I link a pagine non ancora fatte (servizi, prenota, ztl, robot, famiglia, legali…) per ora portano a "pagina non trovata".
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -41,7 +62,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Link del repository GitHub `masera-digitale` (privato, vuoto) e account Vercel collegato a GitHub.
+- Ok o correzioni sulla homepage (anteprima sopra), poi "unisci" per portarla su main.
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";
   timeline 2026 "cinque postazioni al banco" o "banco nuovo"; piano Vercel Pro prima di condividere i link.

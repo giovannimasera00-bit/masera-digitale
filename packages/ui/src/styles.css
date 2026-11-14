@@ -41,6 +41,21 @@
 }
 .fm-breathe { animation: fm-breathe 1800ms ease-out infinite; }
 
+/* Cambio di scheda (chip, reparti): la nuova card sale piano */
+@keyframes fm-swap { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.fm-swap { animation: fm-swap var(--fm-dur-base) var(--ease-masera) both; }
+
+/* Striscia dei servizi: scorre piano, si ferma al passaggio del mouse o con il pulsante */
+@keyframes fm-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.fm-marquee { animation: fm-marquee 60s linear infinite; }
+.fm-marquee:hover, .fm-marquee.is-paused { animation-play-state: paused; }
+
+/* Furgone della consegna (decorativo) */
+@keyframes fm-road { to { stroke-dashoffset: -40; } }
+@keyframes fm-van { 0% { transform: translateX(0); } 45%, 55% { transform: translateX(300px); } 100% { transform: translateX(0); } }
+.fm-road { animation: fm-road 1.2s linear infinite; }
+.fm-van { animation: fm-van 9s var(--ease-percorso) infinite; }
+
 /* Pulsanti: risposta al tocco */
 .fm-press { transition: transform var(--fm-dur-fast) var(--ease-masera), background-color var(--fm-dur-fast) var(--ease-masera), color var(--fm-dur-fast) var(--ease-masera); }
 .fm-press:active { transform: scale(0.97); }
@@ -54,13 +69,23 @@
   :root:not([data-motion="full"]) .fm-arch path,
   :root:not([data-motion="full"]) .fm-rise-line,
   :root:not([data-motion="full"]) .fm-bar-fill,
-  :root:not([data-motion="full"]) .fm-breathe { animation: none !important; }
+  :root:not([data-motion="full"]) .fm-breathe,
+  :root:not([data-motion="full"]) .fm-swap,
+  :root:not([data-motion="full"]) .fm-marquee,
+  :root:not([data-motion="full"]) .fm-road,
+  :root:not([data-motion="full"]) .fm-van { animation: none !important; }
+  :root:not([data-motion="full"]) .fm-marquee-toggle { display: none; }
   :root:not([data-motion="full"]) .fm-press { transition: none; }
   :root:not([data-motion="full"]) .fm-press:active { transform: none; }
 }
 [data-motion="reduce"] .fm-arch path,
 [data-motion="reduce"] .fm-rise-line,
 [data-motion="reduce"] .fm-bar-fill,
-[data-motion="reduce"] .fm-breathe { animation: none !important; }
+[data-motion="reduce"] .fm-breathe,
+[data-motion="reduce"] .fm-swap,
+[data-motion="reduce"] .fm-marquee,
+[data-motion="reduce"] .fm-road,
+[data-motion="reduce"] .fm-van { animation: none !important; }
+[data-motion="reduce"] .fm-marquee-toggle { display: none; }
 [data-motion="reduce"] .fm-press { transition: none; }
 [data-motion="reduce"] .fm-press:active { transform: none; }

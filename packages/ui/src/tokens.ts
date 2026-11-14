@@ -37,4 +37,7 @@ export const textPairs: { fg: ColorName; bg: ColorName; size: "normal" | "large"
   { fg: "verde_scuro", bg: "beige_chiaro", size: "normal", where: "card beige" },
   { fg: "verde_scuro", bg: "beige_scuro", size: "large", where: "titoli su beige scuro" },
   { fg: "mela", bg: "verde_scuro", size: "normal", where: "accento su fondo scuro" },
+  { fg: "carta", bg: "nero", size: "normal", where: "barra di stato in cima" },
+  { fg: "verde", bg: "beige_chiaro", size: "normal", where: "testi secondari su beige" },
+  { fg: "verde_scuro", bg: "carta", size: "large", where: "striscia dei servizi" },
 ];

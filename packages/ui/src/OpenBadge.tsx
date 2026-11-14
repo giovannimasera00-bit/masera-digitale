@@ -13,11 +13,14 @@ export function OpenBadge({
   hours = farmaciaHours,
   now,
   className,
+  tone = "light",
 }: {
   initial?: OpenStatus;
   hours?: WeeklyHours;
   now?: Date;
   className?: string;
+  /** "light" = pillola bianca; "dark" = solo testo carta, per la barra di stato su fondo scuro. */
+  tone?: "light" | "dark";
 }) {
   const fixed = now?.getTime();
   const [status, setStatus] = useState<OpenStatus>(() => initial ?? getOpenStatus(hours, now ?? new Date()));
@@ -36,7 +39,8 @@ export function OpenBadge({
   return (
     <span
       className={cx(
-        "inline-flex items-center gap-2.5 whitespace-nowrap rounded-full bg-bianco px-4 min-h-10 text-[15px] font-medium text-verde-scuro",
+        "inline-flex items-center gap-2.5 whitespace-nowrap text-[15px] font-medium",
+        tone === "light" ? "rounded-full bg-bianco px-4 min-h-10 text-verde-scuro" : "text-carta",
         className,
       )}
     >

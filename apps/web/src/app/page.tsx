@@ -1,34 +1,48 @@
-import { farmacia, farmaciaHours, getOpenStatus } from "@masera/core";
-import { Button, ColorBar, LogoArch, OpenBadge, RiseTitle } from "@masera/ui";
+import type { Metadata } from "next";
+import { PharmacyJsonLd } from "@/components/PharmacyJsonLd";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { StatusBar } from "@/components/StatusBar";
+import { DeliveryZones } from "@/components/home/DeliveryZones";
+import { Hero } from "@/components/home/Hero";
+import { IeriOggi } from "@/components/home/IeriOggi";
+import { MyMaseraTeaser } from "@/components/home/MyMaseraTeaser";
+import { QuickActions } from "@/components/home/QuickActions";
+import { Reparti } from "@/components/home/Reparti";
+import { RobotTeaser } from "@/components/home/RobotTeaser";
+import { ServicesMarquee } from "@/components/home/ServicesMarquee";
+import { ZtlTeaser } from "@/components/home/ZtlTeaser";
 
+// Aperto ora e consegna dipendono dall'ora: la pagina si calcola a ogni visita.
 export const dynamic = "force-dynamic";
 
-// Pagina provvisoria della Fase 0: la homepage vera arriva in Fase 1.
+export const metadata: Metadata = {
+  title: { absolute: "Farmacia Masera · Seregno · Medicina per tradizione dal 1908" },
+  description:
+    "Farmacia Masera, Via Garibaldi 103, Seregno. Analisi e servizi su prenotazione, consegna in giornata gratuita a Seregno, spedizione in Italia gratis sopra 59 €.",
+};
+
 export default function Home() {
-  const initial = getOpenStatus(farmaciaHours, new Date());
   return (
-    <main className="min-h-dvh bg-verde-scuro text-carta">
-      <div className="mx-auto flex min-h-dvh max-w-5xl flex-col justify-center gap-8 px-4 py-16 md:px-8">
-        <LogoArch className="w-40 text-salvia md:w-56" />
-        <RiseTitle
-          as="h1"
-          className="text-[44px] leading-[1.02] md:text-[80px]"
-          lines={["Medicina", "per tradizione.", <span key="1908" className="text-mela">Dal 1908.</span>]}
-        />
-        <p className="max-w-xl text-lg text-beige-chiaro">{farmacia.claims[1]}</p>
-        <div className="flex flex-wrap items-center gap-3">
-          <OpenBadge initial={initial} />
-          <Button variant="cta" href="/design">
-            Vedi i componenti
-          </Button>
-        </div>
-        <p className="text-[15px] text-beige-chiaro">
-          Il nuovo sito è in costruzione. {farmacia.address.street}, {farmacia.address.city}.
-        </p>
-      </div>
-      <div className="bg-carta px-4 py-6 md:px-8">
-        <ColorBar className="mx-auto max-w-5xl" />
-      </div>
-    </main>
+    <>
+      <a href="#contenuto" className="fm-focus sr-only z-50 rounded-full bg-carta px-4 py-3 focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
+        Vai al contenuto
+      </a>
+      <StatusBar />
+      <SiteHeader />
+      <main id="contenuto">
+        <Hero />
+        <QuickActions />
+        <DeliveryZones />
+        <ServicesMarquee />
+        <Reparti />
+        <ZtlTeaser />
+        <RobotTeaser />
+        <IeriOggi />
+        <MyMaseraTeaser />
+      </main>
+      <SiteFooter />
+      <PharmacyJsonLd url={process.env.NEXT_PUBLIC_SITE_URL ?? "https://farmaciamasera.com"} />
+    </>
   );
 }

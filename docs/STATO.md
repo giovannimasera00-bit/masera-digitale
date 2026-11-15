@@ -73,8 +73,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - I pulsanti **Prenota** portano a `/prenota?servizio=…`: la pagina arriva con Agenda Masera (prossimo pezzo della Fase 1).
 - Vaccini e tampone COVID: esclusi finché non decidi (domande aperte in `servizi.json`).
 
-### Fase 1a – ZTL (branch `fase1/ztl`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1-ztl-giovanni-7bbb.vercel.app/ztl (serve l'accesso Vercel).
+### Fase 1a – ZTL (unita in main il 15/11/2026, online su https://masera-digitale.vercel.app/ztl)
 - Componente `<ZtlMap />` (`apps/web/src/components/ztl/`): geometria reale del prototipo `design/canvas/ZtlMap.dc.html`
   (generata con `node scripts/build-ztl-map.mjs`). L'auto arriva da via Cairoli, passa il varco (al 51% del percorso, tratteggio
   sincronizzato), entra nello stallo riservato, parte il timer 30', compare la targa, "Tutto qui.". **Si gioca una volta** quando
@@ -98,7 +97,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni sulla pagina ZTL (anteprima sopra), poi "unisci".
+- Prossima pagina della Fase 1 (ordine della guida): la farmacia e la famiglia (`/la-farmacia`, `/famiglia`).
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

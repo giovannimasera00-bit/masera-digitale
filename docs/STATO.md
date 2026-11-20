@@ -119,8 +119,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Testo "Perché un robot?": l'ho scritto io partendo dal brief ("libera tempo al banco"), da rileggere.
 - Foto della tappa "Il nastro": è la parte alta con gli scivoli, se hai una foto del nastro vero la sostituisco.
 
-### Fase 1a – Skin LAB (branch `fase1/skinlab`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1-skinlab-giovanni-7bbb.vercel.app/skinlab (serve l'accesso Vercel).
+### Fase 1a – Skin LAB (unita in main il 21/11/2026, online su https://masera-digitale.vercel.app/skinlab)
 - Colori tortora di Skin LAB (`#B7A999 #8C7D6C #6E6153 #3A332B`) aggiunti ai token come `tortora-1…4`, con 6 nuove coppie
   nel test del contrasto (tutte AA). Marchio "Skin" Bodoni corsivo + "LAB" sans light, "by Farmacia Masera".
 - Hero "Prima guardiamo la tua pelle. Poi scegliamo insieme." con **report di esempio animato** (scansione del viso 2 volte,
@@ -147,7 +146,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni sulla pagina Skin LAB (anteprima sopra), poi "unisci".
+- Prossima pagina della Fase 1 (ordine della guida): Farmaestetica (`/farmaestetica`, listino da `data/farmaestetica.json` e `data/miamo-lounge.json`).
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

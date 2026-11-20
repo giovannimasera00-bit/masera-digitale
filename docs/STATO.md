@@ -86,8 +86,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   nessun parcheggio a pagamento, niente "sconti pazzi". Totale test: 59.
 - Provata a 390 px e 1440 px; al telefono le scritte dentro la mappa sono piccole, ma i 3 passi sono scritti sotto in grande.
 
-### Fase 1a – La farmacia e la famiglia (branch `fase1/farmacia-famiglia`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1-farmacia-famiglia-giovanni-7bbb.vercel.app/la-farmacia e `/famiglia` (serve l'accesso Vercel).
+### Fase 1a – La farmacia e la famiglia (unite in main il 21/11/2026, online su https://masera-digitale.vercel.app/la-farmacia e /famiglia)
 - `/famiglia`: "Quattro generazioni, una sola missione: la tua salute.", 4 schede delle generazioni (testi della pagina ponte già
   pubblicata) con riquadro **"Foto in arrivo"**, linea del tempo 1908 → 2026 con i testi ufficiali del BRIEF §3.
 - `/la-farmacia`: "Più spazio, più servizi, più tempo per te.", foto del nuovo banco, "Cosa trovi di nuovo" (1 robot, 5 postazioni,
@@ -116,7 +115,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni su "La farmacia" e "La famiglia" (anteprima sopra), poi "unisci".
+- Prossima pagina della Fase 1 (ordine della guida): il robot (`/robot`, tour virtuale). Servono i numeri tecnici dal costruttore.
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

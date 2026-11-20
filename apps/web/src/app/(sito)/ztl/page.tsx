@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { farmacia, farmaciaHours, formatWeeklyHours } from "@masera/core";
-import { Button } from "@masera/ui";
 import { Breadcrumbs, siteUrl } from "@/components/Breadcrumbs";
 import { PageHeader } from "@/components/PageHeader";
+import { VisitInfo } from "@/components/VisitInfo";
 import { ZtlMap } from "@/components/ztl/ZtlMap";
-import { links } from "@/content/home";
-import { googleMapsUrl, ztlClosing, ztlFacts, ztlFaq, ztlSince, ztlSteps } from "@/content/ztl";
+import { ztlClosing, ztlFacts, ztlFaq, ztlSince, ztlSteps } from "@/content/ztl";
 
 export const metadata: Metadata = {
   title: "Come arrivare in ZTL",
@@ -14,7 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function ZtlPage() {
-  const a = farmacia.address;
   const faqLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -95,34 +92,7 @@ export default function ZtlPage() {
         </div>
       </section>
 
-      <section aria-labelledby="dove-t" className="mx-auto max-w-7xl px-4 pb-8 md:px-8">
-        <div className="grid gap-6 rounded-3xl bg-beige-chiaro p-7 md:grid-cols-2 md:p-10">
-          <div>
-            <h2 id="dove-t" className="fm-display text-[34px] leading-tight md:text-[44px]">
-              Ti aspettiamo in via Garibaldi {a.street.replace(/\D+/g, "")}
-            </h2>
-            <address className="mt-3 text-[17px] not-italic">
-              {farmacia.name}, {a.street}, {a.zip} {a.city} ({a.province})
-            </address>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button variant="primario" href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
-                Apri in Google Maps
-              </Button>
-              <Button variant="secondario" href={links.whatsapp}>
-                Scrivici su WhatsApp
-              </Button>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-[18px] font-semibold">Orari</h3>
-            <ul className="mt-2 space-y-1 text-[17px]">
-              {formatWeeklyHours(farmaciaHours).map((l) => (
-                <li key={l}>{l}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+      <VisitInfo />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
     </>

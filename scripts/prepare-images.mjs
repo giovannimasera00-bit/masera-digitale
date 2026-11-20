@@ -17,4 +17,9 @@ await sharp("design/robot/IMG_8685.jpg").rotate().resize(1400, 1400, { fit: "ins
 await sharp("assets/logo/MASERA_logo_Oriz-COLOR.png").trim().resize({ width: 640 }).png({ compressionLevel: 9 }).toFile(`${out}/logo-oriz-color.png`);
 await sharp("assets/logo/MASERA_logo_Oriz-BIANCO.png").trim().resize({ width: 640 }).png({ compressionLevel: 9 }).toFile(`${out}/logo-oriz-bianco.png`);
 
+// La nuova farmacia: banco, scivoli dal robot, caricatore (foto di cantiere, ottobre 2026).
+await sharp("design/robot/IMG_8176.jpg").rotate().resize(1600, 1200, { fit: "cover", position: "centre" }).webp({ quality: 78 }).toFile(`${out}/spazi-banco.webp`);
+await sharp("design/robot/IMG_8840.jpg").rotate().resize(1050, 1400, { fit: "cover" }).webp({ quality: 78 }).toFile(`${out}/spazi-scivoli.webp`);
+await sharp("design/robot/IMG_8836.jpg").rotate().resize(1050, 1400, { fit: "cover" }).webp({ quality: 78 }).toFile(`${out}/spazi-caricatore.webp`);
+
 console.log("immagini pronte");

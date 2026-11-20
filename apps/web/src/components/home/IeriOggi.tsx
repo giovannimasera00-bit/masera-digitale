@@ -3,7 +3,7 @@ import Link from "next/link";
 import { links } from "@/content/home";
 
 const items = [
-  { tag: "Ieri", text: "Il laboratorio galenico, una tradizione di famiglia.", src: "/img/ieri-laboratorio.webp", w: 612, h: 362, alt: "Il Dr. Giuseppe Masera nel laboratorio galenico, in una foto d'epoca." },
+  { tag: "Ieri", text: "Il laboratorio galenico, una tradizione di famiglia.", src: "/img/ieri-laboratorio.webp", w: 612, h: 362, alt: "Un farmacista nel laboratorio galenico della farmacia, in una foto d'epoca." },
   { tag: "Oggi", text: "Il nuovo robot, la farmacia che si rinnova.", src: "/img/oggi-robot.webp", w: 612, h: 284, alt: "Il braccio del nuovo robot tra gli scaffali." },
 ];
 

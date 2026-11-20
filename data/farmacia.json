@@ -122,31 +122,49 @@
   "timeline": [
     {
       "year": "1908",
-      "text": "Inizia la tradizione medica con il Prof. Giuseppe Masera, chirurgo."
+      "title": "Inizia la tradizione medica",
+      "text": "Inizia la tradizione medica con il Prof. Giuseppe Masera, chirurgo.",
+      "detail": "Il Prof. Giuseppe Masera, chirurgo, docente di patologia chirurgica a Pavia, per oltre 35 anni alla guida dell'ospedale di Carate Brianza.",
+      "generation": 1
     },
     {
       "year": "1918",
-      "text": "Medaglia d'argento al valor militare sul Piave."
+      "title": "Medaglia d'argento",
+      "text": "Medaglia d'argento al valor militare sul Piave.",
+      "detail": "Il Prof. Giuseppe Masera riceve la medaglia d'argento al valor militare nella battaglia del Piave."
     },
     {
       "year": "1963",
-      "text": "Il dott. Gianfranco Colombo apre la Farmacia Santa Valeria."
+      "title": "Nasce la Farmacia Santa Valeria",
+      "text": "Il dott. Gianfranco Colombo apre la Farmacia Santa Valeria.",
+      "detail": "Il dott. Gianfranco Colombo apre la Farmacia Santa Valeria a Seregno."
     },
     {
       "year": "fine anni '60",
-      "text": "Il Dr. Vittorio Masera rileva la farmacia."
+      "title": "La farmacia diventa dei Masera",
+      "text": "Il Dr. Vittorio Masera rileva la farmacia.",
+      "detail": "Il Dr. Vittorio Masera, dall'informazione medico-scientifica nelle multinazionali, rileva la farmacia e la trasforma in un luogo di consiglio e di ascolto.",
+      "generation": 2
     },
     {
       "year": "2002",
-      "text": "Il Dr. Giuseppe Masera diventa titolare."
+      "title": "Il Dr. Giuseppe Masera è titolare",
+      "text": "Il Dr. Giuseppe Masera diventa titolare.",
+      "detail": "Integrazione, omeopatia e galenica. Volto di Canale 5 negli anni '90, nella commissione medico-scientifica della FISI, formula la linea Dottor Masera.",
+      "generation": 3
     },
     {
       "year": "2024",
-      "text": "Il Dr. Giovanni Masera, quarta generazione."
+      "title": "La quarta generazione",
+      "text": "Il Dr. Giovanni Masera, quarta generazione.",
+      "detail": "Il Dr. Giovanni Masera, laurea in Farmacia a Pavia: servizi innovativi e divulgazione come @dottormasera.",
+      "generation": 4
     },
     {
       "year": "2026",
-      "text": "La farmacia si rinnova: robot, banco nuovo, cabine. Accesso in ZTL."
+      "title": "La farmacia si rinnova",
+      "text": "La farmacia si rinnova: robot, cinque postazioni al banco, cabine nuove. Accesso in ZTL.",
+      "detail": "Il robot, cinque postazioni al banco, cabine nuove. E l'accesso in ZTL per i clienti."
     }
   ],
   "brand": {
@@ -179,5 +197,31 @@
       "spring": "cubic-bezier(.3,1.3,.5,1)",
       "stagger_ms": 150
     }
-  }
+  },
+  "generations": [
+    {
+      "n": 1,
+      "label": "Prima generazione",
+      "name": "Prof. Giuseppe Masera",
+      "text": "Chirurgo, per oltre 35 anni all'ospedale di Carate Brianza. Medaglia d'argento al valor militare nel 1918."
+    },
+    {
+      "n": 2,
+      "label": "Seconda generazione",
+      "name": "Dr. Vittorio Masera",
+      "text": "A fine anni '60 rileva la Farmacia Santa Valeria e ne fa un luogo di consiglio e di ascolto."
+    },
+    {
+      "n": 3,
+      "label": "Terza generazione",
+      "name": "Dr. Giuseppe Masera",
+      "text": "Titolare dal 2002: integrazione, galenica e divulgazione scientifica."
+    },
+    {
+      "n": 4,
+      "label": "Quarta generazione",
+      "name": "Dr. Giovanni Masera",
+      "text": "Servizi innovativi, digitale e divulgazione con il progetto Dottor Masera."
+    }
+  ]
 }

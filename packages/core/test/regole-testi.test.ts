@@ -21,6 +21,7 @@ const vietate: [RegExp, string][] = [
   [/farmaestetica by farmacia masera/i, 'è "Farmaestetica by Dottor Masera" (regola 1)'],
   [/parchegg\w* a pagamento|strisce blu|parchimetr/i, "ZTL: nessun riferimento ai parcheggi a pagamento (regola 8)"],
   [/sconti pazzi|prezzo più basso|il più economico/i, "niente guerra di prezzo (posizionamento)"],
+  [/21 novembre 2026|sabato 21 novembre/i, "data della reinaugurazione: non pubblicarla finché non è ufficiale (BRIEF §7.5, decisione 13)"],
 ];
 
 describe("Regole fisse nei testi", () => {

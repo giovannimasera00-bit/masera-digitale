@@ -86,6 +86,25 @@ Aggiornato da Claude Code a fine di ogni sessione.
   nessun parcheggio a pagamento, niente "sconti pazzi". Totale test: 59.
 - Provata a 390 px e 1440 px; al telefono le scritte dentro la mappa sono piccole, ma i 3 passi sono scritti sotto in grande.
 
+### Fase 1a – La farmacia e la famiglia (branch `fase1/farmacia-famiglia`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1-farmacia-famiglia-giovanni-7bbb.vercel.app/la-farmacia e `/famiglia` (serve l'accesso Vercel).
+- `/famiglia`: "Quattro generazioni, una sola missione: la tua salute.", 4 schede delle generazioni (testi della pagina ponte già
+  pubblicata) con riquadro **"Foto in arrivo"**, linea del tempo 1908 → 2026 con i testi ufficiali del BRIEF §3.
+- `/la-farmacia`: "Più spazio, più servizi, più tempo per te.", foto del nuovo banco, "Cosa trovi di nuovo" (1 robot, 5 postazioni,
+  2 cabine, 1 banco cosmesi), foto di scivoli e caricatore, mappa ZTL, rimando alla famiglia, indirizzo e orari.
+- `data/farmacia.json`: linea del tempo con titolo e testo ufficiale, nuove `generations`. Per il 2026 uso "cinque postazioni al banco"
+  (come nella pagina ponte già pubblicata) invece di "banco nuovo".
+- Componenti nuovi riusabili: `Reveal` (contenuto che sale una volta) e `VisitInfo` (indirizzo, Google Maps, WhatsApp, orari).
+- Homepage: il testo alternativo della foto d'epoca non dice più chi è (era una mia supposizione).
+- Test regole: ora blocca anche la data della reinaugurazione ("21 novembre 2026"). Totale test: 60.
+
+### Da decidere su farmacia e famiglia
+- **Data della reinaugurazione**: nella pagina ponte c'è "sabato 21 novembre 2026"; nel nuovo sito non è pubblicata (brief §7.5).
+- **Telefono 0362 231660**: la pagina ponte lo indica come numero della farmacia, il brief come numero di Farmaestetica. Quale è giusto?
+- **Foto della famiglia** (4 generazioni) e chi è nella foto d'epoca del laboratorio.
+- La foto del banco mostra due persone del personale: va bene pubblicarla? (consenso)
+- Locker esterno (brief §3): non l'ho citato finché non mi confermi che è attivo.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -97,7 +116,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Prossima pagina della Fase 1 (ordine della guida): la farmacia e la famiglia (`/la-farmacia`, `/famiglia`).
+- Ok o correzioni su "La farmacia" e "La famiglia" (anteprima sopra), poi "unisci".
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

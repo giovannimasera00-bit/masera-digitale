@@ -104,8 +104,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - La foto del banco mostra due persone del personale: va bene pubblicarla? (consenso)
 - Locker esterno (brief §3): non l'ho citato finché non mi confermi che è attivo.
 
-### Fase 1a – Il robot (branch `fase1/robot`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1-robot-giovanni-7bbb.vercel.app/robot (serve l'accesso Vercel).
+### Fase 1a – Il robot (unito in main il 21/11/2026, online su https://masera-digitale.vercel.app/robot)
 - "Dietro il banco c'è un robot.": 4 numeri (5,72 m, 3,90 m, 3 scivoli, ripiani in vetro) che salgono uno alla volta.
 - **Schema animato** (da `design/canvas/Robot.dc.html`): la confezione rossa fa caricatore → scaffali → braccio → nastro →
   scivolo → banco **una volta** quando entra in vista, con "Rivedi". Con "riduci movimento": confezione già al banco.
@@ -131,7 +130,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni sulla pagina del robot (anteprima sopra), poi "unisci".
+- Prossima pagina della Fase 1 (ordine della guida): Skin LAB (`/skinlab`). Serve il prezzo dell'analisi del cuoio capelluto.
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

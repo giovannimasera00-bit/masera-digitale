@@ -22,4 +22,20 @@ await sharp("design/robot/IMG_8176.jpg").rotate().resize(1600, 1200, { fit: "cov
 await sharp("design/robot/IMG_8840.jpg").rotate().resize(1050, 1400, { fit: "cover" }).webp({ quality: 78 }).toFile(`${out}/spazi-scivoli.webp`);
 await sharp("design/robot/IMG_8836.jpg").rotate().resize(1050, 1400, { fit: "cover" }).webp({ quality: 78 }).toFile(`${out}/spazi-caricatore.webp`);
 
+// Tour del robot: le 5 tappe e la galleria.
+const robot = [
+  ["IMG_8836", "robot-1-caricatore", "centre"],
+  ["IMG_8563", "robot-2-scaffali", "centre"],
+  ["IMG_8560", "robot-3-braccio", "centre"],
+  ["IMG_8839", "robot-4-nastro", "top"],
+  ["IMG_8840", "robot-5-scivolo", "centre"],
+  ["CD724AD3-E019-4065-9B87-CD5666F07CE5", "robot-g-tramoggia", "centre"],
+  ["IMG_8703", "robot-g-ripiani", "centre"],
+  ["IMG_8832", "robot-g-pannello", "centre"],
+  ["IMG_8834", "robot-g-porta", "centre"],
+];
+for (const [src, name, position] of robot) {
+  await sharp(`design/robot/${src}.jpg`).rotate().resize(900, 1125, { fit: "cover", position }).webp({ quality: 76 }).toFile(`${out}/${name}.webp`);
+}
+
 console.log("immagini pronte");

@@ -104,6 +104,22 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - La foto del banco mostra due persone del personale: va bene pubblicarla? (consenso)
 - Locker esterno (brief §3): non l'ho citato finché non mi confermi che è attivo.
 
+### Fase 1a – Il robot (branch `fase1/robot`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1-robot-giovanni-7bbb.vercel.app/robot (serve l'accesso Vercel).
+- "Dietro il banco c'è un robot.": 4 numeri (5,72 m, 3,90 m, 3 scivoli, ripiani in vetro) che salgono uno alla volta.
+- **Schema animato** (da `design/canvas/Robot.dc.html`): la confezione rossa fa caricatore → scaffali → braccio → nastro →
+  scivolo → banco **una volta** quando entra in vista, con "Rivedi". Con "riduci movimento": confezione già al banco.
+- **5 tappe** a schede (anche con le frecce della tastiera): foto, testo semplice, Indietro/Avanti; la parte scelta si illumina nello schema.
+- "Perché un robot?" (più tempo della farmacista con te), galleria "Da vicino" (tramoggia, ripiani, pannello, porta in vetro).
+- **"Per gli appassionati"**: scheda tecnica apribile (modello, manipolatore V5, dimensioni, ripiani RAL 9016, carico, 145 mm,
+  nastro con deviatori, 3 scivoli a 93 cm, in servizio dal 21 settembre 2026). Tutto da `data/farmacia.json`.
+- Foto da `design/robot/` (9 nuove, `node scripts/prepare-images.mjs`).
+
+### Da decidere sul robot
+- **Numeri dal costruttore**: confezioni gestite e secondi per un prelievo, oggi `[DA CONFERMARE]` nella scheda tecnica.
+- Testo "Perché un robot?": l'ho scritto io partendo dal brief ("libera tempo al banco"), da rileggere.
+- Foto della tappa "Il nastro": è la parte alta con gli scivoli, se hai una foto del nastro vero la sostituisco.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -115,7 +131,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Prossima pagina della Fase 1 (ordine della guida): il robot (`/robot`, tour virtuale). Servono i numeri tecnici dal costruttore.
+- Ok o correzioni sulla pagina del robot (anteprima sopra), poi "unisci".
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

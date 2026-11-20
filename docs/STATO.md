@@ -119,6 +119,23 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Testo "Perché un robot?": l'ho scritto io partendo dal brief ("libera tempo al banco"), da rileggere.
 - Foto della tappa "Il nastro": è la parte alta con gli scivoli, se hai una foto del nastro vero la sostituisco.
 
+### Fase 1a – Skin LAB (branch `fase1/skinlab`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1-skinlab-giovanni-7bbb.vercel.app/skinlab (serve l'accesso Vercel).
+- Colori tortora di Skin LAB (`#B7A999 #8C7D6C #6E6153 #3A332B`) aggiunti ai token come `tortora-1…4`, con 6 nuove coppie
+  nel test del contrasto (tutte AA). Marchio "Skin" Bodoni corsivo + "LAB" sans light, "by Farmacia Masera".
+- Hero "Prima guardiamo la tua pelle. Poi scegliamo insieme." con **report di esempio animato** (scansione del viso 2 volte,
+  barre che si riempiono, una volta) — valori descrittivi ("Da migliorare", "Buona"…), dichiarato come esempio.
+- "Come funziona" in 3 passi (analisi → routine → riordino), schede **Viso / Cuoio capelluto** con durata, prezzo, preparazione, Prenota.
+- "La tua routine, nel telefono": SkinLab Routine segnata **in arrivo** (Fase 3).
+- **Ponte con Farmaestetica**: Hydrashine 70 € e Purity Skin 55 € (circa 50 min) dalla Miamo Lounge, da `data/miamo-lounge.json`.
+- Marchi delle routine dal brief (Miamo, SkinCeuticals, La Roche-Posay, Caudalie, Dolomia, Bakel, Farmacisti Preparatori, Ceramol, Dercos, Triunico).
+
+### Da decidere su Skin LAB
+- Prezzo dell'analisi del cuoio capelluto: `[DA CONFERMARE]` (visibile nella scheda).
+- Strumento per il cuoio capelluto: il prototipo dice "microcamera", confermi?
+- Il prototipo aveva anche **Lovren** tra i marchi e non aveva Dercos: ho seguito l'elenco del brief.
+- Le frasi "per la pelle che ha bisogno di idratazione / grassa o con imperfezioni" su Hydrashine e Purity Skin sono mie: da rileggere.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -130,7 +147,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Prossima pagina della Fase 1 (ordine della guida): Skin LAB (`/skinlab`). Serve il prezzo dell'analisi del cuoio capelluto.
+- Ok o correzioni sulla pagina Skin LAB (anteprima sopra), poi "unisci".
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

@@ -12,7 +12,17 @@ export const motion = {
   stagger: data.brand.motion.stagger_ms,
 } as const;
 
+/** Tortora di Skin LAB by Farmacia Masera (dal più chiaro al più scuro). */
+export const skinlabColors = {
+  tortora_1: data.brand.skinlab[0]!,
+  tortora_2: data.brand.skinlab[1]!,
+  tortora_3: data.brand.skinlab[2]!,
+  tortora_4: data.brand.skinlab[3]!,
+} as const;
+export const allColors = { ...colors, ...skinlabColors } as const;
+
 export type ColorName = keyof typeof colors;
+export type AnyColorName = keyof typeof allColors;
 
 /** I 5 colori della barra, nell'ordine dell'immagine coordinata. */
 export const barColors: ColorName[] = ["verde_scuro", "mela", "salvia", "beige_chiaro", "beige_scuro"];
@@ -22,7 +32,7 @@ export const barColors: ColorName[] = ["verde_scuro", "mela", "salvia", "beige_c
  * Un componente nuovo che usa un'altra coppia va aggiunto qui: il test del contrasto la verifica.
  * "large" = testo grande (≥ 24 px, o ≥ 18,66 px in grassetto): basta 3:1.
  */
-export const textPairs: { fg: ColorName; bg: ColorName; size: "normal" | "large"; where: string }[] = [
+export const textPairs: { fg: AnyColorName; bg: AnyColorName; size: "normal" | "large"; where: string }[] = [
   { fg: "verde_scuro", bg: "carta", size: "normal", where: "testo principale" },
   { fg: "verde_scuro", bg: "bianco", size: "normal", where: "card bianche, chip" },
   { fg: "verde", bg: "carta", size: "normal", where: "link, pulsante secondario" },
@@ -40,4 +50,10 @@ export const textPairs: { fg: ColorName; bg: ColorName; size: "normal" | "large"
   { fg: "carta", bg: "nero", size: "normal", where: "barra di stato in cima" },
   { fg: "verde", bg: "beige_chiaro", size: "normal", where: "testi secondari su beige" },
   { fg: "verde_scuro", bg: "carta", size: "large", where: "striscia dei servizi" },
+  { fg: "tortora_4", bg: "carta", size: "normal", where: "Skin LAB: testi" },
+  { fg: "tortora_4", bg: "bianco", size: "normal", where: "Skin LAB: card" },
+  { fg: "tortora_4", bg: "tortora_1", size: "normal", where: "Skin LAB: fondi tortora chiari" },
+  { fg: "carta", bg: "tortora_4", size: "normal", where: "Skin LAB: fondi scuri" },
+  { fg: "carta", bg: "tortora_3", size: "normal", where: "Skin LAB: pulsanti" },
+  { fg: "tortora_1", bg: "tortora_4", size: "normal", where: "Skin LAB: testo secondario su fondo scuro" },
 ];

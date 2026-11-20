@@ -2,12 +2,12 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import data from "../../../data/farmacia.json";
 import { AA, contrastRatio } from "../src/contrast";
-import { colors, textPairs } from "../src/tokens";
+import { allColors, colors, textPairs } from "../src/tokens";
 import { renderTokensCss } from "../src/tokens-css";
 
 describe("Contrasto WCAG AA", () => {
   it.each(textPairs)("$fg su $bg ($where)", ({ fg, bg, size }) => {
-    const ratio = contrastRatio(colors[fg], colors[bg]);
+    const ratio = contrastRatio(allColors[fg], allColors[bg]);
     expect(ratio, `${fg} su ${bg}: ${ratio.toFixed(2)}:1`).toBeGreaterThanOrEqual(AA[size]);
   });
 

@@ -1,0 +1,15 @@
+/* Skin LAB: scansione del viso (2 passaggi, poi ferma) e barre del report che si riempiono, una volta. */
+@keyframes skScan { 0% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(180px); } 95% { opacity: 1; } 100% { transform: translateY(0); opacity: 0; } }
+@keyframes skFill { from { transform: scaleX(0); } }
+
+.sk-scan { opacity: 0; animation: skScan 3.2s ease-in-out 2 both; animation-play-state: paused; }
+.sk-fill { transform-origin: left center; animation: skFill 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-play-state: paused; }
+.sk-report.is-in .sk-scan,
+.sk-report.is-in .sk-fill { animation-play-state: running; }
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) .sk-scan { animation: none; opacity: 0; }
+  :root:not([data-motion="full"]) .sk-fill { animation: none; }
+}
+[data-motion="reduce"] .sk-scan { animation: none; opacity: 0; }
+[data-motion="reduce"] .sk-fill { animation: none; }

@@ -16,10 +16,16 @@ import {
   motion,
   skinlab,
   textPairs,
+  allColors,
+  type AnyColorName,
   type ColorName,
 } from "@masera/ui";
 
-const colorLabels: Record<ColorName, string> = {
+const colorLabels: Record<AnyColorName, string> = {
+  tortora_1: "Tortora 1",
+  tortora_2: "Tortora 2",
+  tortora_3: "Tortora 3",
+  tortora_4: "Tortora 4",
   verde_scuro: "Verde scuro",
   verde: "Verde",
   mela: "Mela",
@@ -121,12 +127,12 @@ export function DesignSystem({ initialOpen }: { initialOpen: OpenStatus }) {
           <h3 className="mt-10 text-lg font-semibold">Coppie testo / sfondo ammesse (controllate da un test automatico)</h3>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {textPairs.map((p) => {
-              const r = contrastRatio(colors[p.fg], colors[p.bg]);
+              const r = contrastRatio(allColors[p.fg], allColors[p.bg]);
               return (
                 <li
                   key={`${p.fg}-${p.bg}`}
                   className="flex items-center justify-between gap-3 rounded-2xl p-4"
-                  style={{ background: colors[p.bg], color: colors[p.fg] }}
+                  style={{ background: allColors[p.bg], color: allColors[p.fg] }}
                 >
                   <span className={p.size === "large" ? "text-2xl font-bold" : "text-[15px]"}>
                     {colorLabels[p.fg]} su {colorLabels[p.bg].toLowerCase()}

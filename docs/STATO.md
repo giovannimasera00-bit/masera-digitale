@@ -135,6 +135,22 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il prototipo aveva anche **Lovren** tra i marchi e non aveva Dercos: ho seguito l'elenco del brief.
 - Le frasi "per la pelle che ha bisogno di idratazione / grassa o con imperfezioni" su Hydrashine e Purity Skin sono mie: da rileggere.
 
+### Fase 1a – Farmaestetica (branch `fase1/farmaestetica`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1-farmaestetica-giovanni-7bbb.vercel.app/farmaestetica (serve l'accesso Vercel).
+- Hero salvia con "FARMA ESTETICA · by Dottor Masera" come il cartello, "La bellezza, un piano sopra la farmacia.",
+  riquadro **PIANO 1** (ingresso da via Garibaldi 103 o via Ballerini 10) con "Aperto ora" calcolato sugli orari di Farmaestetica.
+- **Listino completo** a schede (Viso · Corpo · Laser · Cera e mani-piedi · Miamo Lounge) da `data/farmaestetica.json` e
+  `data/miamo-lounge.json`: durate Farmaestetica come "circa", pacchetti 5+1 sul Corpo, + per prenotare ogni trattamento.
+- Buono regalo online **in arrivo**; orari e contatti di Farmaestetica (telefono 0362 231660, WhatsApp 366 199 2302, Instagram).
+- `packages/core/src/farmaestetica.ts` + 7 test: prezzi e durate presenti, **pacchetto 5+1 = 5 sedute**, ordine delle schede,
+  identificativi unici per la prenotazione, orari e "Aperto ora" di Farmaestetica. Totale test: 73.
+- Il telefono 0362 231660 è di Farmaestetica (lo dice `data/farmaestetica.json`): la pagina ponte lo mostrava come numero della farmacia.
+
+### Da decidere su Farmaestetica
+- **Blu Miamo** per le schede della Miamo Lounge (brief §4): mi serve il codice colore ufficiale; per ora stesse schede del resto.
+- Logo Farmaestetica in file (per ora il nome è scritto in testo come sul cartello).
+- Foto della cabina e della Miamo Lounge.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -146,7 +162,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Prossima pagina della Fase 1 (ordine della guida): Farmaestetica (`/farmaestetica`, listino da `data/farmaestetica.json` e `data/miamo-lounge.json`).
+- Ok o correzioni sulla pagina Farmaestetica (anteprima sopra), poi "unisci".
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

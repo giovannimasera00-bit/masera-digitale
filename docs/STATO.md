@@ -159,8 +159,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   tante pastiglie, caregiver, RSA e comunità; prenotazione della chiacchierata gratuita (15 min). Nessun nome di fornitore.
 - `packages/core/src/deblistering.ts` + 5 test (prezzi dal file, 4 settimane = 28 €, calcolo, valori non validi). Totale test: 78.
 
-### Fase 1a – Contatti e pagine legali (branch `fase1/contatti`, in revisione)
-- Anteprime: https://masera-digitale-git-fase1-contatti-giovanni-7bbb.vercel.app/contatti (poi /privacy, /cookie, /note-legali, /accessibilita; serve l'accesso Vercel).
+### Fase 1a – Contatti e pagine legali (unite in main il 24/11/2026)
 - **/contatti**: "aperto ora", canali (WhatsApp, Instagram; telefono ed email compaiono da soli quando sono inseriti in `data/farmacia.json`),
   orari, indirizzo con Google Maps, mappa ZTL con i 3 passi, rimando ai contatti di Farmaestetica.
 - **Pagine legali** con impaginazione comune (`LegalPage`): privacy, cookie, note legali (dati della farmacia), accessibilità.
@@ -186,7 +185,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni su contatti e pagine legali (anteprime sopra), poi "unisci".
+- Ok per partire con la Fase 1b: Agenda Masera (/prenota).
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.

@@ -185,8 +185,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - **Prova**: orari occupati finti e prenotazione non salvata (`AGENDA_DEMO` in `content/prenota.ts`), con avviso in pagina.
 - Prenotabili online oggi: servizi di cabina analisi e Skin LAB. Videoconsulenza e Farmaestetica arriveranno dopo.
 
-### Fase 1b – Agenda Masera, tappa 2: database (branch `fase1b/agenda-db`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1b-agenda-db-giovanni-7bbb.vercel.app/prenota (serve l'accesso Vercel).
+### Fase 1b – Agenda Masera, tappa 2: database (unita in main il 24/11/2026, attiva anche su masera-digitale.vercel.app)
 - **Supabase**: progetto `masera-digitale` in **eu-central-1 (Francoforte)**, piano gratuito. (Nella stessa organizzazione c'è un vecchio
   progetto vuoto a Londra, eu-west-2: non usato, Giovanni può cancellarlo.)
 - Tabelle create con `supabase/migrations/0001_agenda.sql` (eseguito nel SQL Editor il 24/11/2026): `appointments`, `closures`,
@@ -221,7 +220,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 
 ## Serve da Giovanni
 - Risposte su "Da decidere sull'Agenda" (breath test, pulizia Skin LAB, preavviso, ore per spostare/annullare).
-- Ok o correzioni sulla tappa 2 dell'agenda (anteprima sopra), poi "unisci".
+- Per la tappa 3 (/staff/agenda): email di dottoresse ed estetista che useranno l'agenda.
 - Per la tappa 3: email di dottoresse ed estetista che useranno l'agenda.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).

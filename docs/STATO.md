@@ -221,7 +221,6 @@ Aggiornato da Claude Code a fine di ogni sessione.
 ## Serve da Giovanni
 - Risposte su "Da decidere sull'Agenda" (breath test, pulizia Skin LAB, preavviso, ore per spostare/annullare).
 - Per la tappa 3 (/staff/agenda): email di dottoresse ed estetista che useranno l'agenda.
-- Per la tappa 3: email di dottoresse ed estetista che useranno l'agenda.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.

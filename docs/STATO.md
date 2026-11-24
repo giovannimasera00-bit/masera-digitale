@@ -201,8 +201,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - **Da fare prima del lancio**: limite ai tentativi (oggi chiunque potrebbe tenere molti posti di fila), verifica del cellulare,
   festivi e chiusure inseriti (tabella `closures`, si gestiranno dalla vista del personale).
 
-### Fase 1b – Agenda Masera, tappa 3: vista del personale (branch `fase1b/staff-agenda`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1b-staff-agenda-giovanni-7bbb.vercel.app/staff (serve l'accesso Vercel, poi la password del personale).
+### Fase 1b – Agenda Masera, tappa 3: vista del personale (unita in main il 24/11/2026: https://masera-digitale.vercel.app/staff)
 - **Accesso**: password unica per tutto il personale (dottoresse ed estetista usano la mail della farmacia, scelta di Giovanni),
   salvata solo su Vercel come `STAFF_PASSWORD` (Secret, Production e Preview). Cookie tecnico firmato, 30 giorni, solo su /staff;
   cambiando la password (e ripubblicando) tutti devono rientrare. Pausa dopo password sbagliata. /staff escluso da Google.
@@ -235,7 +234,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 
 ## Serve da Giovanni
 - Risposte su "Da decidere sull'Agenda" (breath test, pulizia Skin LAB, preavviso, ore per spostare/annullare).
-- Ok o correzioni sulla vista del personale (anteprima sopra), poi "unisci".
+- Decidere il prossimo pezzo: tappa 4 (promemoria e conferme: numero WhatsApp) o Farmaestetica nell'agenda.
 - Teledermatologia e chiacchierata deblistering: cabina analisi, Skin LAB o altro spazio?
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).

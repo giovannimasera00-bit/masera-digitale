@@ -99,7 +99,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 
 ### Da decidere su farmacia e famiglia
 - **Data della reinaugurazione**: nella pagina ponte c'è "sabato 21 novembre 2026"; nel nuovo sito non è pubblicata (brief §7.5).
-- **Telefono 0362 231660**: la pagina ponte lo indica come numero della farmacia, il brief come numero di Farmaestetica. Quale è giusto?
+- ~~Telefono 0362 231660~~: risolto, è di Farmaestetica (`data/farmaestetica.json`); per la farmacia solo WhatsApp.
 - **Foto della famiglia** (4 generazioni) e chi è nella foto d'epoca del laboratorio.
 - La foto del banco mostra due persone del personale: va bene pubblicarla? (consenso)
 - Locker esterno (brief §3): non l'ho citato finché non mi confermi che è attivo.
@@ -135,8 +135,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il prototipo aveva anche **Lovren** tra i marchi e non aveva Dercos: ho seguito l'elenco del brief.
 - Le frasi "per la pelle che ha bisogno di idratazione / grassa o con imperfezioni" su Hydrashine e Purity Skin sono mie: da rileggere.
 
-### Fase 1a – Farmaestetica (branch `fase1/farmaestetica`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1-farmaestetica-giovanni-7bbb.vercel.app/farmaestetica (serve l'accesso Vercel).
+### Fase 1a – Farmaestetica (unita in main il 24/11/2026, online su https://masera-digitale.vercel.app/farmaestetica)
 - Hero salvia con "FARMA ESTETICA · by Dottor Masera" come il cartello, "La bellezza, un piano sopra la farmacia.",
   riquadro **PIANO 1** (ingresso da via Garibaldi 103 o via Ballerini 10) con "Aperto ora" calcolato sugli orari di Farmaestetica.
 - **Listino completo** a schede (Viso · Corpo · Laser · Cera e mani-piedi · Miamo Lounge) da `data/farmaestetica.json` e
@@ -162,7 +161,8 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni sulla pagina Farmaestetica (anteprima sopra), poi "unisci".
+- Via libera per il prossimo pezzo della Fase 1a: **galenico e deblistering**, poi contatti e pagine legali.
+- Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.
 - Risposte: verde chiaro `#C9DB6A` sì/no; testo della barra di stato "Accesso libero in ZTL" → "Accesso in ZTL per i clienti";

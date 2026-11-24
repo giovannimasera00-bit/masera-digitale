@@ -82,18 +82,23 @@ export function availableSlots(opts: {
   now: Date;
   busy?: Busy[];
   closures?: Closure[];
+  /**
+   * Per il personale (prenotazioni al telefono o al banco): niente preavviso minimo né limite di giorni,
+   * ma mai orari già passati di oltre 15 minuti (per segnare chi è appena arrivato).
+   */
+  staff?: boolean;
 }): number[] {
-  const { service, date, now, busy = [], closures = [] } = opts;
+  const { service, date, now, busy = [], closures = [], staff = false } = opts;
   if (!isResource(service.resource)) return [];
   const res = agendaResources[service.resource];
   const today = localNow(now);
-  if (date < today.date || date > addDays(today.date, BOOKING_WINDOW_DAYS - 1)) return [];
+  if (date < today.date || (!staff && date > addDays(today.date, BOOKING_WINDOW_DAYS - 1))) return [];
 
   const dayClosures = closures.filter((c) => c.date === date && (!c.resource || c.resource === res.id));
   if (dayClosures.some((c) => c.from === undefined || c.to === undefined)) return [];
 
   const taken = busy.filter((b) => b.resource === res.id && b.date === date);
-  const earliest = date === today.date ? today.minutes + MIN_NOTICE_MIN : 0;
+  const earliest = date !== today.date ? 0 : staff ? today.minutes - SLOT_STEP_MIN : today.minutes + MIN_NOTICE_MIN;
   const dur = service.duration_min;
   const out: number[] = [];
 

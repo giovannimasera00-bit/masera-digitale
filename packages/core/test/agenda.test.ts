@@ -78,6 +78,12 @@ describe("orari liberi", () => {
     const s = availableSlots({ service: cabina15, date: MON, now });
     expect(s[0]).toBe(toMinutes("11:15"));
   });
+  it("personale: in giornata senza preavviso (fino a 15 minuti fa) e anche oltre i 14 giorni", () => {
+    const now = new Date("2026-11-23T09:10:00Z"); // 10:10 a Seregno
+    expect(availableSlots({ service: cabina15, date: MON, now, staff: true })[0]).toBe(toMinutes("10:00"));
+    expect(availableSlots({ service: cabina15, date: addDays(MON, 30), now, staff: true }).length).toBeGreaterThan(0);
+    expect(availableSlots({ service: cabina15, date: "2026-11-22", now, staff: true })).toEqual([]);
+  });
   it("niente date passate né oltre la finestra di prenotazione", () => {
     expect(availableSlots({ service: cabina15, date: "2026-11-22", now: MON_EARLY })).toEqual([]);
     expect(availableSlots({ service: cabina15, date: addDays(MON, BOOKING_WINDOW_DAYS), now: MON_EARLY })).toEqual([]);

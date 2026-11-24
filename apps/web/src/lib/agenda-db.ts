@@ -67,3 +67,74 @@ export async function confirmHold(id: string, name: string, phone: string): Prom
 export async function releaseHold(id: string): Promise<void> {
   await rest("rpc/release_hold", { method: "POST", body: JSON.stringify({ p_id: id }) });
 }
+
+// ——— Personale (/staff/agenda) ———
+
+export type StaffAppointment = {
+  id: string;
+  resource: ResourceId;
+  serviceSlug: string;
+  status: "confermato" | "arrivato" | "fatto" | "annullato" | "non_presentato";
+  channel: "online" | "telefono" | "banco";
+  name: string | null;
+  phone: string | null;
+  notes: string | null;
+  date: string;
+  start: number;
+  end: number;
+};
+
+/** Appuntamenti di un giorno con i dati del cliente (posti tenuti esclusi), in ordine di orario. */
+export async function fetchStaffDay(date: string): Promise<StaffAppointment[]> {
+  const rows = await rest<
+    { id: string; resource: ResourceId; service_slug: string; status: StaffAppointment["status"]; channel: StaffAppointment["channel"];
+      customer_name: string | null; customer_phone: string | null; notes: string | null; day: string; start_min: number; end_min: number }[]
+  >(`staff_appointments?select=*&day=eq.${date}&order=start_min.asc`);
+  return rows.map((r) => ({
+    id: r.id, resource: r.resource, serviceSlug: r.service_slug, status: r.status, channel: r.channel,
+    name: r.customer_name, phone: r.customer_phone, notes: r.notes, date: r.day, start: r.start_min, end: r.end_min,
+  }));
+}
+
+/** Prenotazione al telefono o al banco, subito confermata. null = orario già preso. */
+export async function bookDirect(a: {
+  serviceSlug: string; resource: ResourceId; date: string; start: number; duration: number; buffer: number;
+  name: string; phone: string; channel: "telefono" | "banco"; notes: string;
+}): Promise<string | null> {
+  return rest<string | null>("rpc/book_direct", {
+    method: "POST",
+    body: JSON.stringify({
+      p_service_slug: a.serviceSlug, p_resource: a.resource, p_day: a.date, p_start_min: a.start, p_duration_min: a.duration,
+      p_buffer_min: a.buffer, p_name: a.name, p_phone: a.phone, p_channel: a.channel, p_notes: a.notes,
+    }),
+  });
+}
+
+export async function setAppointmentStatus(id: string, status: StaffAppointment["status"]): Promise<boolean> {
+  return rest<boolean>("rpc/set_appointment_status", { method: "POST", body: JSON.stringify({ p_id: id, p_status: status }) });
+}
+
+export type StaffClosure = Closure & { id: string };
+
+export async function fetchStaffClosures(from: string, to: string): Promise<StaffClosure[]> {
+  const rows = await rest<{ id: string; day: string; resource: ResourceId | null; from_min: number | null; to_min: number | null; reason: string | null }[]>(
+    `closures?select=id,day,resource,from_min,to_min,reason&day=gte.${from}&day=lte.${to}&order=day.asc`,
+  );
+  return rows.map((r) => ({
+    id: r.id, date: r.day,
+    ...(r.resource ? { resource: r.resource } : {}),
+    ...(r.from_min !== null && r.to_min !== null ? { from: r.from_min, to: r.to_min } : {}),
+    ...(r.reason ? { reason: r.reason } : {}),
+  }));
+}
+
+export async function addClosure(c: { date: string; resource: ResourceId | null; from: number | null; to: number | null; reason: string }): Promise<void> {
+  await rest("closures", {
+    method: "POST",
+    body: JSON.stringify({ day: c.date, resource: c.resource, from_min: c.from, to_min: c.to, reason: c.reason || null }),
+  });
+}
+
+export async function deleteClosure(id: string): Promise<void> {
+  await rest(`closures?id=eq.${id}`, { method: "DELETE" });
+}

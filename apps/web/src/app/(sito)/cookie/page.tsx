@@ -40,7 +40,7 @@ export default function CookiePage() {
                 Il sito della Farmacia Masera <b>non usa cookie di profilazione</b> e <b>non usa strumenti di statistica</b> che ti tracciano. I caratteri
                 sono caricati dai nostri server, senza contattare servizi esterni.
               </p>
-              <p>Per questo non vedi il banner dei cookie: non c&apos;è niente da accettare.</p>
+              <p>Per questo non vedi il banner dei cookie: non c&apos;è niente da accettare. Solo l&apos;area riservata al personale della farmacia usa un cookie tecnico, che tiene aperto l&apos;accesso per 30 giorni.</p>
             </>
           ),
         },

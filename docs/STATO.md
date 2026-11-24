@@ -150,8 +150,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Logo Farmaestetica in file (per ora il nome è scritto in testo come sul cartello).
 - Foto della cabina e della Miamo Lounge.
 
-### Fase 1a – Galenico e deblistering (branch `fase1/galenico-deblistering`, in revisione)
-- Anteprime: https://masera-digitale-git-fase1-galenico-deblistering-giovanni-7bbb.vercel.app/galenico e /deblistering (serve l'accesso Vercel).
+### Fase 1a – Galenico e deblistering (unite in main il 24/11/2026)
 - **/galenico**: foto d'epoca del laboratorio, preparazioni **officinali** (senza ricetta, con il Gel all'Arnica) e **magistrali**
   (su prescrizione) secondo il brief §11, i 4 passaggi (ricetta originale → preventivo → in preparazione → pronta),
   "Invia la ricetta" **in arrivo**, WhatsApp per le domande.
@@ -177,7 +176,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni sulle pagine galenico e deblistering (anteprime sopra), poi "unisci".
+- Ok per partire con contatti e pagine legali (privacy, cookie, note legali).
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.

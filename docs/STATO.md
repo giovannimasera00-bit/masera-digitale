@@ -201,6 +201,21 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - **Da fare prima del lancio**: limite ai tentativi (oggi chiunque potrebbe tenere molti posti di fila), verifica del cellulare,
   festivi e chiusure inseriti (tabella `closures`, si gestiranno dalla vista del personale).
 
+### Fase 1b – Agenda Masera, tappa 3: vista del personale (branch `fase1b/staff-agenda`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1b-staff-agenda-giovanni-7bbb.vercel.app/staff (serve l'accesso Vercel, poi la password del personale).
+- **Accesso**: password unica per tutto il personale (dottoresse ed estetista usano la mail della farmacia, scelta di Giovanni),
+  salvata solo su Vercel come `STAFF_PASSWORD` (Secret, Production e Preview). Cookie tecnico firmato, 30 giorni, solo su /staff;
+  cambiando la password (e ripubblicando) tutti devono rientrare. Pausa dopo password sbagliata. /staff escluso da Google.
+- **/staff/agenda**: giorno con una colonna per zona (Cabina analisi, Skin LAB), orari, servizio, cliente, cellulare cliccabile, canale;
+  pulsanti Arrivato / Fatto / Non presentato / Annulla (ripremere torna a Confermato); giorno prima/dopo/oggi o data a scelta.
+- **Nuova prenotazione** (telefono o banco) per il giorno mostrato: solo orari liberi, subito confermata, stesso anti-doppione.
+- **Chiusure, ferie, festivi**: tutto il giorno o una fascia, per la farmacia o una cabina; spariscono subito anche da /prenota
+  (al pubblico arriva solo l'orario, non il motivo). Elenco dei prossimi 90 giorni con "Togli".
+- Database: `supabase/migrations/0002_staff.sql` (vista `staff_appointments`, funzioni `book_direct`, `set_appointment_status`), eseguito il 24/11/2026.
+- Provato in anteprima (Giovanni ha fatto l'accesso): prenotazione al banco, "Arrivato", chiusura 14–16 visibile anche in /prenota,
+  "Togli" e "Annulla" liberano gli orari. Prove cancellate. +1 test (totale 96).
+- Le tre zone sono indipendenti: un ECG occupa solo la cabina analisi. Farmaestetica (centro estetico separato) arriverà come terza colonna.
+
 ### Da decidere sull'Agenda
 - Breath test: in `servizi.json` dura 240 minuti, quindi **occupa la cabina 4 ore**. È così o la cabina resta libera tra un soffio e l'altro?
 - Pulizia della cabina Skin LAB: per ora 5 minuti come la cabina analisi.
@@ -220,7 +235,8 @@ Aggiornato da Claude Code a fine di ogni sessione.
 
 ## Serve da Giovanni
 - Risposte su "Da decidere sull'Agenda" (breath test, pulizia Skin LAB, preavviso, ore per spostare/annullare).
-- Per la tappa 3 (/staff/agenda): email di dottoresse ed estetista che useranno l'agenda.
+- Ok o correzioni sulla vista del personale (anteprima sopra), poi "unisci".
+- Teledermatologia e chiacchierata deblistering: cabina analisi, Skin LAB o altro spazio?
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.

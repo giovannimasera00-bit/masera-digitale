@@ -26,6 +26,8 @@ export default async function PrenotaPage({ searchParams }: { searchParams: Prom
     const last = addDays(today, BOOKING_WINDOW_DAYS - 1);
     try {
       [busy, closures] = await Promise.all([fetchBusy(today, last), fetchClosures(today, last)]);
+      // Al browser dei clienti arrivano solo gli orari chiusi, non il motivo scritto dal personale.
+      closures = closures.map(({ reason: _reason, ...c }) => c);
       mode = "db";
     } catch (e) {
       console.error(e);

@@ -62,7 +62,7 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-verde">Agenda Masera · personale</p>
-          <h1 className="fm-display text-[34px] capitalize leading-tight md:text-[44px]">{f.long}</h1>
+          <h1 className="fm-display text-[34px] leading-tight md:text-[44px]">{f.long.charAt(0).toUpperCase() + f.long.slice(1)}</h1>
         </div>
         <form action={logoutAction}>
           <button type="submit" className={navBtn}>
@@ -109,7 +109,7 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
             return (
               <section key={r.id} aria-labelledby={`col-${r.id}`} className="rounded-3xl bg-beige-chiaro/50 p-4">
                 <h2 id={`col-${r.id}`} className="flex items-baseline justify-between text-[19px] font-bold">
-                  {r.name} <span className="text-[14px] font-semibold text-verde">{active.length} appuntamenti</span>
+                  {r.name} <span className="text-[14px] font-semibold text-verde">{active.length === 1 ? "1 appuntamento" : `${active.length} appuntamenti`}</span>
                 </h2>
                 {list.length === 0 ? (
                   <p className="mt-3 text-[16px] text-verde">Nessun appuntamento.</p>

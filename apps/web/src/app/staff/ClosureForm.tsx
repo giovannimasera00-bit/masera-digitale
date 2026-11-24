@@ -33,7 +33,7 @@ export function ClosureForm({ date }: { date: string }) {
         </div>
       </div>
       <label className="flex min-h-11 cursor-pointer items-center gap-3 text-[16px]">
-        <input type="checkbox" name="intero" value="si" checked={whole} onChange={(e) => setWhole(e.target.checked)} className="size-6 accent-[var(--color-verde-scuro)]" />
+        <input type="checkbox" name="intero" value="si" aria-label="Tutto il giorno" checked={whole} onChange={(e) => setWhole(e.target.checked)} className="size-6 accent-[var(--color-verde-scuro)]" />
         Tutto il giorno
       </label>
       {!whole && (

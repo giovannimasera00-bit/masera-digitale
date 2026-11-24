@@ -1,6 +1,6 @@
 // Accesso del personale all'agenda: una password unica, scelta da Giovanni e salvata solo su Vercel (STAFF_PASSWORD).
 // Dopo l'accesso il browser tiene un cookie tecnico firmato, valido 30 giorni, solo per le pagine /staff.
-// Cambiando la password su Vercel tutti gli accessi già aperti scadono.
+// Cambiando la password su Vercel tutti gli accessi già aperti scadono (serve una nuova pubblicazione del sito).
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 

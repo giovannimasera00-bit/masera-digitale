@@ -15,6 +15,8 @@ create table if not exists public.appointments (
   starts_at timestamptz not null,
   ends_at timestamptz not null,
   buffer_min int not null default 0 check (buffer_min between 0 and 60),
+  -- Fine della pulizia (ends_at + buffer_min): la risorsa è occupata fino a qui.
+  blocked_until timestamptz not null,
   status text not null default 'hold'
     check (status in ('hold', 'confermato', 'arrivato', 'fatto', 'annullato', 'non_presentato')),
   hold_expires_at timestamptz,
@@ -24,11 +26,12 @@ create table if not exists public.appointments (
   privacy_ack_at timestamptz,
   notes text,
   check (ends_at > starts_at),
+  check (blocked_until >= ends_at),
   check (status <> 'hold' or hold_expires_at is not null),
   -- Mai due appuntamenti (pulizia compresa) sulla stessa risorsa nello stesso momento.
   constraint appointments_no_overlap exclude using gist (
     resource with =,
-    tstzrange(starts_at, ends_at + make_interval(mins => buffer_min), '[)') with &&
+    tstzrange(starts_at, blocked_until, '[)') with &&
   ) where (status not in ('annullato'))
 );
 
@@ -76,8 +79,9 @@ begin
   delete from appointments a where a.status = 'hold' and a.hold_expires_at < now();
   begin
     return query
-      insert into appointments (service_slug, resource, starts_at, ends_at, buffer_min, status, hold_expires_at)
-      values (p_service_slug, p_resource, v_start, v_start + make_interval(mins => p_duration_min), p_buffer_min, 'hold', now() + interval '5 minutes')
+      insert into appointments (service_slug, resource, starts_at, ends_at, buffer_min, blocked_until, status, hold_expires_at)
+      values (p_service_slug, p_resource, v_start, v_start + make_interval(mins => p_duration_min), p_buffer_min,
+              v_start + make_interval(mins => p_duration_min + p_buffer_min), 'hold', now() + interval '5 minutes')
       returning appointments.id, appointments.hold_expires_at;
   exception when exclusion_violation then
     return; -- orario già preso: nessuna riga
@@ -108,3 +112,8 @@ language sql security definer set search_path = public as $$
   delete from appointments where id = p_id and status = 'hold';
 $$;
 revoke all on function public.release_hold(uuid) from public, anon, authenticated;
+
+-- Il server del sito (service role) può usare tutto.
+grant select, insert, update, delete on public.appointments, public.closures to service_role;
+grant select on public.agenda_busy to service_role;
+grant execute on function public.hold_slot(text, text, date, int, int, int), public.confirm_hold(uuid, text, text), public.release_hold(uuid) to service_role;

@@ -3,9 +3,10 @@ import "./prenota.css";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
-  bookableDays, formatClock, formatDay, formatDuration, formatPrice, isMissing, normalizeMobile, type Service,
+  bookableDays, type Busy, type Closure, formatClock, formatDay, formatDuration, formatPrice, isMissing, normalizeMobile, type Service,
 } from "@masera/core";
-import { AGENDA_DEMO, bookingGroups, demoBusy } from "@/content/prenota";
+import { AGENDA_LIVE, bookingGroups } from "@/content/prenota";
+import { confirmAction, holdAction, releaseAction } from "@/app/(sito)/prenota/actions";
 import { links } from "@/content/home";
 
 const groups = bookingGroups();
@@ -54,9 +55,31 @@ const pill = (on: boolean, off: boolean) =>
     off ? "border-transparent bg-beige-chiaro/50 text-verde/50" : on ? "border-verde-scuro bg-verde-scuro text-carta" : "border-verde-scuro/25 bg-bianco text-verde-scuro"
   }`;
 
-export function BookingFlow({ nowIso, initialService }: { nowIso: string; initialService?: string }) {
+/** "2026-11-24T17:05:00Z" → "18:05" (ora di Seregno). */
+const clockOf = (iso: string) => new Intl.DateTimeFormat("it-IT", { timeZone: "Europe/Rome", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
+
+export function BookingFlow({
+  nowIso,
+  initialService,
+  mode,
+  busy: initialBusy,
+  closures,
+}: {
+  nowIso: string;
+  initialService?: string;
+  /** "db": orari veri e prenotazioni salvate; "demo": orari finti, niente salvato. */
+  mode: "db" | "demo";
+  busy: Busy[];
+  closures: Closure[];
+}) {
   const now = useMemo(() => new Date(nowIso), [nowIso]);
-  const busy = useMemo(() => (AGENDA_DEMO ? demoBusy(now) : []), [now]);
+  const [busy, setBusy] = useState(initialBusy);
+  const [hold, setHold] = useState<{ id: string; expiresAt: string } | null>(null);
+  const [holdState, setHoldState] = useState<"idle" | "pending" | "ok">("idle");
+  const [notice, setNotice] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+  const holdSeq = useRef(0);
+  const holdRef = useRef<string | null>(null);
 
   const start = allServices.find((s) => s.slug === initialService);
   const [group, setGroup] = useState<string>(start ? (groups.find((g) => g.services.includes(start))?.slug ?? groups[0]!.slug) : groups[0]!.slug);
@@ -71,7 +94,7 @@ export function BookingFlow({ nowIso, initialService }: { nowIso: string; initia
   const doneRef = useRef<HTMLHeadingElement>(null);
 
   const service: Service | undefined = allServices.find((s) => s.slug === serviceSlug);
-  const days = useMemo(() => (service ? bookableDays({ service, now, busy }) : []), [service, now, busy]);
+  const days = useMemo(() => (service ? bookableDays({ service, now, busy, closures }) : []), [service, now, busy, closures]);
   const slots = days.find((d) => d.date === date)?.slots ?? [];
 
   // Scelto il servizio, proponi il primo giorno con posti liberi.
@@ -87,6 +110,43 @@ export function BookingFlow({ nowIso, initialService }: { nowIso: string; initia
     if (done) doneRef.current?.focus();
   }, [done]);
 
+  // Con il database: scelto un orario, teniamo il posto 5 minuti; cambiando scelta liberiamo il precedente.
+  useEffect(() => {
+    if (mode !== "db" || done) return;
+    const seq = ++holdSeq.current;
+    const prev = holdRef.current;
+    holdRef.current = null;
+    setHold(null);
+    if (prev) void releaseAction(prev);
+    if (!service || !date || slot === null) {
+      setHoldState("idle");
+      return;
+    }
+    setHoldState("pending");
+    void holdAction({ serviceSlug: service.slug, date, start: slot }).then((r) => {
+      if (seq !== holdSeq.current) {
+        if (r.ok) void releaseAction(r.holdId); // scelta già cambiata
+        return;
+      }
+      if (r.ok) {
+        holdRef.current = r.holdId;
+        setHold({ id: r.holdId, expiresAt: r.expiresAt });
+        setHoldState("ok");
+        setNotice(null);
+      } else {
+        setHoldState("idle");
+        if (r.busy) setBusy(r.busy);
+        setSlot(null);
+        setNotice(
+          r.reason === "preso"
+            ? "Questo orario è appena stato preso. Scegline un altro."
+            : "Non riusciamo a tenere il posto in questo momento. Riprova, oppure scrivici su WhatsApp.",
+        );
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, serviceSlug, date, slot]);
+
   const mobile = normalizeMobile(phone);
   const errors = {
     name: name.trim().length < 3 ? "Scrivi nome e cognome." : null,
@@ -99,11 +159,37 @@ export function BookingFlow({ nowIso, initialService }: { nowIso: string; initia
     ? [service.name, date ? formatDay(date).long : null, slot !== null ? `ore ${formatClock(slot)}` : null].filter(Boolean).join(" · ")
     : "Scegli un servizio";
 
-  function confirm() {
+  async function confirm() {
     setTried(true);
-    if (ready) setDone(true);
+    if (!ready || sending) return;
+    if (mode === "demo") {
+      setDone(true);
+      return;
+    }
+    if (!hold) {
+      setNotice(holdState === "pending" ? "Un attimo: stiamo tenendo il posto per te." : "Scegli di nuovo l'orario.");
+      return;
+    }
+    setSending(true);
+    const r = await confirmAction({ holdId: hold.id, name, phone, privacy });
+    setSending(false);
+    if (r.ok) {
+      holdRef.current = null;
+      setDone(true);
+    } else if (r.reason === "scaduto") {
+      holdRef.current = null;
+      setHold(null);
+      setSlot(null);
+      setNotice("Sono passati più di 5 minuti e il posto si è liberato. Scegli di nuovo l'orario.");
+    } else {
+      setNotice(r.reason === "dati" ? "Controlla i tuoi dati qui sopra." : "Qualcosa non ha funzionato. Riprova, oppure scrivici su WhatsApp.");
+    }
   }
   function reset() {
+    holdSeq.current++;
+    setHold(null);
+    setHoldState("idle");
+    setNotice(null);
     setDone(false);
     setTried(false);
     setSlot(null);
@@ -144,9 +230,9 @@ export function BookingFlow({ nowIso, initialService }: { nowIso: string; initia
             </a>
             .
           </p>
-          {AGENDA_DEMO && (
+          {!AGENDA_LIVE && (
             <p className="pn-in mt-6 rounded-full bg-mela px-4 py-2 text-[14px] font-semibold text-verde-scuro" style={{ animationDelay: ".8s" }}>
-              Prova: questa prenotazione non è stata salvata.
+              {mode === "demo" ? "Prova: questa prenotazione non è stata salvata." : "Prenotazione di prova: la farmacia non la vede ancora."}
             </p>
           )}
           <button type="button" onClick={reset} className="fm-focus fm-press pn-in mt-8 min-h-12 rounded-full border-2 border-carta px-6 text-[16px] font-bold" style={{ animationDelay: ".85s" }}>
@@ -162,9 +248,12 @@ export function BookingFlow({ nowIso, initialService }: { nowIso: string; initia
 
   return (
     <div className="mx-auto max-w-7xl px-4 md:px-8">
-      {AGENDA_DEMO && (
+      {!AGENDA_LIVE && (
         <p className="mb-6 rounded-2xl border-2 border-dashed border-verde/40 bg-bianco px-4 py-3 text-[15px]">
-          <b>Anteprima di prova.</b> Gli orari occupati sono finti e la prenotazione non viene salvata.
+          <b>Anteprima di prova.</b>{" "}
+          {mode === "demo"
+            ? "Gli orari occupati sono finti e la prenotazione non viene salvata."
+            : "Le prenotazioni si salvano, ma la farmacia non usa ancora questa agenda: non presentarti all'appuntamento."}
         </p>
       )}
 
@@ -246,6 +335,11 @@ export function BookingFlow({ nowIso, initialService }: { nowIso: string; initia
                     `flex min-h-11 items-center justify-center rounded-xl border-2 text-[15px] font-bold ${on ? "border-verde-scuro bg-verde-scuro text-carta" : "border-verde-scuro/20 bg-bianco text-verde-scuro"}`
                   }
                 />
+              )}
+              {mode === "db" && slot !== null && (
+                <p aria-live="polite" className="text-[15px] font-semibold text-verde">
+                  {holdState === "pending" ? "Teniamo il posto per te…" : hold ? `Ti teniamo il posto fino alle ${clockOf(hold.expiresAt)}.` : null}
+                </p>
               )}
               {days.every((d) => d.slots.length === 0) && (
                 <p className="rounded-3xl bg-beige-chiaro/60 p-6 text-[17px]">
@@ -334,15 +428,15 @@ export function BookingFlow({ nowIso, initialService }: { nowIso: string; initia
         <button
           type="button"
           onClick={confirm}
-          aria-disabled={!service || !date || slot === null}
+          aria-disabled={!service || !date || slot === null || sending}
           className={`fm-focus fm-press min-h-12 shrink-0 rounded-full px-6 text-[16px] font-bold text-[#1a2419] ${service && date && slot !== null ? "bg-mela" : "bg-beige-chiaro/50"}`}
         >
-          Conferma
+          {sending ? "Invio…" : "Conferma"}
         </button>
       </div>
-      {tried && !ready && (
+      {(notice || (tried && !ready)) && (
         <p role="alert" className="mt-3 text-center text-[15px] font-semibold text-[#9b2c1f]">
-          {!service || !date || slot === null ? "Scegli servizio, giorno e orario." : "Completa i tuoi dati qui sopra."}
+          {notice ?? (!service || !date || slot === null ? "Scegli servizio, giorno e orario." : "Completa i tuoi dati qui sopra.")}
         </p>
       )}
     </div>

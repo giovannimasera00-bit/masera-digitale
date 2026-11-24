@@ -1,8 +1,11 @@
-// Agenda Masera, tappa 1: le prenotazioni non si salvano ancora (arriva Supabase nella tappa 2).
+// Agenda Masera: testi e dati di prova della pagina /prenota.
 import { addDays, bookableServices, localNow, serviceGroups, toMinutes, type Busy, type Service } from "@masera/core";
 
-/** Mostra in pagina l'avviso "prova" finché le prenotazioni non vengono salvate davvero. */
-export const AGENDA_DEMO = true;
+/**
+ * false finché la farmacia non usa davvero l'agenda online (fino allo switch):
+ * la pagina avvisa che le prenotazioni sono di prova.
+ */
+export const AGENDA_LIVE = false;
 
 export type BookingGroup = { slug: string; name: string; services: Service[] };
 
@@ -18,8 +21,8 @@ export function bookingGroups(): BookingGroup[] {
 }
 
 /**
- * Impegni finti per la prova: qualche orario già occupato ogni giorno, così si vede che
- * il calendario nasconde i posti presi. Spariscono quando arrivano gli appuntamenti veri.
+ * Impegni finti, usati solo quando il database non è collegato (sul computer o in un'anteprima senza chiavi):
+ * qualche orario già occupato ogni giorno, così si vede che il calendario nasconde i posti presi.
  */
 export function demoBusy(now: Date): Busy[] {
   const start = localNow(now).date;

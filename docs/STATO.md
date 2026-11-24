@@ -174,8 +174,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - RSA e comunità: per ora "le condizioni le definiamo insieme", senza prezzi.
 - Foto attuale del laboratorio galenico, se c'è.
 
-### Fase 1b – Agenda Masera, tappa 1: orari liberi e /prenota (branch `fase1b/prenota`, in revisione)
-- Anteprima: https://masera-digitale-git-fase1b-prenota-giovanni-7bbb.vercel.app/prenota (serve l'accesso Vercel).
+### Fase 1b – Agenda Masera, tappa 1: orari liberi e /prenota (unita in main il 24/11/2026)
 - Piano in 4 tappe: (1) calcolo orari + pagina /prenota con dati di prova; (2) database Supabase a Francoforte,
   blocco anti-doppione e posto tenuto 5 minuti; (3) /staff/agenda per il personale; (4) promemoria e conferme.
 - `packages/core/src/agenda.ts`: orari liberi nell'ora di Seregno (dentro gli orari, ogni 15 minuti, l'appuntamento
@@ -204,7 +203,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok o correzioni sulla pagina /prenota (anteprima sopra), poi "unisci".
+- Risposte su "Da decidere sull'Agenda" (breath test, pulizia Skin LAB, preavviso, ore per spostare/annullare).
 - Per la tappa 2: account Supabase con progetto in regione Frankfurt (guida A3).
 - Per la tappa 3: email di dottoresse ed estetista che useranno l'agenda.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.

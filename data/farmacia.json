@@ -2,6 +2,11 @@
   "name": "Farmacia Masera",
   "legal_name": "Farmacia S. Valeria – Farmacia Dott. Masera Giuseppe",
   "vat": "[DA INSERIRE]",
+  "pec": "[DA INSERIRE]",
+  "phone": "[DA INSERIRE]",
+  "email": "[DA INSERIRE]",
+  "director": "[DA INSERIRE]",
+  "professional_order": "[DA INSERIRE]",
   "address": {
     "street": "Via Garibaldi 103",
     "zip": "20831",

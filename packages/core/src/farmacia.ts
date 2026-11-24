@@ -27,3 +27,14 @@ export function parseHours(raw: Record<string, unknown>): WeeklyHours {
 export const farmacia = data;
 export const farmaciaHours: WeeklyHours = parseHours(data.hours);
 export const TIME_ZONE = "Europe/Rome";
+
+/** true se il dato manca ancora nel file (es. "[DA INSERIRE]", "[DA CONFERMARE]"): il sito non mostra pulsanti per dati mancanti. */
+export function isMissing(v: unknown): boolean {
+  return typeof v !== "string" || v.trim() === "" || /^\[DA (INSERIRE|CONFERMARE)/.test(v.trim());
+}
+
+/** "0362 123456" → "tel:+390362123456" (solo numeri italiani). */
+export function telHref(phone: string): string {
+  const digits = phone.replace(/[^\d+]/g, "");
+  return `tel:${digits.startsWith("+") ? digits : `+39${digits}`}`;
+}

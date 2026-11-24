@@ -4,10 +4,12 @@ import { farmacia, farmaciaHours, formatWeeklyHours, FREE_SHIPPING_ITALY_EUR, SE
 import { ColorBar } from "@masera/ui";
 import { features, links } from "@/content/home";
 
+// I termini di vendita compaiono con lo shop.
 const legal = [
   { label: "Privacy", href: "/privacy" },
   { label: "Cookie", href: "/cookie" },
-  { label: "Termini di vendita", href: "/termini" },
+  ...(features.shop ? [{ label: "Termini di vendita", href: "/termini" }] : []),
+  { label: "Note legali", href: "/note-legali" },
   { label: "Accessibilità", href: "/accessibilita" },
 ];
 
@@ -48,6 +50,10 @@ export function SiteFooter() {
               <a href={links.whatsapp} className="inline-flex min-h-6 items-center underline underline-offset-4">
                 WhatsApp {farmacia.whatsapp.replace("+39 ", "")}
               </a>
+              <br />
+              <Link href={links.contatti} className="inline-flex min-h-6 items-center underline underline-offset-4">
+                Tutti i contatti
+              </Link>
             </address>
           </div>
           <div>

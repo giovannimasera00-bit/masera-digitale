@@ -16,7 +16,8 @@ export default async function PrenotaPage({ searchParams }: { searchParams: Prom
   const servizio = typeof sp.servizio === "string" ? sp.servizio : undefined;
   const now = new Date();
 
-  // Con il database collegato: orari veri. Senza (o se il database non risponde): orari finti di prova.
+  // Con il database collegato (chiavi su Vercel: SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY): orari veri.
+  // Senza chiavi, o se il database non risponde: orari finti di prova.
   let mode: "db" | "demo" = "demo";
   let busy: Busy[] = [];
   let closures: Closure[] = [];

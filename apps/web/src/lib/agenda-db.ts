@@ -1,10 +1,10 @@
 // Agenda Masera sul database (Supabase a Francoforte). Solo lato server: usa la chiave segreta.
 // Le chiavi stanno nelle variabili d'ambiente di Vercel, mai nel codice:
-//   NEXT_PUBLIC_SUPABASE_URL      indirizzo del progetto
+//   SUPABASE_URL                  indirizzo del progetto (va bene anche NEXT_PUBLIC_SUPABASE_URL)
 //   SUPABASE_SERVICE_ROLE_KEY     chiave segreta (secret key)
 import type { Busy, Closure, ResourceId } from "@masera/core";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
+const url = (process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL)?.replace(/\/$/, "");
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 /** Senza chiavi (sul computer o in un'anteprima non configurata) l'agenda gira in prova, con orari finti. */

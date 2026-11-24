@@ -174,6 +174,25 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - RSA e comunità: per ora "le condizioni le definiamo insieme", senza prezzi.
 - Foto attuale del laboratorio galenico, se c'è.
 
+### Fase 1b – Agenda Masera, tappa 1: orari liberi e /prenota (branch `fase1b/prenota`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1b-prenota-giovanni-7bbb.vercel.app/prenota (serve l'accesso Vercel).
+- Piano in 4 tappe: (1) calcolo orari + pagina /prenota con dati di prova; (2) database Supabase a Francoforte,
+  blocco anti-doppione e posto tenuto 5 minuti; (3) /staff/agenda per il personale; (4) promemoria e conferme.
+- `packages/core/src/agenda.ts`: orari liberi nell'ora di Seregno (dentro gli orari, ogni 15 minuti, l'appuntamento
+  finisce entro la chiusura, pulizia 5' dopo ogni appuntamento, chiusure intere o a fasce, in giornata 1 ora di preavviso,
+  14 giorni avanti), giorni e date in italiano, cellulare italiano. +14 test (totale 95).
+- **/prenota** come il canvas: bisogno → servizio → giorno → orario → nome, cellulare, presa visione privacy → "Ti aspettiamo."
+  con le istruzioni di preparazione. `?servizio=slug` preseleziona (es. dal deblistering). Barra di riepilogo fissa in basso.
+- **Prova**: orari occupati finti e prenotazione non salvata (`AGENDA_DEMO` in `content/prenota.ts`), con avviso in pagina.
+- Prenotabili online oggi: servizi di cabina analisi e Skin LAB. Videoconsulenza e Farmaestetica arriveranno dopo.
+
+### Da decidere sull'Agenda
+- Breath test: in `servizi.json` dura 240 minuti, quindi **occupa la cabina 4 ore**. È così o la cabina resta libera tra un soffio e l'altro?
+- Pulizia della cabina Skin LAB: per ora 5 minuti come la cabina analisi.
+- Preavviso minimo per prenotare in giornata (ora 1 ora) e quanti giorni avanti (ora 14).
+- Quante ore prima si può spostare/annullare (BRIEF §21 n. 10) e numero WhatsApp per i promemoria (n. 8).
+- Festivi (8 dicembre, Natale…) e chiusure: arrivano con il database nella tappa 2.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -185,7 +204,9 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Ok per partire con la Fase 1b: Agenda Masera (/prenota).
+- Ok o correzioni sulla pagina /prenota (anteprima sopra), poi "unisci".
+- Per la tappa 2: account Supabase con progetto in regione Frankfurt (guida A3).
+- Per la tappa 3: email di dottoresse ed estetista che useranno l'agenda.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.

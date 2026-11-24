@@ -5,3 +5,4 @@ export * from "./format-hours";
 export * from "./services";
 export * from "./farmaestetica";
 export * from "./deblistering";
+export * from "./agenda";

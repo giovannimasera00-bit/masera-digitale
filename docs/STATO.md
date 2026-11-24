@@ -185,6 +185,23 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - **Prova**: orari occupati finti e prenotazione non salvata (`AGENDA_DEMO` in `content/prenota.ts`), con avviso in pagina.
 - Prenotabili online oggi: servizi di cabina analisi e Skin LAB. Videoconsulenza e Farmaestetica arriveranno dopo.
 
+### Fase 1b – Agenda Masera, tappa 2: database (branch `fase1b/agenda-db`, in revisione)
+- Anteprima: https://masera-digitale-git-fase1b-agenda-db-giovanni-7bbb.vercel.app/prenota (serve l'accesso Vercel).
+- **Supabase**: progetto `masera-digitale` in **eu-central-1 (Francoforte)**, piano gratuito. (Nella stessa organizzazione c'è un vecchio
+  progetto vuoto a Londra, eu-west-2: non usato, Giovanni può cancellarlo.)
+- Tabelle create con `supabase/migrations/0001_agenda.sql` (eseguito nel SQL Editor il 24/11/2026): `appointments`, `closures`,
+  vista `agenda_busy` (solo orari, niente dati dei clienti), funzioni `hold_slot` / `confirm_hold` / `release_hold`.
+  RLS attiva senza policy: dal browser non si legge né si scrive niente, tutto passa dal server del sito.
+- **Anti-doppione nel database**: vincolo di esclusione su risorsa + [inizio, fine della pulizia). Provato: secondo ECG alle 10:00 rifiutato,
+  10:30 (durante la pulizia) rifiutato, 10:45 accettato, Skin LAB alle 10:00 accettato.
+- **Posto tenuto 5 minuti** quando il cliente sceglie l'orario; si libera se cambia scelta; se scade, la pagina lo dice.
+- Chiavi su Vercel (Production e Preview), inserite da Giovanni: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (secret).
+  Senza chiavi la pagina torna in prova con orari finti.
+- Provato in anteprima: prenotazione ECG 1/12 ore 10:00 salvata come "confermato", poi l'orario sparisce (9:30–10:30); prenotazione di prova cancellata.
+- Avviso in pagina finché `AGENDA_LIVE` è false: "le prenotazioni si salvano, ma la farmacia non usa ancora questa agenda".
+- **Da fare prima del lancio**: limite ai tentativi (oggi chiunque potrebbe tenere molti posti di fila), verifica del cellulare,
+  festivi e chiusure inseriti (tabella `closures`, si gestiranno dalla vista del personale).
+
 ### Da decidere sull'Agenda
 - Breath test: in `servizi.json` dura 240 minuti, quindi **occupa la cabina 4 ore**. È così o la cabina resta libera tra un soffio e l'altro?
 - Pulizia della cabina Skin LAB: per ora 5 minuti come la cabina analisi.
@@ -204,7 +221,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 
 ## Serve da Giovanni
 - Risposte su "Da decidere sull'Agenda" (breath test, pulizia Skin LAB, preavviso, ore per spostare/annullare).
-- Per la tappa 2: account Supabase con progetto in regione Frankfurt (guida A3).
+- Ok o correzioni sulla tappa 2 dell'agenda (anteprima sopra), poi "unisci".
 - Per la tappa 3: email di dottoresse ed estetista che useranno l'agenda.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).

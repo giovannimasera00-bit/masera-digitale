@@ -4,3 +4,4 @@ export * from "./delivery";
 export * from "./format-hours";
 export * from "./services";
 export * from "./farmaestetica";
+export * from "./deblistering";

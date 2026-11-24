@@ -150,6 +150,22 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Logo Farmaestetica in file (per ora il nome è scritto in testo come sul cartello).
 - Foto della cabina e della Miamo Lounge.
 
+### Fase 1a – Galenico e deblistering (branch `fase1/galenico-deblistering`, in revisione)
+- Anteprime: https://masera-digitale-git-fase1-galenico-deblistering-giovanni-7bbb.vercel.app/galenico e /deblistering (serve l'accesso Vercel).
+- **/galenico**: foto d'epoca del laboratorio, preparazioni **officinali** (senza ricetta, con il Gel all'Arnica) e **magistrali**
+  (su prescrizione) secondo il brief §11, i 4 passaggi (ricetta originale → preventivo → in preparazione → pronta),
+  "Invia la ricetta" **in arrivo**, WhatsApp per le domande.
+- **/deblistering**: 1 € al giorno, 28 € al mese (4 settimane), "meno di un caffè"; striscia di 7 bustine animata; 4 passi
+  (verifica terapia → medico → bustine con doppio controllo → ritiro); **calcolatrice** periodo × persone; sezioni per chi prende
+  tante pastiglie, caregiver, RSA e comunità; prenotazione della chiacchierata gratuita (15 min). Nessun nome di fornitore.
+- `packages/core/src/deblistering.ts` + 5 test (prezzi dal file, 4 settimane = 28 €, calcolo, valori non validi). Totale test: 78.
+
+### Da decidere su galenico e deblistering
+- **Tempi** della galenica (in quanto è pronta di solito) e come avvisiamo: per ora la pagina dice solo "ti avvisiamo".
+- Deblistering: si può anche **consegnare a casa** o solo ritiro? Per ora solo ritiro, come nel brief.
+- RSA e comunità: per ora "le condizioni le definiamo insieme", senza prezzi.
+- Foto attuale del laboratorio galenico, se c'è.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -161,7 +177,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Via libera per il prossimo pezzo della Fase 1a: **galenico e deblistering**, poi contatti e pagine legali.
+- Ok o correzioni sulle pagine galenico e deblistering (anteprime sopra), poi "unisci".
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.
 - Testi di preparazione confermati dalle farmaciste (elenco in "Da decidere su Servizi").
 - Logo in formato vettoriale (SVG, AI o PDF vettoriale) per l'arco animato.

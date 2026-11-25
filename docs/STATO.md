@@ -223,7 +223,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - /staff/agenda: terza colonna. Nuova variabile su Vercel **ESTETISTA_PASSWORD** (inserita da Giovanni): l'estetista vede e gestisce
   solo Farmaestetica (prenota, stati, chiusure della sua zona; non "tutta la farmacia"). La password delle dottoresse vede tutto.
 - Breath test: si fa a casa, kit al banco senza appuntamento (non più prenotabile online).
-- Provato in anteprima con le due password (prova al banco cancellata). Test: core 76 + ui 26.
+- Provato in anteprima con le due password (prova al banco cancellata). Test: core 75 + ui 26.
 
 ### Da decidere sull'Agenda
 - Risposte di Giovanni (25/11/2026): Skin LAB **senza pausa** tra un appuntamento e l'altro; preavviso minimo **1 ora, sempre**;

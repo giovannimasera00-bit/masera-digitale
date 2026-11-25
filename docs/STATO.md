@@ -225,12 +225,24 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Breath test: si fa a casa, kit al banco senza appuntamento (non più prenotabile online).
 - Provato in anteprima con le due password (prova al banco cancellata). Test: core 75 + ui 26.
 
+### Agenda – tappa 4A: sposta o annulla da soli (in anteprima su https://masera-digitale-git-tappa4a-gestisci-giovanni-7bbb.vercel.app/prenota)
+- Risposte di Giovanni (25/11/2026): prenotazioni online fino a **30 giorni** prima; il cliente sposta o annulla da solo
+  **fino a 1 ora prima**; promemoria dal numero della farmacia **373 770 5485** (WhatsApp Business).
+- Dopo la conferma il cliente riceve il **link personale** "Il mio appuntamento" (/appuntamento/…): vede giorno, ora e indirizzo
+  (mai nome e telefono), può **spostare** (stesso servizio, stessa durata, stesse regole della prenotazione) o **annullare**.
+  Meno di un'ora prima: il link dice di chiamare o scrivere su WhatsApp. Il personale in agenda può sempre tutto.
+- Sicurezza: il link ha un codice casuale lungo; nel database c'è solo la sua impronta (sha256). Pagina esclusa da Google e
+  l'indirizzo non passa ad altri siti.
+- Database: `supabase/migrations/0003_gestione.sql` **già eseguito** su Supabase il 25/11/2026 (aggiunge soltanto: la versione online continua a funzionare).
+- Provato in anteprima: prenotazione ECG → link → spostata di 15 minuti → annullata (prova cancellata dal database). Test: core 78 + ui 26.
+
 ### Da decidere sull'Agenda
 - Risposte di Giovanni (25/11/2026): Skin LAB **senza pausa** tra un appuntamento e l'altro; preavviso minimo **1 ora, sempre**;
   teledermatologia e chiacchierata sul deblistering **in cabina analisi**; il breath test **si fa a casa** e non occupa la cabina.
 - Breath test: non si prenota più online; nella scheda c'è scritto che si ritira il kit al banco, senza appuntamento.
-- Quanti giorni avanti si può prenotare online (ora 14).
-- Quante ore prima si può spostare/annullare (BRIEF §21 n. 10) e numero WhatsApp per i promemoria (n. 8).
+- Tappa 4B (messaggi automatici su WhatsApp: conferma e promemoria del giorno prima, testo senza dati di salute):
+  serve l'account Meta Business della farmacia collegato al 373 770 5485, metodo di pagamento su Meta (lo inserisce Giovanni),
+  approvazione dei due testi da parte di Meta, e Meta (WhatsApp) nell'informativa privacy (consulente).
 - Festivi (8 dicembre, Natale…) e chiusure: arrivano con il database nella tappa 2.
 
 ## Manca per chiudere la Fase 0
@@ -244,8 +256,8 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Giorni avanti per prenotare online (ora 14) e ore per spostare/annullare.
-- Decidere il prossimo pezzo: tappa 4 (promemoria e conferme su WhatsApp: quale numero usare) o altro.
+- Provare la tappa 4A in anteprima e dire "Unisci".
+- Per la tappa 4B: creare l'account Meta Business della farmacia (business.facebook.com) e avere a portata il telefono del 373 770 5485.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.

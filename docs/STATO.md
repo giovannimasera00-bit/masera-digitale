@@ -215,6 +215,16 @@ Aggiornato da Claude Code a fine di ogni sessione.
   "Togli" e "Annulla" liberano gli orari. Prove cancellate. +1 test (totale 96).
 - Le tre zone sono indipendenti: un ECG occupa solo la cabina analisi. Farmaestetica (centro estetico separato) arriverà come terza colonna.
 
+### Agenda – Farmaestetica (ramo `agenda-farmaestetica`, in anteprima, non ancora unito)
+- Terza zona **Farmaestetica**: orari propri (lun–ven 9:30–19:30, sab 8:30–18:30), 10' di pulizia, indipendente da cabina e Skin LAB.
+- /prenota: nuovo passo "1 · Dove?" (Farmacia / Farmaestetica by Dottor Masera). Prenotabili online tutto il listino
+  (Viso, Corpo, Laser, Cera e mani-piedi, durate "circa") e la Miamo Lounge. Una seduta alla volta: i pacchetti 5+1 restano al banco.
+  Schermata finale con ingresso piano 1 e WhatsApp di Farmaestetica. /farmaestetica: tasto "Prenota un trattamento"; ogni "+" del listino apre il trattamento.
+- /staff/agenda: terza colonna. Nuova variabile su Vercel **ESTETISTA_PASSWORD** (inserita da Giovanni): l'estetista vede e gestisce
+  solo Farmaestetica (prenota, stati, chiusure della sua zona; non "tutta la farmacia"). La password delle dottoresse vede tutto.
+- Breath test: si fa a casa, kit al banco senza appuntamento (non più prenotabile online).
+- Provato in anteprima con le due password (prova al banco cancellata). Test: core 76 + ui 26.
+
 ### Da decidere sull'Agenda
 - Risposte di Giovanni (25/11/2026): Skin LAB **senza pausa** tra un appuntamento e l'altro; preavviso minimo **1 ora, sempre**;
   teledermatologia e chiacchierata sul deblistering **in cabina analisi**; il breath test **si fa a casa** e non occupa la cabina.

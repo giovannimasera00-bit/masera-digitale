@@ -215,7 +215,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   "Togli" e "Annulla" liberano gli orari. Prove cancellate. +1 test (totale 96).
 - Le tre zone sono indipendenti: un ECG occupa solo la cabina analisi. Farmaestetica (centro estetico separato) arriverà come terza colonna.
 
-### Agenda – Farmaestetica (ramo `agenda-farmaestetica`, in anteprima, non ancora unito)
+### Agenda – Farmaestetica (unita in main il 25/11/2026, online su https://masera-digitale.vercel.app/prenota?zona=farmaestetica)
 - Terza zona **Farmaestetica**: orari propri (lun–ven 9:30–19:30, sab 8:30–18:30), 10' di pulizia, indipendente da cabina e Skin LAB.
 - /prenota: nuovo passo "1 · Dove?" (Farmacia / Farmaestetica by Dottor Masera). Prenotabili online tutto il listino
   (Viso, Corpo, Laser, Cera e mani-piedi, durate "circa") e la Miamo Lounge. Una seduta alla volta: i pacchetti 5+1 restano al banco.
@@ -245,7 +245,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 
 ## Serve da Giovanni
 - Giorni avanti per prenotare online (ora 14) e ore per spostare/annullare.
-- Risposte sulle domande di Farmaestetica nell'agenda (in corso sul ramo `agenda-farmaestetica`).
+- Decidere il prossimo pezzo: tappa 4 (promemoria e conferme su WhatsApp: quale numero usare) o altro.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.

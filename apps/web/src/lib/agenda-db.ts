@@ -138,3 +138,15 @@ export async function addClosure(c: { date: string; resource: ResourceId | null;
 export async function deleteClosure(id: string): Promise<void> {
   await rest(`closures?id=eq.${id}`, { method: "DELETE" });
 }
+
+/** La zona di un appuntamento (per controllare che l'estetista tocchi solo Farmaestetica). */
+export async function fetchAppointmentResource(id: string): Promise<ResourceId | null> {
+  const rows = await rest<{ resource: ResourceId }[]>(`staff_appointments?select=resource&id=eq.${id}`);
+  return rows[0]?.resource ?? null;
+}
+
+/** La zona di una chiusura: null = tutta la farmacia; undefined = chiusura inesistente. */
+export async function fetchClosureResource(id: string): Promise<ResourceId | null | undefined> {
+  const rows = await rest<{ resource: ResourceId | null }[]>(`closures?select=resource&id=eq.${id}`);
+  return rows.length ? rows[0]!.resource : undefined;
+}

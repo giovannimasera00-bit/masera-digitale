@@ -8,12 +8,13 @@ import { demoBusy } from "@/content/prenota";
 
 export const metadata: Metadata = {
   title: "Prenota un servizio",
-  description: "Agenda Masera: prenota analisi, ECG, Holter e Skin LAB alla Farmacia Masera di Seregno. Vedi solo gli orari davvero liberi.",
+  description: "Agenda Masera: prenota analisi, ECG, Holter, Skin LAB e i trattamenti di Farmaestetica by Dottor Masera a Seregno. Vedi solo gli orari davvero liberi.",
 };
 
-export default async function PrenotaPage({ searchParams }: { searchParams: Promise<{ servizio?: string | string[] }> }) {
+export default async function PrenotaPage({ searchParams }: { searchParams: Promise<{ servizio?: string | string[]; zona?: string | string[] }> }) {
   const sp = await searchParams;
   const servizio = typeof sp.servizio === "string" ? sp.servizio : undefined;
+  const zona = sp.zona === "farmaestetica" ? "farmaestetica" : undefined;
   const now = new Date();
 
   // Con il database collegato (chiavi su Vercel: SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY): orari veri.
@@ -49,7 +50,7 @@ export default async function PrenotaPage({ searchParams }: { searchParams: Prom
         lines={["Prenota in pochi tocchi.", <span key="l" className="text-verde">Vedi solo i posti liberi.</span>]}
         lead="Scegli il servizio, il giorno e l'orario. Ti diciamo subito come prepararti."
       />
-      <BookingFlow nowIso={now.toISOString()} initialService={servizio} mode={mode} busy={busy} closures={closures} />
+      <BookingFlow nowIso={now.toISOString()} initialService={servizio} initialArea={zona} mode={mode} busy={busy} closures={closures} />
     </>
   );
 }

@@ -1,20 +1,27 @@
-// Accesso del personale all'agenda: una password unica, scelta da Giovanni e salvata solo su Vercel (STAFF_PASSWORD).
+// Accesso del personale all'agenda. Due password, scelte da Giovanni e salvate solo su Vercel:
+//   STAFF_PASSWORD       dottoresse e farmacia: vedono tutte le zone
+//   ESTETISTA_PASSWORD   l'estetista: vede e gestisce solo Farmaestetica (BRIEF: ruolo "beauty")
 // Dopo l'accesso il browser tiene un cookie tecnico firmato, valido 30 giorni, solo per le pagine /staff.
-// Cambiando la password su Vercel tutti gli accessi già aperti scadono (serve una nuova pubblicazione del sito).
+// Cambiando una password su Vercel scadono gli accessi aperti con quella password (serve una nuova pubblicazione).
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
+import { agendaResources, type ResourceId } from "@masera/core";
 
 export const STAFF_COOKIE = "masera_staff";
 const MAX_AGE_S = 30 * 24 * 60 * 60;
 
-const password = () => process.env.STAFF_PASSWORD ?? "";
-/** La firma dipende dalla password e dalla chiave segreta del database: nessuno può costruirla da fuori. */
-const signingKey = () => `${process.env.SUPABASE_SERVICE_ROLE_KEY ?? ""}|${password()}`;
+export type StaffRole = "staff" | "estetista";
 
-export const staffLoginConfigured = (): boolean => password().length >= 10 && !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+const passwordOf = (role: StaffRole) => (role === "staff" ? process.env.STAFF_PASSWORD : process.env.ESTETISTA_PASSWORD) ?? "";
+const roleConfigured = (role: StaffRole) => passwordOf(role).length >= 10 && !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+/** La firma dipende dalla password del ruolo e dalla chiave segreta del database: nessuno può costruirla da fuori. */
+const signingKey = (role: StaffRole) => `${process.env.SUPABASE_SERVICE_ROLE_KEY ?? ""}|${passwordOf(role)}`;
 
-function sign(expires: number): string {
-  return createHmac("sha256", signingKey()).update(`staff:${expires}`).digest("base64url");
+/** L'accesso è attivo appena c'è la password delle dottoresse; quella dell'estetista si può aggiungere dopo. */
+export const staffLoginConfigured = (): boolean => roleConfigured("staff");
+
+function sign(role: StaffRole, expires: number): string {
+  return createHmac("sha256", signingKey(role)).update(`${role}:${expires}`).digest("base64url");
 }
 
 function safeEqual(a: string, b: string): boolean {
@@ -23,26 +30,43 @@ function safeEqual(a: string, b: string): boolean {
   return x.length === y.length && timingSafeEqual(x, y);
 }
 
-export function checkPassword(input: string): boolean {
-  if (!staffLoginConfigured()) return false;
-  // Confronto delle impronte: stessa durata qualunque sia la password scritta.
+/** Quale password è stata scritta (o null). Confronto delle impronte: stessa durata qualunque sia la password. */
+export function checkPassword(input: string): StaffRole | null {
   const h = (v: string) => createHmac("sha256", "masera-staff").update(v).digest("base64url");
-  return safeEqual(h(input), h(password()));
+  const given = h(input);
+  let found: StaffRole | null = null;
+  for (const role of ["staff", "estetista"] as const) {
+    if (roleConfigured(role) && safeEqual(given, h(passwordOf(role))) && !found) found = role;
+  }
+  return found;
 }
 
-export function newSessionValue(now = Date.now()): { value: string; maxAge: number } {
+export function newSessionValue(role: StaffRole, now = Date.now()): { value: string; maxAge: number } {
   const expires = Math.floor(now / 1000) + MAX_AGE_S;
-  return { value: `${expires}.${sign(expires)}`, maxAge: MAX_AGE_S };
+  return { value: `${role}.${expires}.${sign(role, expires)}`, maxAge: MAX_AGE_S };
 }
 
-export function isValidSession(value: string | undefined, now = Date.now()): boolean {
-  if (!value || !staffLoginConfigured()) return false;
-  const [exp, sig] = value.split(".");
+/** Il ruolo di un cookie valido, o null. I cookie di prima (senza ruolo) valgono come "staff". */
+export function sessionRole(value: string | undefined, now = Date.now()): StaffRole | null {
+  if (!value) return null;
+  const parts = value.split(".");
+  const [role, exp, sig] = parts.length === 2 ? ["staff", parts[0], parts[1]] : parts;
+  if (role !== "staff" && role !== "estetista") return null;
+  if (!roleConfigured(role)) return null;
   const expires = Number(exp);
-  if (!Number.isInteger(expires) || !sig || expires * 1000 < now) return false;
-  return safeEqual(sig, sign(expires));
+  if (!Number.isInteger(expires) || !sig || expires * 1000 < now) return null;
+  return safeEqual(sig, sign(role, expires)) ? role : null;
+}
+
+export async function staffRole(): Promise<StaffRole | null> {
+  return sessionRole((await cookies()).get(STAFF_COOKIE)?.value);
 }
 
 export async function isStaff(): Promise<boolean> {
-  return isValidSession((await cookies()).get(STAFF_COOKIE)?.value);
+  return (await staffRole()) !== null;
+}
+
+/** Le zone che un ruolo vede e gestisce. */
+export function resourcesFor(role: StaffRole): ResourceId[] {
+  return role === "estetista" ? ["farmaestetica"] : (Object.keys(agendaResources) as ResourceId[]);
 }

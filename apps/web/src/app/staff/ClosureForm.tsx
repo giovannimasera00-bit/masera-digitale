@@ -1,12 +1,20 @@
 "use client";
 import { useActionState, useState } from "react";
-import { agendaResources } from "@masera/core";
 import { addClosureAction } from "./actions";
 
 const field = "fm-focus mt-1 min-h-12 w-full rounded-xl border-2 border-verde-scuro/25 bg-bianco px-3 text-[16px]";
 
 /** Chiusure, ferie, festivi: tutto il giorno o una fascia, per tutta la farmacia o una cabina. */
-export function ClosureForm({ date }: { date: string }) {
+export function ClosureForm({
+  date,
+  resources,
+  wholeAllowed,
+}: {
+  date: string;
+  resources: { id: string; name: string }[];
+  /** Solo la farmacia può chiudere tutte le zone insieme. */
+  wholeAllowed: boolean;
+}) {
   const [state, action, pending] = useActionState(addClosureAction, undefined);
   const [whole, setWhole] = useState(true);
   return (
@@ -23,8 +31,8 @@ export function ClosureForm({ date }: { date: string }) {
             Dove
           </label>
           <select id="cl-r" name="risorsa" className={field}>
-            <option value="">Tutta la farmacia</option>
-            {Object.values(agendaResources).map((r) => (
+            {wholeAllowed && <option value="">Tutta la farmacia</option>}
+            {resources.map((r) => (
               <option key={r.id} value={r.id}>
                 {r.name}
               </option>

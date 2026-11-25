@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { addDays, agendaResources, findService, formatClock, formatDay, localNow, services, telHref } from "@masera/core";
+import { addDays, agendaResources, agendaServices, findAgendaService, formatClock, formatDay, localNow, telHref } from "@masera/core";
 import { agendaDbConfigured, fetchBusy, fetchStaffClosures, fetchStaffDay, type StaffAppointment } from "@/lib/agenda-db";
-import { isStaff } from "@/lib/staff-auth";
+import { resourcesFor, staffRole } from "@/lib/staff-auth";
 import { deleteClosureAction, logoutAction, setStatusAction } from "../actions";
 import { ClosureForm } from "../ClosureForm";
 import { QuickBook } from "../QuickBook";
@@ -42,7 +42,10 @@ function StatusButton({ id, status, label, current }: { id: string; status: Staf
 }
 
 export default async function StaffAgendaPage({ searchParams }: { searchParams: Promise<{ giorno?: string }> }) {
-  if (!(await isStaff())) redirect("/staff/accesso");
+  const role = await staffRole();
+  if (!role) redirect("/staff/accesso");
+  const allowed = resourcesFor(role);
+  const columns = Object.values(agendaResources).filter((r) => allowed.includes(r.id));
   const sp = await searchParams;
   const now = new Date();
   const today = localNow(now).date;
@@ -51,9 +54,13 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
   if (!agendaDbConfigured()) {
     return <main className="p-8 text-[17px]">Il database dell&apos;agenda non è collegato (mancano le chiavi su Vercel).</main>;
   }
-  const [day, busy, upcoming] = await Promise.all([fetchStaffDay(date), fetchBusy(date, date), fetchStaffClosures(today, addDays(today, 90))]);
+  const [allDay, busy, allUpcoming] = await Promise.all([fetchStaffDay(date), fetchBusy(date, date), fetchStaffClosures(today, addDays(today, 90))]);
+  // L'estetista vede solo Farmaestetica (e le chiusure di tutta la farmacia, senza poterle togliere).
+  const day = allDay.filter((a) => allowed.includes(a.resource));
+  const upcoming = allUpcoming.filter((c) => !c.resource || allowed.includes(c.resource));
+  const canRemove = (c: (typeof upcoming)[number]) => role === "staff" || (!!c.resource && allowed.includes(c.resource));
   const dayClosures = upcoming.filter((c) => c.date === date);
-  const staffServices = services.filter((s) => s.resource in agendaResources);
+  const staffServices = agendaServices.filter((s) => (allowed as string[]).includes(s.resource));
   const f = formatDay(date);
   const navBtn = "fm-focus inline-flex min-h-11 items-center rounded-full border-2 border-verde-scuro/25 bg-bianco px-4 text-[15px] font-semibold";
 
@@ -61,7 +68,7 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
     <main className="mx-auto max-w-7xl px-4 py-6 md:px-8">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-verde">Agenda Masera · personale</p>
+          <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-verde">{role === "estetista" ? "Agenda Masera · Farmaestetica" : "Agenda Masera · personale"}</p>
           <h1 className="fm-display text-[34px] leading-tight md:text-[44px]">{f.long.charAt(0).toUpperCase() + f.long.slice(1)}</h1>
         </div>
         <form action={logoutAction}>
@@ -102,12 +109,12 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
       )}
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_360px]">
-        <div className="grid gap-4 md:grid-cols-2">
-          {Object.values(agendaResources).map((r) => {
+        <div className={`grid gap-4 ${columns.length > 1 ? "md:grid-cols-2 2xl:grid-cols-3" : ""}`}>
+          {columns.map((r) => {
             const list = day.filter((a) => a.resource === r.id);
             const active = list.filter((a) => a.status !== "annullato");
             return (
-              <section key={r.id} aria-labelledby={`col-${r.id}`} className="rounded-3xl bg-beige-chiaro/50 p-4">
+              <section key={r.id} aria-labelledby={`col-${r.id}`} className={`rounded-3xl p-4 ${r.id === "farmaestetica" ? "bg-salvia/45" : "bg-beige-chiaro/50"}`}>
                 <h2 id={`col-${r.id}`} className="flex items-baseline justify-between text-[19px] font-bold">
                   {r.name} <span className="text-[14px] font-semibold text-verde">{active.length === 1 ? "1 appuntamento" : `${active.length} appuntamenti`}</span>
                 </h2>
@@ -116,7 +123,7 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
                 ) : (
                   <ol className="mt-3 space-y-3">
                     {list.map((a) => {
-                      const s = findService(a.serviceSlug);
+                      const s = findAgendaService(a.serviceSlug);
                       const st = STATUS[a.status];
                       return (
                         <li key={a.id} className={`rounded-2xl bg-bianco p-4 ${a.status === "annullato" ? "opacity-60" : ""}`}>
@@ -168,7 +175,7 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
             <h2 id="cl-t" className="mb-3 text-[19px] font-bold">
               Chiusure, ferie, festivi
             </h2>
-            <ClosureForm date={date} />
+            <ClosureForm date={date} resources={columns.map((r) => ({ id: r.id, name: r.name }))} wholeAllowed={role === "staff"} />
             {upcoming.length > 0 && (
               <ul className="mt-4 space-y-2">
                 {upcoming.map((c) => (
@@ -178,12 +185,14 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
                       {c.from !== undefined ? `${formatClock(c.from)}–${formatClock(c.to!)}` : "tutto il giorno"}
                       {c.reason ? ` · ${c.reason}` : ""}
                     </span>
-                    <form action={deleteClosureAction}>
-                      <input type="hidden" name="id" value={c.id} />
-                      <button type="submit" className="fm-focus min-h-10 rounded-full px-3 text-[14px] font-semibold text-[#7a2418] underline underline-offset-4">
-                        Togli
-                      </button>
-                    </form>
+                    {canRemove(c) && (
+                      <form action={deleteClosureAction}>
+                        <input type="hidden" name="id" value={c.id} />
+                        <button type="submit" className="fm-focus min-h-10 rounded-full px-3 text-[14px] font-semibold text-[#7a2418] underline underline-offset-4">
+                          Togli
+                        </button>
+                      </form>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -50,7 +50,10 @@ export default function FarmaesteticaPage() {
                 Trattamenti viso e corpo, laser e la Miamo Lounge, con la nostra estetista e il consiglio della farmacia al piano di sotto.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <a href="#listino" className="fm-focus fm-press inline-flex min-h-12 items-center rounded-full bg-verde-scuro px-6 text-[17px] font-semibold text-carta">
+                <a href="/prenota?zona=farmaestetica" className="fm-focus fm-press inline-flex min-h-12 items-center rounded-full bg-verde-scuro px-6 text-[17px] font-semibold text-carta">
+                  Prenota un trattamento
+                </a>
+                <a href="#listino" className="fm-focus fm-press inline-flex min-h-12 items-center rounded-full border-2 border-verde-scuro px-6 text-[17px] font-semibold">
                   Vedi il listino
                 </a>
                 <a href={`https://wa.me/39${waNumber}`} className="fm-focus fm-press inline-flex min-h-12 items-center rounded-full border-2 border-verde-scuro px-6 text-[17px] font-semibold">

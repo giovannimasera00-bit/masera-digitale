@@ -3,8 +3,9 @@
 // non cambia se il server gira in un altro fuso o al cambio dell'ora legale.
 import { farmaciaHours, TIME_ZONE, type WeekDay, type WeeklyHours } from "./farmacia";
 import { services, type Service } from "./services";
+import { farmaesteticaGroups, farmaesteticaHours, miamoGroups, treatmentSlug, type Treatment } from "./farmaestetica";
 
-export type ResourceId = "cabina_analisi" | "skinlab";
+export type ResourceId = "cabina_analisi" | "skinlab" | "farmaestetica";
 
 export type AgendaResource = {
   id: ResourceId;
@@ -14,12 +15,45 @@ export type AgendaResource = {
   hours: WeeklyHours;
 };
 
-/** Le risorse prenotabili oggi. Farmaestetica, videoconsulenza ed eventi arriveranno dopo. */
+/** Le zone prenotabili, indipendenti tra loro. Videoconsulenza ed eventi arriveranno dopo. */
 export const agendaResources: Record<ResourceId, AgendaResource> = {
   cabina_analisi: { id: "cabina_analisi", name: "Cabina analisi", bufferMin: 5, hours: farmaciaHours },
   // Skin LAB: nessuna pausa tra un appuntamento e l'altro (confermato da Giovanni il 25/11/2026).
   skinlab: { id: "skinlab", name: "Cabina Skin LAB", bufferMin: 0, hours: farmaciaHours },
+  // Farmaestetica (e Miamo Lounge): una sola estetista, laser incluso; 10 minuti di pulizia (BRIEF §9).
+  farmaestetica: { id: "farmaestetica", name: "Farmaestetica", bufferMin: 10, hours: farmaesteticaHours },
 };
+
+export type BookingGroup = { slug: string; name: string; services: Service[] };
+
+const feService = (group: string, t: Treatment, name: string, estimate: boolean): Service => ({
+  slug: treatmentSlug(group, t.name),
+  name,
+  description: "",
+  group: `fe-${group}`,
+  price_eur: t.price,
+  duration_min: t.minutes,
+  preparation: "",
+  resource: "farmaestetica",
+  bookable_online: true,
+  ...(estimate ? { estimate: true } : {}),
+});
+
+/** I trattamenti di Farmaestetica by Dottor Masera come servizi prenotabili, divisi come nel listino, più la Miamo Lounge. */
+export const farmaesteticaBookingGroups: BookingGroup[] = [
+  ...farmaesteticaGroups.map((g) => ({ slug: `fe-${g.slug}`, name: g.name, services: g.items.map((t) => feService(g.slug, t, t.name, true)) })),
+  {
+    slug: "fe-miamo",
+    name: "Miamo Lounge",
+    services: miamoGroups.flatMap((l) =>
+      l.items.map((t) => feService(l.slug, t, l.slug.includes("elettroporazione") ? `${t.name} con elettroporazione e radiofrequenza` : t.name, false)),
+    ),
+  },
+];
+
+/** Tutto ciò che può stare in agenda: servizi della farmacia e trattamenti di Farmaestetica. */
+export const agendaServices: Service[] = [...services, ...farmaesteticaBookingGroups.flatMap((g) => g.services)];
+export const findAgendaService = (slug: string): Service | undefined => agendaServices.find((s) => s.slug === slug);
 
 /** Ogni quanto si può iniziare un appuntamento. */
 export const SLOT_STEP_MIN = 15;
@@ -37,7 +71,7 @@ const isResource = (r: string): r is ResourceId => r in agendaResources;
 
 /** I servizi che il cliente può prenotare da solo sul sito. */
 export function bookableServices(): Service[] {
-  return services.filter((s) => s.bookable_online && isResource(s.resource));
+  return agendaServices.filter((s) => s.bookable_online && isResource(s.resource));
 }
 
 export const toMinutes = (hhmm: string): number => {

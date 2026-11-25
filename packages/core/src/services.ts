@@ -12,6 +12,8 @@ export type Service = {
   resource: string;
   bookable_online: boolean;
   note?: string;
+  /** Durata indicativa (listino Farmaestetica): si mostra come "circa". */
+  estimate?: boolean;
 };
 export type ServiceGroup = { slug: string; name: string; intro: string };
 
@@ -56,4 +58,10 @@ export function formatDuration(min: number): string {
 export function minPrice(group: string): number | null {
   const prices = services.filter((s) => s.group === group && typeof s.price_eur === "number").map((s) => s.price_eur as number);
   return prices.length ? Math.min(...prices) : null;
+}
+
+/** Durata di un servizio, con "circa" quando è una stima (trattamenti Farmaestetica). */
+export function formatServiceDuration(s: Pick<Service, "duration_min" | "estimate">): string {
+  const d = formatDuration(s.duration_min);
+  return s.estimate && !d.startsWith("circa") ? `circa ${d}` : d;
 }

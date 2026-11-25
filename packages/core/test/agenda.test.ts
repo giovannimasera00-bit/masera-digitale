@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   addDays, availableSlots, bookableDays, bookableServices, BOOKING_WINDOW_DAYS, formatClock, formatDay,
-  localNow, normalizeMobile, toMinutes, weekdayOf, type Busy,
+  localNow, normalizeMobile, toMinutes, weekdayOf, type Busy, agendaServices, farmaesteticaBookingGroups, findAgendaService,
+  formatServiceDuration, farmaesteticaGroups, miamoGroups, treatmentSlug,
 } from "../src";
 
 // Lunedì 23 novembre 2026, 7:00 a Seregno (ora solare: UTC+1).
@@ -95,16 +96,55 @@ describe("orari liberi", () => {
 });
 
 describe("servizi e dati del cliente", () => {
-  it("prenotabili online: tutti su cabina analisi o Skin LAB, niente videoconsulenza", () => {
+  it("prenotabili online: cabina analisi, Skin LAB e Farmaestetica; niente videoconsulenza né breath test", () => {
     const b = bookableServices();
     expect(b.length).toBeGreaterThan(10);
-    expect(b.every((s) => s.resource === "cabina_analisi" || s.resource === "skinlab")).toBe(true);
+    expect(b.every((s) => ["cabina_analisi", "skinlab", "farmaestetica"].includes(s.resource))).toBe(true);
     expect(b.some((s) => s.slug === "videoconsulenza")).toBe(false);
+    expect(b.some((s) => s.slug.startsWith("breath-test"))).toBe(false);
   });
   it("cellulare italiano", () => {
     expect(normalizeMobile("373 770 5485")).toBe("+393737705485");
     expect(normalizeMobile("+39 333-1234567")).toBe("+393331234567");
     expect(normalizeMobile("0362 231660")).toBeNull();
     expect(normalizeMobile("12345")).toBeNull();
+  });
+});
+
+describe("Farmaestetica nell'agenda", () => {
+  const pulizia = findAgendaService("fe-viso-pulizia-viso")!;
+  it("ogni trattamento ha un codice unico, anche quelli con lo stesso nome", () => {
+    const slugs = agendaServices.map((s) => s.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    expect(findAgendaService("fe-laser-ascelle")?.resource).toBe("farmaestetica");
+    expect(findAgendaService("fe-cera-mani-piedi-ascelle")?.price_eur).toBe(16);
+    expect(farmaesteticaBookingGroups.map((g) => g.name)).toEqual(["Viso", "Corpo", "Laser", "Cera e mani-piedi", "Miamo Lounge"]);
+  });
+  it("ogni tasto + del listino porta a un trattamento prenotabile", () => {
+    for (const g of [...farmaesteticaGroups, ...miamoGroups]) {
+      for (const it of g.items) expect(findAgendaService(treatmentSlug(g.slug, it.name))?.bookable_online, `${g.name} · ${it.name}`).toBe(true);
+    }
+  });
+  it("durate del listino mostrate come circa", () => {
+    expect(pulizia.duration_min).toBe(60);
+    expect(formatServiceDuration(pulizia)).toBe("circa 1 ora");
+    expect(formatServiceDuration({ duration_min: 30 })).toBe("30 min");
+  });
+  it("orari propri: sabato dalle 8:30 alle 18:30, domenica chiuso", () => {
+    const sat = availableSlots({ service: pulizia, date: SAT, now: MON_EARLY });
+    expect(formatClock(sat[0]!)).toBe("8:30");
+    expect(formatClock(sat.at(-1)!)).toBe("17:30");
+    expect(availableSlots({ service: pulizia, date: SUN, now: MON_EARLY })).toEqual([]);
+  });
+  it("10 minuti di pulizia, e un ECG in cabina non tocca l'estetista", () => {
+    const busy: Busy[] = [
+      { resource: "farmaestetica", date: MON, start: toMinutes("10:00"), end: toMinutes("11:00") },
+      { resource: "cabina_analisi", date: MON, start: toMinutes("14:00"), end: toMinutes("14:30") },
+    ];
+    const free = availableSlots({ service: pulizia, date: MON, now: MON_EARLY, busy }).map(formatClock);
+    expect(free).not.toContain("11:00"); // pulizia fino alle 11:10
+    expect(free).toContain("11:15");
+    expect(free[0]).toBe("11:15"); // apre alle 9:30: un'ora non ci sta prima delle 10
+    expect(free).toContain("14:00");
   });
 });

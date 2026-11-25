@@ -3,14 +3,13 @@ import "./prenota.css";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
-  bookableDays, type Busy, type Closure, formatClock, formatDay, formatDuration, formatPrice, isMissing, normalizeMobile, type Service,
+  bookableDays, type Busy, type Closure, formatClock, formatDay, formatPrice, formatServiceDuration, isMissing, normalizeMobile, type Service,
 } from "@masera/core";
-import { AGENDA_LIVE, bookingGroups } from "@/content/prenota";
+import { AGENDA_LIVE, bookingAreas } from "@/content/prenota";
 import { confirmAction, holdAction, releaseAction } from "@/app/(sito)/prenota/actions";
-import { links } from "@/content/home";
 
-const groups = bookingGroups();
-const allServices = groups.flatMap((g) => g.services);
+const areas = bookingAreas();
+const allServices = areas.flatMap((a) => a.groups.flatMap((g) => g.services));
 
 /** Gruppo di scelte "una sola" accessibile: radio veri, disegnati come pillole o schede. */
 function Choices<T extends string | number>({
@@ -61,12 +60,15 @@ const clockOf = (iso: string) => new Intl.DateTimeFormat("it-IT", { timeZone: "E
 export function BookingFlow({
   nowIso,
   initialService,
+  initialArea,
   mode,
   busy: initialBusy,
   closures,
 }: {
   nowIso: string;
   initialService?: string;
+  /** "farmaestetica" per aprire direttamente i trattamenti del centro estetico. */
+  initialArea?: "farmaestetica";
   /** "db": orari veri e prenotazioni salvate; "demo": orari finti, niente salvato. */
   mode: "db" | "demo";
   busy: Busy[];
@@ -82,7 +84,11 @@ export function BookingFlow({
   const holdRef = useRef<string | null>(null);
 
   const start = allServices.find((s) => s.slug === initialService);
-  const [group, setGroup] = useState<string>(start ? (groups.find((g) => g.services.includes(start))?.slug ?? groups[0]!.slug) : groups[0]!.slug);
+  const startArea = (start && areas.find((a) => a.groups.some((g) => g.services.includes(start)))) || areas.find((a) => a.slug === initialArea) || areas[0]!;
+  const [areaSlug, setAreaSlug] = useState(startArea.slug);
+  const area = areas.find((a) => a.slug === areaSlug) ?? areas[0]!;
+  const groups = area.groups;
+  const [group, setGroup] = useState<string>((start && groups.find((g) => g.services.includes(start))?.slug) || groups[0]!.slug);
   const [serviceSlug, setServiceSlug] = useState<string | null>(start?.slug ?? null);
   const [date, setDate] = useState<string | null>(null);
   const [slot, setSlot] = useState<number | null>(null);
@@ -215,7 +221,7 @@ export function BookingFlow({
             {formatDay(date).long}, ore {formatClock(slot)}
           </p>
           <p className="pn-in mt-1 text-[16px] text-beige-chiaro" style={{ animationDelay: ".65s" }}>
-            Farmacia Masera, via Garibaldi 103, Seregno
+            {area.place}
           </p>
           {!isMissing(service.preparation) && service.preparation && (
             <div className="pn-in mt-6 max-w-xl rounded-3xl bg-carta/10 p-5 text-left text-[16px]" style={{ animationDelay: ".7s" }}>
@@ -225,7 +231,7 @@ export function BookingFlow({
           )}
           <p className="pn-in mt-6 max-w-xl text-[15px] text-beige-chiaro" style={{ animationDelay: ".75s" }}>
             Per spostare o annullare scrivici su{" "}
-            <a href={links.whatsapp} className="font-semibold text-carta underline underline-offset-4">
+            <a href={area.whatsapp} className="font-semibold text-carta underline underline-offset-4">
               WhatsApp
             </a>
             .
@@ -260,7 +266,28 @@ export function BookingFlow({
       <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
         <div className="min-w-0 space-y-6">
           <Choices
-            legend="1 · Cosa ti serve?"
+            legend="1 · Dove?"
+            name="zona"
+            value={areaSlug}
+            onChange={(v) => {
+              const next = areas.find((a) => a.slug === v)!;
+              setAreaSlug(next.slug);
+              setGroup(next.groups[0]!.slug);
+              setServiceSlug(null);
+              setDate(null);
+              setSlot(null);
+            }}
+            options={areas.map((a) => ({ v: a.slug, label: a.name }))}
+            className="flex flex-wrap gap-2"
+            itemClass={(on) =>
+              `inline-flex min-h-12 items-center rounded-2xl border-2 px-5 text-[16px] font-bold ${
+                on ? (areaSlug === "farmaestetica" ? "border-verde-scuro bg-salvia text-verde-scuro" : "border-verde-scuro bg-verde-scuro text-carta") : "border-verde-scuro/25 bg-bianco text-verde-scuro"
+              }`
+            }
+          />
+          <Choices
+            key={areaSlug}
+            legend="Cosa ti serve?"
             name="gruppo"
             value={group}
             onChange={setGroup}
@@ -279,7 +306,7 @@ export function BookingFlow({
                 <span className="flex items-center justify-between gap-3">
                   <span>
                     <b className="block text-[16px]">{s.name}</b>
-                    <span className="text-[14px] text-verde">{formatDuration(s.duration_min)}</span>
+                    <span className="text-[14px] text-verde">{formatServiceDuration(s)}</span>
                   </span>
                   <span className="whitespace-nowrap text-[16px] font-bold">{formatPrice(s.price_eur)}</span>
                 </span>
@@ -344,7 +371,7 @@ export function BookingFlow({
               {days.every((d) => d.slots.length === 0) && (
                 <p className="rounded-3xl bg-beige-chiaro/60 p-6 text-[17px]">
                   Nei prossimi giorni non ci sono orari liberi online. Scrivici su{" "}
-                  <a href={links.whatsapp} className="font-semibold underline underline-offset-4">
+                  <a href={area.whatsapp} className="font-semibold underline underline-offset-4">
                     WhatsApp
                   </a>
                   : troviamo noi un posto.
@@ -422,7 +449,7 @@ export function BookingFlow({
 
       <div className="sticky bottom-4 z-10 mt-10 flex items-center gap-3 rounded-3xl bg-[#1a2419] py-3.5 pl-5 pr-3.5 text-carta shadow-[0_16px_32px_rgba(0,0,0,.25)]">
         <span className="min-w-0 flex-1">
-          <span className="block text-[13px] text-salvia">{service ? `${formatPrice(service.price_eur)} · ${formatDuration(service.duration_min)}` : "Agenda Masera"}</span>
+          <span className="block text-[13px] text-salvia">{service ? `${formatPrice(service.price_eur)} · ${formatServiceDuration(service)}` : "Agenda Masera"}</span>
           <b className="block truncate text-[16px]">{summary}</b>
         </span>
         <button

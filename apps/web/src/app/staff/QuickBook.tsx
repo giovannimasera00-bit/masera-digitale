@@ -1,6 +1,6 @@
 "use client";
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
-import { agendaResources, availableSlots, formatClock, formatDuration, type Busy, type Closure, type Service } from "@masera/core";
+import { agendaResources, availableSlots, formatClock, formatServiceDuration, type Busy, type Closure, type Service } from "@masera/core";
 import { quickBookAction } from "./actions";
 
 const field = "fm-focus mt-1 min-h-12 w-full rounded-xl border-2 border-verde-scuro/25 bg-bianco px-3 text-[16px]";
@@ -21,7 +21,9 @@ export function QuickBook({ date, nowIso, services, busy, closures }: { date: st
     if (state?.ok) formRef.current?.reset();
   }, [state]);
 
-  const byResource = Object.values(agendaResources).map((r) => ({ r, list: services.filter((s) => s.resource === r.id) }));
+  const byResource = Object.values(agendaResources)
+    .map((r) => ({ r, list: services.filter((s) => s.resource === r.id) }))
+    .filter((x) => x.list.length > 0);
 
   return (
     <form ref={formRef} action={action} className="space-y-3">
@@ -35,7 +37,7 @@ export function QuickBook({ date, nowIso, services, busy, closures }: { date: st
             <optgroup key={r.id} label={r.name}>
               {list.map((s) => (
                 <option key={s.slug} value={s.slug}>
-                  {s.name} · {formatDuration(s.duration_min)}
+                  {s.name} · {formatServiceDuration(s)}
                 </option>
               ))}
             </optgroup>

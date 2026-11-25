@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   addDays, availableSlots, bookableDays, bookableServices, BOOKING_WINDOW_DAYS, formatClock, formatDay,
   localNow, normalizeMobile, toMinutes, weekdayOf, type Busy, agendaServices, farmaesteticaBookingGroups, findAgendaService,
-  formatServiceDuration, farmaesteticaGroups, miamoGroups, treatmentSlug,
+  formatServiceDuration, farmaesteticaGroups, canChangeOnline, minutesUntil, miamoGroups, treatmentSlug,
 } from "../src";
 
 // Lunedì 23 novembre 2026, 7:00 a Seregno (ora solare: UTC+1).
@@ -79,10 +79,10 @@ describe("orari liberi", () => {
     const s = availableSlots({ service: cabina15, date: MON, now });
     expect(s[0]).toBe(toMinutes("11:15"));
   });
-  it("personale: in giornata senza preavviso (fino a 15 minuti fa) e anche oltre i 14 giorni", () => {
+  it("personale: in giornata senza preavviso (fino a 15 minuti fa) e anche oltre la finestra online", () => {
     const now = new Date("2026-11-23T09:10:00Z"); // 10:10 a Seregno
     expect(availableSlots({ service: cabina15, date: MON, now, staff: true })[0]).toBe(toMinutes("10:00"));
-    expect(availableSlots({ service: cabina15, date: addDays(MON, 30), now, staff: true }).length).toBeGreaterThan(0);
+    expect(availableSlots({ service: cabina15, date: addDays(MON, BOOKING_WINDOW_DAYS + 5), now, staff: true }).length).toBeGreaterThan(0);
     expect(availableSlots({ service: cabina15, date: "2026-11-22", now, staff: true })).toEqual([]);
   });
   it("niente date passate né oltre la finestra di prenotazione", () => {
@@ -146,5 +146,27 @@ describe("Farmaestetica nell'agenda", () => {
     expect(free).toContain("11:15");
     expect(free[0]).toBe("11:15"); // apre alle 9:30: un'ora non ci sta prima delle 10
     expect(free).toContain("14:00");
+  });
+});
+
+describe("finestra di prenotazione e modifiche del cliente", () => {
+  it("si prenota online fino a 30 giorni (oggi compreso)", () => {
+    expect(BOOKING_WINDOW_DAYS).toBe(30);
+    expect(availableSlots({ service: cabina15, date: addDays(MON, 29), now: MON_EARLY }).length).toBeGreaterThan(0);
+    expect(availableSlots({ service: cabina15, date: addDays(MON, 30), now: MON_EARLY })).toEqual([]);
+  });
+  it("minuti che mancano, anche a cavallo di giorni e del cambio d'ora", () => {
+    const now = new Date("2026-11-23T09:10:00Z"); // lunedì 10:10 a Seregno
+    expect(minutesUntil(MON, toMinutes("11:10"), now)).toBe(60);
+    expect(minutesUntil("2026-11-24", toMinutes("9:00"), now)).toBe(1440 - 70);
+    expect(minutesUntil(MON, toMinutes("10:00"), now)).toBe(-10);
+    // sabato 28 marzo 2026, 23:00 (ora solare) → domenica 29 alle 9:00 (ora legale): conta l'orologio di Seregno
+    expect(minutesUntil("2026-03-29", toMinutes("9:00"), new Date("2026-03-28T22:00:00Z"))).toBe(600);
+  });
+  it("spostare o annullare da soli: fino a un'ora prima, non dopo", () => {
+    const now = new Date("2026-11-23T09:10:00Z"); // 10:10
+    expect(canChangeOnline(MON, toMinutes("11:10"), now)).toBe(true);
+    expect(canChangeOnline(MON, toMinutes("11:05"), now)).toBe(false);
+    expect(canChangeOnline(MON, toMinutes("9:00"), now)).toBe(false);
   });
 });

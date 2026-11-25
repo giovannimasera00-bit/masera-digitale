@@ -4,7 +4,8 @@ import {
   addDays, agendaResources, availableSlots, bookableServices, BOOKING_WINDOW_DAYS, localNow, normalizeMobile, type Busy,
   type ResourceId,
 } from "@masera/core";
-import { agendaDbConfigured, confirmHold, fetchBusy, fetchClosures, holdSlot, releaseHold } from "@/lib/agenda-db";
+import { agendaDbConfigured, confirmBooking, fetchBusy, fetchClosures, holdSlot, releaseHold } from "@/lib/agenda-db";
+import { hashManageToken, newManageToken } from "@/lib/manage-token";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -46,7 +47,7 @@ export async function releaseAction(holdId: string): Promise<void> {
   }
 }
 
-export type ConfirmResult = { ok: true } | { ok: false; reason: "dati" | "scaduto" | "errore" };
+export type ConfirmResult = { ok: true; token: string } | { ok: false; reason: "dati" | "scaduto" | "errore" };
 
 /** Conferma: controlla di nuovo i dati sul server e trasforma il posto tenuto in appuntamento. */
 export async function confirmAction(input: { holdId: string; name: string; phone: string; privacy: boolean }): Promise<ConfirmResult> {
@@ -55,7 +56,9 @@ export async function confirmAction(input: { holdId: string; name: string; phone
   const phone = normalizeMobile(input.phone);
   if (!UUID.test(input.holdId) || name.length < 3 || !phone || input.privacy !== true) return { ok: false, reason: "dati" };
   try {
-    return (await confirmHold(input.holdId, name, phone)) ? { ok: true } : { ok: false, reason: "scaduto" };
+    // Il link personale per spostare o annullare: il codice va solo al cliente, nel database la sua impronta.
+    const token = newManageToken();
+    return (await confirmBooking(input.holdId, name, phone, hashManageToken(token))) ? { ok: true, token } : { ok: false, reason: "scaduto" };
   } catch (e) {
     console.error(e);
     return { ok: false, reason: "errore" };

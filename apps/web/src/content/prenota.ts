@@ -1,6 +1,6 @@
 // Agenda Masera: testi e dati di prova della pagina /prenota.
 import {
-  addDays, bookableServices, farmaesteticaBookingGroups, farmaesteticaBrand, farmaesteticaContacts, localNow, serviceGroups, toMinutes,
+  addDays, bookableServices, BOOKING_WINDOW_DAYS, farmaesteticaBookingGroups, farmaesteticaBrand, farmaesteticaContacts, localNow, serviceGroups, toMinutes,
   type BookingGroup, type Busy,
 } from "@masera/core";
 import { links } from "@/content/home";
@@ -55,7 +55,7 @@ export function bookingAreas(): BookingArea[] {
 export function demoBusy(now: Date): Busy[] {
   const start = localNow(now).date;
   const out: Busy[] = [];
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < BOOKING_WINDOW_DAYS; i++) {
     const date = addDays(start, i);
     const shift = (i % 3) * 30;
     out.push({ resource: "cabina_analisi", date, start: toMinutes("09:00") + shift, end: toMinutes("09:30") + shift });

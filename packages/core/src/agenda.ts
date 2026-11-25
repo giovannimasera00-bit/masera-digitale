@@ -59,8 +59,10 @@ export const findAgendaService = (slug: string): Service | undefined => agendaSe
 export const SLOT_STEP_MIN = 15;
 /** Preavviso minimo per prenotare online: 1 ora, sempre (confermato il 25/11/2026). */
 export const MIN_NOTICE_MIN = 60;
-/** Quanti giorni avanti si può prenotare online. [DA CONFERMARE] */
-export const BOOKING_WINDOW_DAYS = 14;
+/** Quanti giorni avanti si può prenotare online: 30 (confermato da Giovanni il 25/11/2026). */
+export const BOOKING_WINDOW_DAYS = 30;
+/** Il cliente può spostare o annullare da solo fino a 1 ora prima (confermato il 25/11/2026). Dopo, chiama o scrive. */
+export const CHANGE_NOTICE_MIN = 60;
 
 /** Un appuntamento (o un posto tenuto per 5 minuti) che occupa una risorsa. */
 export type Busy = { resource: ResourceId; date: string; start: number; end: number };
@@ -101,6 +103,16 @@ export function addDays(iso: string, n: number): string {
   d.setUTCDate(d.getUTCDate() + n);
   return d.toISOString().slice(0, 10);
 }
+
+/** Minuti che mancano a un appuntamento (giorno e minuti in ora di Seregno). Negativo se è già iniziato. */
+export function minutesUntil(date: string, startMin: number, now: Date): number {
+  const today = localNow(now);
+  const days = Math.round((asUtcNoon(date).getTime() - asUtcNoon(today.date).getTime()) / 86_400_000);
+  return days * 1440 + startMin - today.minutes;
+}
+
+/** true se il cliente può ancora spostare o annullare da solo. */
+export const canChangeOnline = (date: string, startMin: number, now: Date): boolean => minutesUntil(date, startMin, now) >= CHANGE_NOTICE_MIN;
 
 const overlaps = (a0: number, a1: number, b0: number, b1: number) => a0 < b1 && b0 < a1;
 

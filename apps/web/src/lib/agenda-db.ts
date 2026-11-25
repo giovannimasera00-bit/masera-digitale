@@ -150,3 +150,50 @@ export async function fetchClosureResource(id: string): Promise<ResourceId | nul
   const rows = await rest<{ resource: ResourceId | null }[]>(`closures?select=resource&id=eq.${id}`);
   return rows.length ? rows[0]!.resource : undefined;
 }
+
+// ——— Link personale del cliente (/appuntamento/…): sposta o annulla da solo ———
+
+/** Conferma il posto tenuto e salva l'impronta del link personale. false = posto scaduto. */
+export async function confirmBooking(id: string, name: string, phone: string, tokenHash: string): Promise<boolean> {
+  return rest<boolean>("rpc/confirm_booking", {
+    method: "POST",
+    body: JSON.stringify({ p_id: id, p_name: name, p_phone: phone, p_token_hash: tokenHash }),
+  });
+}
+
+export type ManagedAppointment = {
+  serviceSlug: string;
+  resource: ResourceId;
+  status: "confermato" | "arrivato" | "fatto" | "annullato" | "non_presentato";
+  date: string;
+  start: number;
+  end: number;
+};
+
+/** L'appuntamento di un link (senza nome né telefono), o null se il link non esiste. */
+export async function manageGet(tokenHash: string): Promise<ManagedAppointment | null> {
+  const rows = await rest<{ service_slug: string; resource: ResourceId; status: ManagedAppointment["status"]; day: string; start_min: number; end_min: number }[]>(
+    "rpc/manage_get",
+    { method: "POST", body: JSON.stringify({ p_token_hash: tokenHash }) },
+  );
+  const r = rows?.[0];
+  return r ? { serviceSlug: r.service_slug, resource: r.resource, status: r.status, date: r.day, start: r.start_min, end: r.end_min } : null;
+}
+
+export async function manageCancel(tokenHash: string): Promise<boolean> {
+  return rest<boolean>("rpc/manage_cancel", { method: "POST", body: JSON.stringify({ p_token_hash: tokenHash }) });
+}
+
+export async function manageMove(tokenHash: string, date: string, start: number): Promise<boolean> {
+  return rest<boolean>("rpc/manage_move", {
+    method: "POST",
+    body: JSON.stringify({ p_token_hash: tokenHash, p_day: date, p_start_min: start }),
+  });
+}
+
+/** Gli impegni di tutti tranne l'appuntamento stesso (che si sta spostando). */
+export async function busyWithout(a: ManagedAppointment, from: string, to: string): Promise<Busy[]> {
+  const busy = await fetchBusy(from, to);
+  const i = busy.findIndex((b) => b.resource === a.resource && b.date === a.date && b.start === a.start && b.end === a.end);
+  return i < 0 ? busy : [...busy.slice(0, i), ...busy.slice(i + 1)];
+}

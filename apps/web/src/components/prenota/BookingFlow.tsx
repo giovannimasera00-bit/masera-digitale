@@ -1,7 +1,8 @@
 "use client";
 import "./prenota.css";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Choices, pill } from "./Choices";
 import {
   bookableDays, type Busy, type Closure, formatClock, formatDay, formatPrice, formatServiceDuration, isMissing, normalizeMobile, type Service,
 } from "@masera/core";
@@ -10,49 +11,6 @@ import { confirmAction, holdAction, releaseAction } from "@/app/(sito)/prenota/a
 
 const areas = bookingAreas();
 const allServices = areas.flatMap((a) => a.groups.flatMap((g) => g.services));
-
-/** Gruppo di scelte "una sola" accessibile: radio veri, disegnati come pillole o schede. */
-function Choices<T extends string | number>({
-  legend,
-  name,
-  value,
-  onChange,
-  options,
-  className,
-  itemClass,
-}: {
-  legend: ReactNode;
-  name: string;
-  value: T | null;
-  onChange: (v: T) => void;
-  options: { v: T; label: ReactNode; disabled?: boolean; key?: string }[];
-  className: string;
-  itemClass: (checked: boolean, disabled: boolean) => string;
-}) {
-  return (
-    <fieldset className="min-w-0">
-      <legend className="mb-3 text-[13px] font-bold uppercase tracking-[0.12em] text-verde">{legend}</legend>
-      <div className={className}>
-        {options.map((o, i) => {
-          const checked = value === o.v;
-          return (
-            <label key={o.key ?? String(o.v)} className={`pn-in block ${o.disabled ? "cursor-not-allowed" : "cursor-pointer"}`} style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}>
-              <input type="radio" name={name} value={String(o.v)} checked={checked} disabled={o.disabled} onChange={() => onChange(o.v)} className="peer sr-only" />
-              <span className={`fm-press block h-full peer-focus-visible:shadow-[0_0_0_3px_var(--color-carta),0_0_0_6px_var(--color-verde-scuro)] ${itemClass(checked, !!o.disabled)}`}>
-                {o.label}
-              </span>
-            </label>
-          );
-        })}
-      </div>
-    </fieldset>
-  );
-}
-
-const pill = (on: boolean, off: boolean) =>
-  `inline-flex min-h-11 items-center rounded-full border-2 px-4 text-[15px] font-bold ${
-    off ? "border-transparent bg-beige-chiaro/50 text-verde/50" : on ? "border-verde-scuro bg-verde-scuro text-carta" : "border-verde-scuro/25 bg-bianco text-verde-scuro"
-  }`;
 
 /** "2026-11-24T17:05:00Z" → "18:05" (ora di Seregno). */
 const clockOf = (iso: string) => new Intl.DateTimeFormat("it-IT", { timeZone: "Europe/Rome", hour: "2-digit", minute: "2-digit" }).format(new Date(iso));
@@ -97,6 +55,9 @@ export function BookingFlow({
   const [privacy, setPrivacy] = useState(false);
   const [tried, setTried] = useState(false);
   const [done, setDone] = useState(false);
+  /** Il link personale per spostare o annullare (solo con il database). */
+  const [manageUrl, setManageUrl] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const doneRef = useRef<HTMLHeadingElement>(null);
 
   const service: Service | undefined = allServices.find((s) => s.slug === serviceSlug);
@@ -181,6 +142,7 @@ export function BookingFlow({
     setSending(false);
     if (r.ok) {
       holdRef.current = null;
+      setManageUrl(`${window.location.origin}/appuntamento/${r.token}`);
       setDone(true);
     } else if (r.reason === "scaduto") {
       holdRef.current = null;
@@ -197,6 +159,8 @@ export function BookingFlow({
     setHoldState("idle");
     setNotice(null);
     setDone(false);
+    setManageUrl(null);
+    setCopied(false);
     setTried(false);
     setSlot(null);
     setName("");
@@ -229,13 +193,39 @@ export function BookingFlow({
               {service.preparation}
             </div>
           )}
-          <p className="pn-in mt-6 max-w-xl text-[15px] text-beige-chiaro" style={{ animationDelay: ".75s" }}>
-            Per spostare o annullare scrivici su{" "}
-            <a href={area.whatsapp} className="font-semibold text-carta underline underline-offset-4">
-              WhatsApp
-            </a>
-            .
-          </p>
+          {manageUrl ? (
+            <div className="pn-in mt-6 w-full max-w-xl rounded-3xl bg-carta/10 p-5 text-left text-[16px]" style={{ animationDelay: ".75s" }}>
+              <b className="block text-mela">Il tuo link per spostare o annullare</b>
+              Salvalo: puoi spostare o annullare da solo fino a un&apos;ora prima. Dopo, chiamaci o scrivici su{" "}
+              <a href={area.whatsapp} className="font-semibold text-carta underline underline-offset-4">
+                WhatsApp
+              </a>
+              .
+              <div className="mt-4 flex flex-wrap gap-2">
+                <a href={manageUrl} className="fm-focus fm-press inline-flex min-h-12 items-center rounded-full bg-mela px-5 font-bold text-verde-scuro">
+                  Il mio appuntamento
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    void navigator.clipboard?.writeText(manageUrl).then(() => setCopied(true), () => setCopied(false));
+                  }}
+                  className="fm-focus fm-press min-h-12 rounded-full border-2 border-carta px-5 font-bold"
+                >
+                  {copied ? "Link copiato" : "Copia il link"}
+                </button>
+              </div>
+              <span aria-live="polite" className="sr-only">{copied ? "Link copiato" : ""}</span>
+            </div>
+          ) : (
+            <p className="pn-in mt-6 max-w-xl text-[15px] text-beige-chiaro" style={{ animationDelay: ".75s" }}>
+              Per spostare o annullare scrivici su{" "}
+              <a href={area.whatsapp} className="font-semibold text-carta underline underline-offset-4">
+                WhatsApp
+              </a>
+              .
+            </p>
+          )}
           {!AGENDA_LIVE && (
             <p className="pn-in mt-6 rounded-full bg-mela px-4 py-2 text-[14px] font-semibold text-verde-scuro" style={{ animationDelay: ".8s" }}>
               {mode === "demo" ? "Prova: questa prenotazione non è stata salvata." : "Prenotazione di prova: la farmacia non la vede ancora."}

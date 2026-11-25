@@ -17,13 +17,13 @@ export type AgendaResource = {
 /** Le risorse prenotabili oggi. Farmaestetica, videoconsulenza ed eventi arriveranno dopo. */
 export const agendaResources: Record<ResourceId, AgendaResource> = {
   cabina_analisi: { id: "cabina_analisi", name: "Cabina analisi", bufferMin: 5, hours: farmaciaHours },
-  // Pulizia Skin LAB: il brief indica solo cabina analisi (5') e Farmaestetica (10'). [DA CONFERMARE]
-  skinlab: { id: "skinlab", name: "Cabina Skin LAB", bufferMin: 5, hours: farmaciaHours },
+  // Skin LAB: nessuna pausa tra un appuntamento e l'altro (confermato da Giovanni il 25/11/2026).
+  skinlab: { id: "skinlab", name: "Cabina Skin LAB", bufferMin: 0, hours: farmaciaHours },
 };
 
 /** Ogni quanto si può iniziare un appuntamento. */
 export const SLOT_STEP_MIN = 15;
-/** Preavviso minimo per prenotare online in giornata. [DA CONFERMARE] */
+/** Preavviso minimo per prenotare online: 1 ora, sempre (confermato il 25/11/2026). */
 export const MIN_NOTICE_MIN = 60;
 /** Quanti giorni avanti si può prenotare online. [DA CONFERMARE] */
 export const BOOKING_WINDOW_DAYS = 14;

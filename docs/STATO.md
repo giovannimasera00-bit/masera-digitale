@@ -216,9 +216,10 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Le tre zone sono indipendenti: un ECG occupa solo la cabina analisi. Farmaestetica (centro estetico separato) arriverà come terza colonna.
 
 ### Da decidere sull'Agenda
-- Breath test: in `servizi.json` dura 240 minuti, quindi **occupa la cabina 4 ore**. È così o la cabina resta libera tra un soffio e l'altro?
-- Pulizia della cabina Skin LAB: per ora 5 minuti come la cabina analisi.
-- Preavviso minimo per prenotare in giornata (ora 1 ora) e quanti giorni avanti (ora 14).
+- Risposte di Giovanni (25/11/2026): Skin LAB **senza pausa** tra un appuntamento e l'altro; preavviso minimo **1 ora, sempre**;
+  teledermatologia e chiacchierata sul deblistering **in cabina analisi**; il breath test **si fa a casa** e non occupa la cabina.
+- Breath test: come si prenota (ritiro del kit in farmacia? quanto dura?) — domanda aperta.
+- Quanti giorni avanti si può prenotare online (ora 14).
 - Quante ore prima si può spostare/annullare (BRIEF §21 n. 10) e numero WhatsApp per i promemoria (n. 8).
 - Festivi (8 dicembre, Natale…) e chiusure: arrivano con il database nella tappa 2.
 
@@ -233,9 +234,8 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Risposte su "Da decidere sull'Agenda" (breath test, pulizia Skin LAB, preavviso, ore per spostare/annullare).
-- Decidere il prossimo pezzo: tappa 4 (promemoria e conferme: numero WhatsApp) o Farmaestetica nell'agenda.
-- Teledermatologia e chiacchierata deblistering: cabina analisi, Skin LAB o altro spazio?
+- Breath test fatto a casa: come si prenota il ritiro del kit; giorni avanti per prenotare; ore per spostare/annullare.
+- Risposte sulle domande di Farmaestetica nell'agenda (in corso sul ramo `agenda-farmaestetica`).
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).
 - Per Farmaestetica: codice del blu Miamo, logo in file, foto di cabina e Miamo Lounge.

@@ -1,6 +1,6 @@
 "use client";
 import { useActionState, useEffect, useMemo, useRef, useState } from "react";
-import { agendaResources, availableSlots, formatClock, formatServiceDuration, type Busy, type Closure, type Service } from "@masera/core";
+import { agendaResources, availableSlots, farmaesteticaBookingGroups, formatClock, formatServiceDuration, type Busy, type Closure, type Service } from "@masera/core";
 import { quickBookAction } from "./actions";
 
 const field = "fm-focus mt-1 min-h-12 w-full rounded-xl border-2 border-verde-scuro/25 bg-bianco px-3 text-[16px]";
@@ -21,8 +21,13 @@ export function QuickBook({ date, nowIso, services, busy, closures }: { date: st
     if (state?.ok) formRef.current?.reset();
   }, [state]);
 
+  // Un gruppo per zona; Farmaestetica divisa come il listino (Laser · Ascelle e Cera · Ascelle sono due cose diverse).
   const byResource = Object.values(agendaResources)
-    .map((r) => ({ r, list: services.filter((s) => s.resource === r.id) }))
+    .flatMap((r) =>
+      r.id === "farmaestetica"
+        ? farmaesteticaBookingGroups.map((g) => ({ key: g.slug, label: `Farmaestetica · ${g.name}`, list: services.filter((s) => g.services.some((x) => x.slug === s.slug)) }))
+        : [{ key: r.id, label: r.name, list: services.filter((s) => s.resource === r.id) }],
+    )
     .filter((x) => x.list.length > 0);
 
   return (
@@ -33,8 +38,8 @@ export function QuickBook({ date, nowIso, services, busy, closures }: { date: st
           Servizio
         </label>
         <select id="qb-s" name="servizio" value={slug} onChange={(e) => setSlug(e.target.value)} className={field}>
-          {byResource.map(({ r, list }) => (
-            <optgroup key={r.id} label={r.name}>
+          {byResource.map(({ key, label, list }) => (
+            <optgroup key={key} label={label}>
               {list.map((s) => (
                 <option key={s.slug} value={s.slug}>
                   {s.name} · {formatServiceDuration(s)}

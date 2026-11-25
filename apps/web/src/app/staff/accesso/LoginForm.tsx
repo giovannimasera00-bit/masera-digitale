@@ -29,7 +29,7 @@ export function LoginForm() {
       <button type="submit" disabled={pending} className="fm-focus fm-press min-h-12 w-full rounded-full bg-verde-scuro text-[17px] font-bold text-carta disabled:opacity-60">
         {pending ? "Controllo…" : "Entra"}
       </button>
-      <p className="text-[14px] text-verde">Su questo computer resti dentro per 30 giorni.</p>
+      <p className="text-[14px] text-verde">Usa la tua password: farmacia o Farmaestetica. Su questo computer resti dentro per 30 giorni.</p>
     </form>
   );
 }

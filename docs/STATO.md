@@ -218,7 +218,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 ### Da decidere sull'Agenda
 - Risposte di Giovanni (25/11/2026): Skin LAB **senza pausa** tra un appuntamento e l'altro; preavviso minimo **1 ora, sempre**;
   teledermatologia e chiacchierata sul deblistering **in cabina analisi**; il breath test **si fa a casa** e non occupa la cabina.
-- Breath test: come si prenota (ritiro del kit in farmacia? quanto dura?) — domanda aperta.
+- Breath test: non si prenota più online; nella scheda c'è scritto che si ritira il kit al banco, senza appuntamento.
 - Quanti giorni avanti si può prenotare online (ora 14).
 - Quante ore prima si può spostare/annullare (BRIEF §21 n. 10) e numero WhatsApp per i promemoria (n. 8).
 - Festivi (8 dicembre, Natale…) e chiusure: arrivano con il database nella tappa 2.
@@ -234,7 +234,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Breath test fatto a casa: come si prenota il ritiro del kit; giorni avanti per prenotare; ore per spostare/annullare.
+- Giorni avanti per prenotare online (ora 14) e ore per spostare/annullare.
 - Risposte sulle domande di Farmaestetica nell'agenda (in corso sul ramo `agenda-farmaestetica`).
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).

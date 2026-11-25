@@ -176,8 +176,8 @@
       "duration_min": 240,
       "preparation": "A digiuno; il giorno prima segui la dieta che ti diamo. [DA CONFERMARE testo dieta]",
       "resource": "cabina_analisi",
-      "bookable_online": true,
-      "note": "Presenza in farmacia circa 4 ore; referto in circa 10 giorni"
+      "bookable_online": false,
+      "note": "Si fa a casa (circa 4 ore): ritira il kit al banco, senza appuntamento. Referto in circa 10 giorni."
     },
     {
       "slug": "breath-test-glucosio-lattulosio",
@@ -188,7 +188,8 @@
       "duration_min": 240,
       "preparation": "Stessa preparazione del lattosio.",
       "resource": "cabina_analisi",
-      "bookable_online": true
+      "bookable_online": false,
+      "note": "Si fa a casa (circa 4 ore): ritira il kit al banco, senza appuntamento. Referto in circa 10 giorni."
     },
     {
       "slug": "profilo-allergie",

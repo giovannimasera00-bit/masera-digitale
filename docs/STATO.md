@@ -225,7 +225,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Breath test: si fa a casa, kit al banco senza appuntamento (non più prenotabile online).
 - Provato in anteprima con le due password (prova al banco cancellata). Test: core 75 + ui 26.
 
-### Agenda – tappa 4A: sposta o annulla da soli (in anteprima su https://masera-digitale-git-tappa4a-gestisci-giovanni-7bbb.vercel.app/prenota)
+### Agenda – tappa 4A: sposta o annulla da soli (unita in main il 26/11/2026, online su https://masera-digitale.vercel.app/prenota)
 - Risposte di Giovanni (25/11/2026): prenotazioni online fino a **30 giorni** prima; il cliente sposta o annulla da solo
   **fino a 1 ora prima**; promemoria dal numero della farmacia **373 770 5485** (WhatsApp Business).
 - Dopo la conferma il cliente riceve il **link personale** "Il mio appuntamento" (/appuntamento/…): vede giorno, ora e indirizzo
@@ -235,6 +235,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   l'indirizzo non passa ad altri siti.
 - Database: `supabase/migrations/0003_gestione.sql` **già eseguito** su Supabase il 25/11/2026 (aggiunge soltanto: la versione online continua a funzionare).
 - Provato in anteprima: prenotazione ECG → link → spostata di 15 minuti → annullata (prova cancellata dal database). Test: core 78 + ui 26.
+- Verificato online il 26/11/2026: 16 pagine pubbliche a 200 senza cookie, /prenota con 30 giorni, link non valido gestito, /staff/agenda rimanda all’accesso.
 
 ### Da decidere sull'Agenda
 - Risposte di Giovanni (25/11/2026): Skin LAB **senza pausa** tra un appuntamento e l'altro; preavviso minimo **1 ora, sempre**;
@@ -256,7 +257,6 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
-- Provare la tappa 4A in anteprima e dire "Unisci".
 - Per la tappa 4B: creare l'account Meta Business della farmacia (business.facebook.com) e avere a portata il telefono del 373 770 5485.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).

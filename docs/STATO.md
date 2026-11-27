@@ -257,7 +257,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Pagina `/consegne` con calcolatore (CAP + totale) e tabella delle regole: non è nel menu finché lo shop è "in arrivo".
 - Costo della spedizione in Italia sotto 59 €: resta [DA CONFERMARE], il sito non lo inventa.
 
-### Fase 2 – pezzo 2: ponte catalogo (in anteprima sul ramo fase2/ponte-catalogo)
+### Fase 2 – pezzo 2: ponte catalogo (unito in main il 28/11/2026)
 - In `packages/core/src/catalog.ts`, senza rete: legge il CSV del gestionale (separatore ; , o tab, virgolette, numeri e date
   all'italiana, file in UTF-8 o Windows-1252), controlla l'EAN con la cifra di controllo, segnala righe ripetute e prezzi sbagliati.
 - **Farmaci fuori, nel dubbio fuori**: si vende solo il tipo riconosciuto come parafarmaco; farmaci (SOP, OTC, etico…) e tipi

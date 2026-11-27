@@ -246,6 +246,17 @@ Aggiornato da Claude Code a fine di ogni sessione.
   approvazione dei due testi da parte di Meta, e Meta (WhatsApp) nell'informativa privacy (consulente).
 - Festivi (8 dicembre, Natale…) e chiusure: arrivano con il database nella tappa 2.
 
+### Fase 2 – pezzo 1: regole di consegna (in anteprima su https://masera-digitale-git-fase2-consegne-giovanni-7bbb.vercel.app/consegne)
+- Piano Fase 2 e 3 approvato da Giovanni il 27/11/2026, in 10 pezzi: 1 consegne, 2 ponte catalogo, 3 shop, 4 /staff/consegne,
+  5 Invia una ricetta, 6 MyMasera, 7 motore SkinLab Routine, 8 pannello SkinLab al banco, 9 routine del cliente, 10 assistenti;
+  poi videoconsulenza e buoni regalo. Si lavora in prova (dati finti) finché mancano negozio, file e chiavi.
+- In `packages/core/src/delivery.ts`: preventivo per il carrello dal CAP (CAP non valido → messaggio), Seregno gratis con pagamento
+  alla consegna (carta o contanti) o online, Italia solo online e gratis sopra 59 €, ricette solo Seregno, conti in centesimi,
+  giorni di chiusura saltati (es. 8 dicembre → mercoledì), prezzo promo con barrato e percentuale sempre insieme. +11 test (core 89).
+- I giorni di chiusura arrivano dalle chiusure "tutta la farmacia, tutto il giorno" segnate in /staff/agenda.
+- Pagina `/consegne` con calcolatore (CAP + totale) e tabella delle regole: non è nel menu finché lo shop è "in arrivo".
+- Costo della spedizione in Italia sotto 59 €: resta [DA CONFERMARE], il sito non lo inventa.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
@@ -257,6 +268,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Il verde chiaro `#C9DB6A` del canvas Motion **non** è tra i token: in attesa di conferma.
 
 ## Serve da Giovanni
+- Costo della spedizione in Italia sotto i 59 € (BRIEF §21 n. 1) e un estratto del file esportato da Farmaconsult (quale colonna distingue i farmaci).
 - Per la tappa 4B: creare l'account Meta Business della farmacia (business.facebook.com) e avere a portata il telefono del 373 770 5485.
 - Dati legali: telefono principale, email, PEC, P.IVA, conferma ragione sociale, direttore responsabile, Ordine e numero di iscrizione.
 - Privacy: dove sono i server, per quanto teniamo dati tecnici e messaggi, eventuale informativa già in uso (con il consulente).

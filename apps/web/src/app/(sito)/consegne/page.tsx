@@ -45,7 +45,7 @@ export default async function ConsegnePage() {
       />
       <PageHeader
         kicker="Consegne a domicilio"
-        lines={["A Seregno arriva stasera.", <span key="i" className="text-verde">In Italia in 2–3 giorni.</span>]}
+        lines={["A Seregno, gratis in giornata.",<span key="i" className="text-verde">In Italia in 2–3 giorni.</span>]}
         lead="Scrivi il tuo CAP e il totale: ti diciamo subito quanto costa, quando arriva e come puoi pagare."
       />
       <section aria-labelledby="calc-t" className="mx-auto max-w-7xl px-4 md:px-8">

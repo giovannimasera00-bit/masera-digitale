@@ -1,0 +1,9 @@
+EAN;Minsan;Descrizione;Ditta;Reparto;Tipo prodotto;Prezzo;Prezzo promo;Promo dal;Promo al;IVA;Giacenza
+8001234000011;;Crema viso idratante 50 ml;Marca Uno;Dermocosmesi;COSMETICO;25,00;19,90;01/12/2026;31/12/2026;22;7
+8001234000028;;Integratore magnesio 30 bustine;Marca Due;Integratori;INTEGRATORE;12,50;;;;10;0
+8001234000035;012345678;Paracetamolo 500 mg 20 compresse;Marca Tre;Farmaci;FARMACO SOP;4,90;;;;10;30
+8001234000042;;Prodotto senza tipo;Marca Quattro;Varie;;3,00;;;;22;1
+8001234000043;;EAN sbagliato;Marca;Varie;COSMETICO;3,00;;;;22;1
+80012344;;Cerotti 20 pezzi;Marca Cinque;Sanitari;DISPOSITIVO MEDICO;"3,50";;;;22;12,0
+8001234000011;;Riga ripetuta;Marca Uno;Dermocosmesi;COSMETICO;25,00;;;;22;7
+8001234000059;;Shampoo 200 ml;Marca Sei;Capelli;COSMETICO;9,90;9,90;;;22;3

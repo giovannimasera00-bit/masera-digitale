@@ -246,7 +246,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   approvazione dei due testi da parte di Meta, e Meta (WhatsApp) nell'informativa privacy (consulente).
 - Festivi (8 dicembre, Natale…) e chiusure: arrivano con il database nella tappa 2.
 
-### Fase 2 – pezzo 1: regole di consegna (in anteprima su https://masera-digitale-git-fase2-consegne-giovanni-7bbb.vercel.app/consegne)
+### Fase 2 – pezzo 1: regole di consegna (unita in main il 28/11/2026, online su https://masera-digitale.vercel.app/consegne)
 - Piano Fase 2 e 3 approvato da Giovanni il 27/11/2026, in 10 pezzi: 1 consegne, 2 ponte catalogo, 3 shop, 4 /staff/consegne,
   5 Invia una ricetta, 6 MyMasera, 7 motore SkinLab Routine, 8 pannello SkinLab al banco, 9 routine del cliente, 10 assistenti;
   poi videoconsulenza e buoni regalo. Si lavora in prova (dati finti) finché mancano negozio, file e chiavi.
@@ -256,6 +256,21 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - I giorni di chiusura arrivano dalle chiusure "tutta la farmacia, tutto il giorno" segnate in /staff/agenda.
 - Pagina `/consegne` con calcolatore (CAP + totale) e tabella delle regole: non è nel menu finché lo shop è "in arrivo".
 - Costo della spedizione in Italia sotto 59 €: resta [DA CONFERMARE], il sito non lo inventa.
+
+### Fase 2 – pezzo 2: ponte catalogo (in anteprima sul ramo fase2/ponte-catalogo)
+- In `packages/core/src/catalog.ts`, senza rete: legge il CSV del gestionale (separatore ; , o tab, virgolette, numeri e date
+  all'italiana, file in UTF-8 o Windows-1252), controlla l'EAN con la cifra di controllo, segnala righe ripetute e prezzi sbagliati.
+- **Farmaci fuori, nel dubbio fuori**: si vende solo il tipo riconosciuto come parafarmaco; farmaci (SOP, OTC, etico…) e tipi
+  sconosciuti restano esclusi. Elenco dei tipi in `SELLABLE_TYPES` [DA CONFERMARE con i codici veri].
+- Nomi delle colonne in `CATALOG_COLUMNS` [DA CONFERMARE con il primo file vero]: si aggiungono senza toccare la logica.
+- Promo con date (comprese): prezzo pieno barrato + percentuale. Promo non più bassa del prezzo pieno → ignorata e segnalata.
+- Confronto per EAN con lo shop: crea i nuovi, aggiorna **solo** prezzo, barrato, giacenza e visibilità; il nome del gestionale
+  si usa solo alla creazione; foto, testi e titolo ritoccati a mano non si toccano mai; mai cancellare: chi esce dal file
+  o diventa farmaco viene nascosto. Allarme dopo due errori di fila. +19 test (core 108).
+- `/staff/catalogo` (solo password delle dottoresse): si sceglie il file e si vede cosa andrebbe nello shop, farmaci esclusi,
+  tipi sconosciuti, righe da controllare, promo attive. Il file si legge nel browser: non viene inviato né salvato.
+  File di prova con dati finti: `docs/esempi/catalogo-prova.csv`.
+- Manca: il collegamento a Shopify ogni 30 minuti (quando c'è il negozio) e la consegna del file da Farmaconsult (SFTP).
 
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.

@@ -6,3 +6,4 @@ export * from "./services";
 export * from "./farmaestetica";
 export * from "./deblistering";
 export * from "./agenda";
+export * from "./catalog";

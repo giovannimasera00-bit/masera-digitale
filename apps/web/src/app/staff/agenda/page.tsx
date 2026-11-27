@@ -71,11 +71,18 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
           <p className="text-[13px] font-semibold uppercase tracking-[0.18em] text-verde">{role === "estetista" ? "Agenda Masera · Farmaestetica" : "Agenda Masera · personale"}</p>
           <h1 className="fm-display text-[34px] leading-tight md:text-[44px]">{f.long.charAt(0).toUpperCase() + f.long.slice(1)}</h1>
         </div>
-        <form action={logoutAction}>
-          <button type="submit" className={navBtn}>
-            Esci
-          </button>
-        </form>
+        <div className="flex flex-wrap gap-2">
+          {role === "staff" && (
+            <Link href="/staff/catalogo" className={navBtn}>
+              Prova catalogo
+            </Link>
+          )}
+          <form action={logoutAction}>
+            <button type="submit" className={navBtn}>
+              Esci
+            </button>
+          </form>
+        </div>
       </header>
 
       <nav aria-label="Cambia giorno" className="mt-4 flex flex-wrap items-center gap-2">

@@ -8,6 +8,10 @@ import {
   freeShippingGap,
   minPrice,
   seregnoDelivery,
+  quoteDelivery,
+  promoPrice,
+  formatEuro,
+  ITALY_SHIPPING_EUR,
 } from "../src";
 
 // Date in UTC; a novembre Seregno è a UTC+1.
@@ -70,5 +74,63 @@ describe("Formati", () => {
       "Sabato 8:30–12:30 e 15:00–19:00",
       "Domenica chiuso",
     ]);
+  });
+});
+
+describe("Consegna a Seregno con chiusure", () => {
+  it("lunedì 7 dicembre dopo le 16, martedì 8 chiuso: mercoledì", () => {
+    const s = seregnoDelivery(new Date("2026-12-07T16:00:00Z"), ["2026-12-08"]);
+    expect(s).toMatchObject({ today: false, when: "mercoledì", date: "2026-12-09" });
+  });
+  it("giorno di chiusura in mattinata: niente consegna in giornata", () => {
+    const s = seregnoDelivery(new Date("2026-12-08T08:00:00Z"), ["2026-12-08"]);
+    expect(s).toMatchObject({ today: false, when: "domani", date: "2026-12-09" });
+  });
+  it("chiusura lunga: si scrive la data", () => {
+    const closed = Array.from({ length: 10 }, (_, i) => `2026-08-${String(10 + i).padStart(2, "0")}`);
+    expect(seregnoDelivery(new Date("2026-08-09T10:00:00Z"), closed).when).toBe("giovedì 20 agosto");
+  });
+});
+
+describe("Preventivo di consegna nel carrello", () => {
+  const MON_10 = new Date("2026-11-16T09:00:00Z");
+  it("CAP sbagliato: chiede di correggerlo", () => {
+    expect(quoteDelivery({ zip: "2083", subtotalEur: 20, now: MON_10 })).toMatchObject({ ok: false, reason: "cap" });
+    expect(quoteDelivery({ zip: "abcde", subtotalEur: 20, now: MON_10 }).ok).toBe(false);
+  });
+  it("Seregno: sempre gratis, pagamento alla consegna, ricette sì", () => {
+    const q = quoteDelivery({ zip: "20831", subtotalEur: 12.5, now: MON_10 });
+    expect(q).toMatchObject({ ok: true, zone: "seregno", shippingEur: 0, free: true, totalEur: 12.5, prescriptions: true, eta: "oggi verso le 19:00" });
+    if (q.ok) expect(q.payments).toEqual(["pos_alla_consegna", "contanti_alla_consegna", "online"]);
+  });
+  it("Italia sopra 59 €: gratis, solo online, niente ricette", () => {
+    const q = quoteDelivery({ zip: "20121", subtotalEur: 59, now: MON_10 });
+    expect(q).toMatchObject({ ok: true, zone: "italia", shippingEur: 0, free: true, totalEur: 59, prescriptions: false, gapToFreeEur: 0 });
+    if (q.ok) expect(q.payments).toEqual(["online"]);
+  });
+  it("Italia sotto 59 €: costo ancora da confermare, mai inventato", () => {
+    const q = quoteDelivery({ zip: "00184", subtotalEur: 40.1, now: MON_10 });
+    expect(q).toMatchObject({ ok: true, free: false, gapToFreeEur: 18.9, shippingEur: ITALY_SHIPPING_EUR });
+    if (q.ok && ITALY_SHIPPING_EUR === null) expect(q.totalEur).toBeNull();
+    if (q.ok) expect(q.notes[0]).toBe("Ti mancano 18,90 € per la spedizione gratuita (sopra 59 €).");
+  });
+  it("niente arrotondamenti strani con i centesimi", () => {
+    const q = quoteDelivery({ zip: "20831", subtotalEur: 0.1 + 0.2, now: MON_10 });
+    expect(q.ok && q.totalEur).toBe(0.3);
+  });
+});
+
+describe("Prezzi in promo", () => {
+  it("prezzo barrato, nuovo prezzo e percentuale sempre insieme", () => {
+    expect(promoPrice(25, 19.9)).toEqual({ full: "25 €", price: "19,90 €", percent: 20, label: "−20%" });
+  });
+  it("non è una promo se il prezzo non scende", () => {
+    expect(promoPrice(20, 20)).toBeNull();
+    expect(promoPrice(20, 22)).toBeNull();
+    expect(promoPrice(0, 5)).toBeNull();
+  });
+  it("euro scritti in italiano", () => {
+    expect(formatEuro(0.9)).toBe("0,90 €");
+    expect(formatEuro(19)).toBe("19 €");
   });
 });

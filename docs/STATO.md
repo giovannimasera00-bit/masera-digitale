@@ -272,6 +272,19 @@ Aggiornato da Claude Code a fine di ogni sessione.
   File di prova con dati finti: `docs/esempi/catalogo-prova.csv`.
 - Manca: il collegamento a Shopify ogni 30 minuti (quando c'è il negozio) e la consegna del file da Farmaconsult (SFTP).
 
+### Fase 2 – pezzo 3: shop di prova (in anteprima sul ramo fase2/shop: …-git-fase2-shop-giovanni-7bbb.vercel.app/shop)
+- Pagine: `/shop` (reparti, Le Nostre Linee, promo), `/shop/[reparto]`, `/linee/[linea]`, `/promo`, `/prodotto/[handle]`, `/carrello`.
+- **Prodotti finti** (12, nomi "(prova)", in `content/shop-demo.ts`) con avviso "Shop di prova" su ogni pagina. Le pagine leggono i
+  prodotti da `lib/shop.ts`: quando c'è Shopify si cambia solo lì.
+- **Sul sito principale lo shop non si vede** (pagina 404) finché `features.shop` è spento: si vede solo nelle anteprime e sul computer.
+- Scheda prodotto dal canvas Prodotto: interruttore Seregno / Resto d'Italia con i passaggi della consegna, quantità che non supera la
+  giacenza, "Aggiungi · arriva oggi" solo quando è vero, "Metti da parte" (in prova non si salva), "Chiedi al farmacista" su WhatsApp.
+- Disponibilità vera, mai urgenza finta: "Disponibile", "Disponibili: 3 pezzi", "Non disponibile ora: chiedici quando arriva".
+- Carrello in memoria (si svuota ricaricando: niente salvato nel browser, la pagina cookie resta vera). Con il CAP mostra tempi,
+  spedizione, totale e pagamenti; "Vai al pagamento" spento finché non c'è Shopify.
+- Logica in `packages/core/src/shop.ts` con test (core 117): reparti, linee, indirizzo del prodotto, disponibilità, prezzo promo, carrello.
+- Da decidere prima di andare online: tenere il carrello nel browser (dato tecnico) e aggiornare la pagina cookie; foto e testi veri.
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.

@@ -315,17 +315,22 @@ Aggiornato da Claude Code a fine di ogni sessione.
   preventivo su WhatsApp (4B).
 
 ### Fase 2 – pezzo 6: MyMasera di prova (in anteprima sul ramo fase2/mymasera: …-git-fase2-mymasera-giovanni-7bbb.vercel.app/my)
-- `/my` dal canvas MyMasera: accesso con il cellulare + codice di 6 cifre (in prova non arriva nulla, il codice è 000000),
-  tessera fedeltà che si gira (punti / codice a barre EAN-13 vero e leggibile), anello "al prossimo buono", credito in farmacia
+- Decisioni di Giovanni (28/11/2026): **accesso con cellulare + password** (niente SMS né codici a pagamento); tessere nuove con
+  codice **una lettera + 5 numeri** (es. A12345); punti **in proporzione: 30 € = 100 punti**, **100 punti = 1 €** da spendere su
+  prodotti che non sono farmaci (niente "buoni").
+- `/my` dal canvas MyMasera: accesso con cellulare + password (in prova "provaprova"; password dimenticata → azzerata al banco);
+  "Prima volta?" con codice tessera + cellulare + password: il profilo si **attiva al banco** quando la farmacista vede la tessera,
+  così nessuno apre un profilo con il numero di un altro. Tessera che si gira (punti e valore in euro / codice), anello
+  "al prossimo euro", credito in farmacia
   con scadenza a 12 mesi, sezioni Agenda, Ordini, Ricette, Referti e **Consensi separati** (appuntamenti obbligatorio; ricette,
   referti, routine, promemoria WhatsApp, novità: ognuno sì/no, con data, versione del testo e canale, storico mai cancellato).
 - **Tutto finto** (profilo, punti, documenti) e segnato "(prova)". Sul sito principale la pagina è nascosta finché
   `features.mymasera` è spento.
-- Logica in `packages/core/src/mymasera.ts` con test (core 152): EAN-13, punti, credito 12 mesi, consensi, codice di accesso
-  (scade dopo 10 minuti, bloccato dopo 5 tentativi).
-- Da chiedere a Farmaconsult: formato del codice a barre delle nuove tessere (ora EAN-13), saldo punti per tessera.
-- Da decidere: soglia punti per il buono (in prova 200), testi definitivi dei consensi (con il consulente privacy).
-- Per andare online: invio del codice (WhatsApp 4B o SMS), profili sul database (Francoforte), referti caricati dal personale.
+- Logica in `packages/core/src/mymasera.ts` con test (core 152): codice tessera, punti, credito 12 mesi, consensi, regole
+  della password (almeno 8 caratteri, non banale, senza il numero di telefono), attesa di 15 minuti dopo 5 errori.
+- Da Giovanni: **foto del retro di una tessera** (per sapere che codice a barre è stampato: ora c'è un riquadro al suo posto) e
+  **testo definitivo del consenso privacy**. Da Farmaconsult: saldo punti per tessera.
+- Per andare online: profili sul database (Francoforte), password salvate solo come impronta (scrypt), referti caricati dal personale.
 
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.

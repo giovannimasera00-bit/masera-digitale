@@ -1,8 +1,14 @@
-// MyMasera (BRIEF §10): tessera fedeltà, accesso con il cellulare, consensi, credito. Solo logica, con i test.
+// MyMasera (BRIEF §10): tessera fedeltà, punti, accesso con cellulare e password, consensi, credito. Solo logica, con i test.
 import { addDays } from "./agenda";
 
-// ——— Codice a barre della tessera (EAN-13) ———
-// [DA CONFERMARE] con Farmaconsult il formato delle nuove tessere: se non è EAN-13 si cambia solo questa parte.
+// ——— Tessera ———
+/** Codice delle nuove tessere: una lettera e 5 numeri, es. "A12345" (confermato da Giovanni il 28/11/2026). */
+export function normalizeCardCode(input: string): string | null {
+  const c = input.replace(/[\s-]/g, "").toUpperCase();
+  return /^[A-Z]\d{5}$/.test(c) ? c : null;
+}
+
+// ——— Codici a barre EAN-13 (prodotti). Il tipo di codice a barre della tessera [DA CONFERMARE] dalla foto di una tessera. ———
 const L = ["0001101", "0011001", "0010011", "0111101", "0100011", "0110001", "0101111", "0111011", "0110111", "0001011"];
 const G = ["0100111", "0110011", "0011011", "0100001", "0011101", "0111001", "0000101", "0010001", "0001001", "0010111"];
 const R = ["1110010", "1100110", "1101100", "1000010", "1011100", "1001110", "1010000", "1000100", "1001000", "1110100"];
@@ -38,17 +44,29 @@ export function barsFromModules(modules: string): { x: number; w: number }[] {
   return bars;
 }
 
-/** "8001234567895" → "8 001234 567895", come sotto il codice a barre. */
-export const formatCardNumber = (code: string) => `${code[0]} ${code.slice(1, 7)} ${code.slice(7)}`;
+/** "A12345" → "A 12345", come sotto il codice a barre. */
+export const formatCardNumber = (code: string) => `${code[0]} ${code.slice(1)}`;
 
-// ——— Punti ———
-/** Quanto manca al prossimo buono. La soglia arriva dal programma fedeltà del gestionale [DA CONFERMARE]. */
-export function loyaltyProgress(points: number, threshold: number): { ratio: number; missing: number; label: string } {
-  if (!(threshold > 0)) return { ratio: 0, missing: 0, label: "Soglia del buono da confermare" };
+// ——— Punti (decisione di Giovanni del 28/11/2026) ———
+// 30 € di spesa = 100 punti, in proporzione (45 € = 150 punti). 100 punti = 1 € da spendere su prodotti che non sono farmaci.
+export const POINTS_PER_30_EUR = 100;
+export const POINTS_PER_EURO_VALUE = 100;
+
+/** Punti per una spesa, in proporzione, arrotondati per difetto: 45 € → 150, 10 € → 33. */
+export function pointsForSpend(eur: number): number {
+  const cents = Math.max(0, Math.round(eur * 100));
+  return Math.floor((cents * POINTS_PER_30_EUR) / 3000);
+}
+
+/** Quanto valgono i punti, in euro (centesimi esatti): 130 punti → 1,30 €. Si spendono solo su prodotti che non sono farmaci. */
+export const pointsValueEur = (points: number): number => Math.max(0, Math.floor(points)) / POINTS_PER_EURO_VALUE;
+
+/** Quanto manca al prossimo euro da spendere (ogni 100 punti). */
+export function loyaltyProgress(points: number): { ratio: number; missing: number; label: string } {
   const p = Math.max(0, Math.floor(points));
-  const inCycle = p % threshold;
-  const missing = threshold - inCycle;
-  return { ratio: inCycle / threshold, missing, label: missing === 1 ? "Manca 1 punto" : `Mancano ${missing} punti` };
+  const inCycle = p % POINTS_PER_EURO_VALUE;
+  const missing = POINTS_PER_EURO_VALUE - inCycle;
+  return { ratio: inCycle / POINTS_PER_EURO_VALUE, missing, label: missing === 1 ? "Manca 1 punto" : `Mancano ${missing} punti` };
 }
 
 // ——— Credito (videoconsulenza: 15 € interamente scalati dalla spesa entro 12 mesi, BRIEF §12) ———
@@ -96,24 +114,30 @@ export function currentConsents(history: ConsentRecord[]): Record<ConsentPurpose
   return out;
 }
 
-// ——— Accesso con il cellulare: codice di 6 cifre ———
-export const LOGIN_CODE_MINUTES = 10;
-export const LOGIN_MAX_ATTEMPTS = 5;
+// ——— Accesso: cellulare + password (decisione di Giovanni del 28/11/2026) ———
+// La password si salva solo come impronta lenta (scrypt) sul server. Il profilo si attiva quando la farmacista,
+// al banco, controlla la tessera: così nessuno può aprire un profilo con il numero di un altro.
+export const PASSWORD_MIN = 8;
+export const LOGIN_MAX_FAILS = 5;
+export const LOGIN_LOCK_MINUTES = 15;
 
-export type LoginChallenge = { codeHash: string; expiresAt: string; attempts: number };
+const COMMON = ["password", "12345678", "123456789", "qwertyui", "farmacia", "masera", "seregno", "iloveyou", "11111111", "00000000"];
 
-/**
- * Controlla un codice: `hash` è la stessa funzione usata per salvare il codice (sul server, con un segreto).
- * Dopo 5 tentativi sbagliati o 10 minuti il codice non vale più.
- */
-export function checkLoginCode(
-  c: LoginChallenge, input: string, now: Date, hash: (s: string) => string,
-): { ok: true } | { ok: false; reason: "scaduto" | "troppi_tentativi" | "sbagliato"; attemptsLeft: number } {
-  if (c.attempts >= LOGIN_MAX_ATTEMPTS) return { ok: false, reason: "troppi_tentativi", attemptsLeft: 0 };
-  if (new Date(c.expiresAt).getTime() <= now.getTime()) return { ok: false, reason: "scaduto", attemptsLeft: LOGIN_MAX_ATTEMPTS - c.attempts };
-  const clean = input.replace(/\D/g, "");
-  if (clean.length === 6 && hash(clean) === c.codeHash) return { ok: true };
-  return { ok: false, reason: "sbagliato", attemptsLeft: LOGIN_MAX_ATTEMPTS - c.attempts - 1 };
+/** Controlla una password nuova: almeno 8 caratteri, non banale, senza il numero di telefono dentro. Errore da mostrare o null. */
+export function checkNewPassword(pw: string, phone: string | null): string | null {
+  if (pw.length < PASSWORD_MIN) return `Almeno ${PASSWORD_MIN} caratteri.`;
+  const low = pw.toLowerCase();
+  if (COMMON.some((c) => low.includes(c)) || /^(.)\1+$/.test(pw)) return "È troppo facile da indovinare: scegline un'altra.";
+  const digits = (phone ?? "").replace(/\D/g, "").slice(-7);
+  if (digits && pw.replace(/\D/g, "").includes(digits)) return "Non usare il tuo numero di telefono.";
+  return null;
+}
+
+/** Dopo 5 tentativi sbagliati di fila si aspetta 15 minuti. Restituisce i minuti di attesa (0 = si può provare). */
+export function loginWaitMinutes(fails: number, lastFailAt: string | null, now: Date): number {
+  if (fails < LOGIN_MAX_FAILS || !lastFailAt) return 0;
+  const left = LOGIN_LOCK_MINUTES * 60_000 - (now.getTime() - new Date(lastFailAt).getTime());
+  return left > 0 ? Math.ceil(left / 60_000) : 0;
 }
 
 /** Promemoria "rifacciamo l'analisi" e simili: data + N giorni. */

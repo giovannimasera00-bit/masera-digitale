@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  barsFromModules, checkLoginCode, creditAvailable, creditExpiry, currentConsents, ean13CheckDigit, ean13Modules, formatCardNumber,
+  barsFromModules, checkNewPassword, loginWaitMinutes, normalizeCardCode, pointsForSpend, pointsValueEur, creditAvailable, creditExpiry, currentConsents, ean13CheckDigit, ean13Modules, formatCardNumber,
   loyaltyProgress, recordConsent, type ConsentRecord,
 } from "../src";
 
@@ -27,18 +27,35 @@ describe("Codice a barre della tessera (EAN-13)", () => {
   });
   it("barre unite e numero leggibile", () => {
     expect(barsFromModules("0110111")).toEqual([{ x: 1, w: 2 }, { x: 4, w: 3 }]);
-    expect(formatCardNumber("8001234567897")).toBe("8 001234 567897");
+    expect(formatCardNumber("A12345")).toBe("A 12345");
   });
 });
 
-describe("Punti", () => {
-  it("quanto manca al prossimo buono", () => {
-    expect(loyaltyProgress(130, 200)).toEqual({ ratio: 0.65, missing: 70, label: "Mancano 70 punti" });
-    expect(loyaltyProgress(199, 200).label).toBe("Manca 1 punto");
-    expect(loyaltyProgress(450, 200).missing).toBe(150);
+describe("Tessera", () => {
+  it("una lettera e 5 numeri", () => {
+    expect(normalizeCardCode(" a12345 ")).toBe("A12345");
+    expect(normalizeCardCode("A-12345")).toBe("A12345");
+    expect(normalizeCardCode("AB1234")).toBeNull();
+    expect(normalizeCardCode("A1234")).toBeNull();
+    expect(normalizeCardCode("123456")).toBeNull();
   });
-  it("soglia non ancora decisa", () => {
-    expect(loyaltyProgress(10, 0).label).toBe("Soglia del buono da confermare");
+});
+
+describe("Punti: 30 € = 100 punti, 100 punti = 1 €", () => {
+  it("in proporzione, per difetto", () => {
+    expect(pointsForSpend(30)).toBe(100);
+    expect(pointsForSpend(45)).toBe(150);
+    expect(pointsForSpend(10)).toBe(33);
+    expect(pointsForSpend(0.29)).toBe(0);
+    expect(pointsForSpend(-5)).toBe(0);
+  });
+  it("valore in euro", () => {
+    expect(pointsValueEur(130)).toBe(1.3);
+    expect(pointsValueEur(100)).toBe(1);
+  });
+  it("quanto manca al prossimo euro", () => {
+    expect(loyaltyProgress(130)).toEqual({ ratio: 0.3, missing: 70, label: "Mancano 70 punti" });
+    expect(loyaltyProgress(199).label).toBe("Manca 1 punto");
   });
 });
 
@@ -70,12 +87,18 @@ describe("Consensi separati e storico", () => {
   });
 });
 
-describe("Codice di accesso", () => {
-  const hash = (s: string) => `h:${s}`;
-  const now = new Date("2026-11-28T10:00:00Z");
-  const c = { codeHash: "h:123456", expiresAt: "2026-11-28T10:10:00Z", attempts: 0 };
-  it("giusto, anche con spazi", () => expect(checkLoginCode(c, "123 456", now, hash)).toEqual({ ok: true }));
-  it("sbagliato: dice quanti tentativi restano", () => expect(checkLoginCode(c, "111111", now, hash)).toEqual({ ok: false, reason: "sbagliato", attemptsLeft: 4 }));
-  it("scaduto dopo 10 minuti", () => expect(checkLoginCode(c, "123456", new Date("2026-11-28T10:10:00Z"), hash).ok).toBe(false));
-  it("bloccato dopo 5 tentativi, anche se giusto", () => expect(checkLoginCode({ ...c, attempts: 5 }, "123456", now, hash)).toMatchObject({ reason: "troppi_tentativi" }));
+describe("Password", () => {
+  it("regole semplici", () => {
+    expect(checkNewPassword("corta", null)).toBe("Almeno 8 caratteri.");
+    expect(checkNewPassword("Password123", null)).toContain("troppo facile");
+    expect(checkNewPassword("aaaaaaaaaa", null)).toContain("troppo facile");
+    expect(checkNewPassword("ciao3330001234", "+39 333 000 1234")).toBe("Non usare il tuo numero di telefono.");
+    expect(checkNewPassword("Girasole-di-maggio", "+393330001234")).toBeNull();
+  });
+  it("dopo 5 errori si aspetta 15 minuti", () => {
+    const now = new Date("2026-11-28T10:00:00Z");
+    expect(loginWaitMinutes(4, "2026-11-28T09:59:00Z", now)).toBe(0);
+    expect(loginWaitMinutes(5, "2026-11-28T09:59:00Z", now)).toBe(14);
+    expect(loginWaitMinutes(5, "2026-11-28T09:40:00Z", now)).toBe(0);
+  });
 });

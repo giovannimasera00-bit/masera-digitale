@@ -19,7 +19,7 @@ export default function MyPage() {
       <PageHeader kicker="MyMasera" lines={["La farmacia,", <span key="v" className="text-verde">nel tuo telefono.</span>]} lead="Tessera, appuntamenti, ordini, ricette e referti in un posto solo." />
       <div className="mx-auto max-w-7xl px-4 pb-24 md:px-8">
         <p className="mx-auto mb-8 max-w-xl rounded-2xl border-2 border-dashed border-verde/40 bg-bianco px-4 py-3 text-[15px]">
-          <b>Anteprima di prova.</b> Profilo, punti, tessera e documenti sono finti. Non arriva nessun messaggio: il codice è 000000.
+          <b>Anteprima di prova.</b> Profilo, punti, tessera e documenti sono finti. La password di prova è provaprova.
         </p>
         <MyMaseraDemo today={localNow(new Date()).date} />
       </div>

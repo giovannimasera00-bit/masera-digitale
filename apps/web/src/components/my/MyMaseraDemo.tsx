@@ -4,17 +4,15 @@ import "./my.css";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
-  barsFromModules, CONSENT_LABELS, creditAvailable, creditExpiry, currentConsents, ean13Modules, formatCardNumber, formatDay, formatEuro,
-  loyaltyProgress, normalizeMobile, recordConsent, type ConsentPurpose, type ConsentRecord,
+  checkNewPassword, CONSENT_LABELS, creditAvailable, creditExpiry, currentConsents, formatCardNumber, formatDay, formatEuro,
+  loyaltyProgress, normalizeCardCode, normalizeMobile, pointsValueEur, recordConsent, type ConsentPurpose, type ConsentRecord,
 } from "@masera/core";
 
 // ——— Dati FINTI del profilo di prova ———
 const DEMO = {
   name: "Cliente di prova",
-  card: "8001234567897",
+  card: "A12345",
   points: 130,
-  /** Soglia del buono di prova: quella vera arriva dal programma fedeltà [DA CONFERMARE]. */
-  threshold: 200,
   credit: [{ amountEur: 15, date: "2026-11-10" }],
   creditUsed: 0,
 };
@@ -55,7 +53,6 @@ const TABS: { key: string; label: string; rows: Row[] }[] = [
 ];
 
 function Card({ flipped, onFlip }: { flipped: boolean; onFlip: () => void }) {
-  const bars = barsFromModules(ean13Modules(DEMO.card)!);
   return (
     <div className="my-scene">
       <button type="button" onClick={onFlip} aria-pressed={flipped} aria-label={flipped ? "Carta fedeltà: codice a barre. Tocca per vedere i punti" : "Carta fedeltà: punti. Tocca per il codice a barre"} className={`fm-focus my-card ${flipped ? "my-flipped" : ""}`}>
@@ -68,20 +65,17 @@ function Card({ flipped, onFlip }: { flipped: boolean; onFlip: () => void }) {
             <span>
               <span className="block text-[14px] opacity-80">{DEMO.name}</span>
               <span className="fm-display text-[40px] leading-none">{DEMO.points}</span>
-              <span className="text-[14px]"> punti</span>
+              <span className="text-[14px]"> punti = {formatEuro(pointsValueEur(DEMO.points))}</span>
             </span>
             <span className="text-[13px] opacity-80">Tocca per il codice</span>
           </span>
         </span>
         <span className="my-face my-back flex flex-col items-center justify-center gap-3 rounded-3xl border border-[#E2DED2] bg-[#F4F1E8] p-6">
-          <svg viewBox="0 0 113 60" className="h-[88px] w-[290px] max-w-full" role="img" aria-label={`Codice a barre ${DEMO.card}`}>
-            <g fill="#1D1D1B">
-              {bars.map((b) => (
-                <rect key={b.x} x={b.x + 9} y="0" width={b.w} height="60" />
-              ))}
-            </g>
-          </svg>
-          <span className="font-mono text-[16px] tracking-[0.12em] text-nero">{formatCardNumber(DEMO.card)}</span>
+          {/* Il codice a barre si disegna quando sappiamo che tipo è stampato sulle tessere (foto di una tessera). */}
+          <span className="flex h-[88px] w-[290px] max-w-full items-center justify-center rounded-xl border-2 border-dashed border-verde-scuro/25 text-[14px] text-verde">
+            Qui il codice a barre della tessera
+          </span>
+          <span className="font-mono text-[22px] font-bold tracking-[0.2em] text-nero">{formatCardNumber(DEMO.card)}</span>
         </span>
       </button>
     </div>
@@ -125,51 +119,122 @@ function Consents() {
   );
 }
 
+const field = "fm-focus mt-1 min-h-12 w-full rounded-xl border-2 border-verde-scuro/25 bg-bianco px-4 text-[17px]";
+
+/** Prima volta: tessera + cellulare + password. Il profilo si attiva al banco, quando la farmacista vede la tessera. */
+function Register({ onBack }: { onBack: () => void }) {
+  const [card, setCard] = useState("");
+  const [phone, setPhone] = useState("");
+  const [pw, setPw] = useState("");
+  const [pw2, setPw2] = useState("");
+  const [privacy, setPrivacy] = useState(false);
+  const [tried, setTried] = useState(false);
+  const [done, setDone] = useState(false);
+  const mobile = normalizeMobile(phone);
+  const e = {
+    card: normalizeCardCode(card) ? null : "Il codice della tessera è una lettera e 5 numeri, per esempio A12345.",
+    phone: mobile ? null : "Scrivi un numero di cellulare italiano.",
+    pw: checkNewPassword(pw, mobile),
+    pw2: pw && pw !== pw2 ? "Le due password non sono uguali." : null,
+    privacy: privacy ? null : "Serve la presa visione dell'informativa.",
+  };
+  const ok = Object.values(e).every((x) => !x);
+  const Err = ({ t }: { t: string | null }) => (tried && t ? <p className="mt-1 text-[15px] font-semibold text-[#9b2c1f]">{t}</p> : null);
+
+  if (done) {
+    return (
+      <div role="status" className="mx-auto max-w-md space-y-3 rounded-[32px] bg-verde-scuro p-6 text-carta md:p-8">
+        <b className="fm-display block text-[30px] leading-tight">Ci siamo quasi.</b>
+        <p className="text-[16px]">La prossima volta che passi in farmacia mostra la tessera: la farmacista attiva il tuo profilo e da lì entri con cellulare e password.</p>
+        <p className="inline-block rounded-full bg-mela px-4 py-2 text-[14px] font-semibold text-verde-scuro">Prova: niente è stato salvato.</p>
+        <button type="button" onClick={onBack} className="fm-focus block text-[15px] font-semibold underline underline-offset-4">
+          Torna all&apos;accesso
+        </button>
+      </div>
+    );
+  }
+  return (
+    <form
+      noValidate
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        setTried(true);
+        if (ok) setDone(true);
+      }}
+      className="mx-auto max-w-md space-y-4 rounded-[32px] bg-bianco p-6 md:p-8"
+    >
+      <h2 className="fm-display text-[30px] leading-tight">Prima volta?</h2>
+      <p className="text-[16px]">Ti serve la tessera della farmacia. Se non ce l&apos;hai, la chiedi al banco.</p>
+      <div>
+        <label htmlFor="rg-card" className="block text-[16px] font-semibold">Codice della tessera</label>
+        <input id="rg-card" autoCapitalize="characters" maxLength={7} value={card} onChange={(x) => setCard(x.target.value)} className={field} />
+        <Err t={e.card} />
+      </div>
+      <div>
+        <label htmlFor="rg-tel" className="block text-[16px] font-semibold">Cellulare</label>
+        <input id="rg-tel" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(x) => setPhone(x.target.value)} className={field} />
+        <Err t={e.phone} />
+      </div>
+      <div>
+        <label htmlFor="rg-pw" className="block text-[16px] font-semibold">Scegli una password</label>
+        <input id="rg-pw" type="password" autoComplete="new-password" value={pw} onChange={(x) => setPw(x.target.value)} aria-describedby="rg-pw-h" className={field} />
+        <p id="rg-pw-h" className="mt-1 text-[14px] text-verde">Almeno 8 caratteri. Va bene anche una frase, per esempio tre parole.</p>
+        <Err t={e.pw} />
+      </div>
+      <div>
+        <label htmlFor="rg-pw2" className="block text-[16px] font-semibold">Riscrivi la password</label>
+        <input id="rg-pw2" type="password" autoComplete="new-password" value={pw2} onChange={(x) => setPw2(x.target.value)} className={field} />
+        <Err t={e.pw2} />
+      </div>
+      <label className="flex cursor-pointer items-start gap-3 text-[16px]">
+        <input type="checkbox" checked={privacy} onChange={(x) => setPrivacy(x.target.checked)} className="fm-focus mt-0.5 size-6 shrink-0 accent-[var(--color-verde-scuro)]" />
+        <span>
+          Ho letto l&apos;<Link href="/privacy" target="_blank" className="font-semibold underline underline-offset-4">informativa privacy</Link>.
+        </span>
+      </label>
+      <Err t={e.privacy} />
+      <button type="submit" className="fm-focus fm-press min-h-12 w-full rounded-full bg-verde-scuro text-[17px] font-bold text-carta">Crea il profilo</button>
+      <button type="button" onClick={onBack} className="fm-focus block text-[15px] font-semibold underline underline-offset-4">Ho già un profilo</button>
+    </form>
+  );
+}
+
+/** Accesso con cellulare e password (decisione di Giovanni). In prova va bene qualsiasi numero, la password è "provaprova". */
 function Login({ onIn }: { onIn: () => void }) {
   const [phone, setPhone] = useState("");
-  const [sent, setSent] = useState(false);
-  const [code, setCode] = useState("");
+  const [pw, setPw] = useState("");
   const [err, setErr] = useState<string | null>(null);
-  const field = "fm-focus mt-1 min-h-12 w-full rounded-xl border-2 border-verde-scuro/25 bg-bianco px-4 text-[17px]";
+  const [register, setRegister] = useState(false);
+  if (register) return <Register onBack={() => setRegister(false)} />;
   return (
     <form
       noValidate
       onSubmit={(e) => {
         e.preventDefault();
-        if (!sent) {
-          if (!normalizeMobile(phone)) return setErr("Scrivi un numero di cellulare italiano, per esempio 333 123 4567.");
-          setErr(null);
-          setSent(true);
-        } else if (code.replace(/\D/g, "") === "000000") onIn();
-        else setErr("Codice sbagliato. In prova il codice è 000000.");
+        if (!normalizeMobile(phone)) return setErr("Scrivi un numero di cellulare italiano, per esempio 333 123 4567.");
+        if (pw !== "provaprova") return setErr("Cellulare o password sbagliati. In prova la password è provaprova.");
+        onIn();
       }}
       className="mx-auto max-w-md space-y-4 rounded-[32px] bg-bianco p-6 md:p-8"
     >
       <h2 className="fm-display text-[30px] leading-tight">Entra in MyMasera</h2>
-      <p className="text-[16px]">Niente password: ti mandiamo un codice sul cellulare.</p>
-      {!sent ? (
-        <div>
-          <label htmlFor="my-tel" className="block text-[16px] font-semibold">
-            Cellulare
-          </label>
-          <input id="my-tel" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className={field} />
-        </div>
-      ) : (
-        <div>
-          <label htmlFor="my-code" className="block text-[16px] font-semibold">
-            Codice di 6 cifre
-          </label>
-          <input id="my-code" inputMode="numeric" autoComplete="one-time-code" maxLength={7} value={code} onChange={(e) => setCode(e.target.value)} className={field} />
-          <p className="mt-1 text-[14px] text-verde">Prova: non arriva nessun messaggio, il codice è 000000.</p>
-        </div>
-      )}
+      <div>
+        <label htmlFor="my-tel" className="block text-[16px] font-semibold">Cellulare</label>
+        <input id="my-tel" type="tel" inputMode="tel" autoComplete="username" value={phone} onChange={(e) => setPhone(e.target.value)} className={field} />
+      </div>
+      <div>
+        <label htmlFor="my-pw" className="block text-[16px] font-semibold">Password</label>
+        <input id="my-pw" type="password" autoComplete="current-password" value={pw} onChange={(e) => setPw(e.target.value)} className={field} />
+        <p className="mt-1 text-[14px] text-verde">Prova: la password è provaprova. Password dimenticata? Te la azzeriamo al banco.</p>
+      </div>
       {err && (
         <p role="alert" className="text-[15px] font-semibold text-[#9b2c1f]">
           {err}
         </p>
       )}
-      <button type="submit" className="fm-focus fm-press min-h-12 w-full rounded-full bg-verde-scuro text-[17px] font-bold text-carta">
-        {sent ? "Entra" : "Mandami il codice"}
+      <button type="submit" className="fm-focus fm-press min-h-12 w-full rounded-full bg-verde-scuro text-[17px] font-bold text-carta">Entra</button>
+      <button type="button" onClick={() => setRegister(true)} className="fm-focus block text-[15px] font-semibold underline underline-offset-4">
+        Prima volta? Crea il tuo profilo
       </button>
     </form>
   );
@@ -179,7 +244,7 @@ export function MyMaseraDemo({ today }: { today: string }) {
   const [inside, setInside] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [tab, setTab] = useState("agenda");
-  const progress = loyaltyProgress(DEMO.points, DEMO.threshold);
+  const progress = loyaltyProgress(DEMO.points);
   const credit = creditAvailable(DEMO.credit, DEMO.creditUsed, today);
   const rows = useMemo(() => TABS.find((t) => t.key === tab)?.rows ?? [], [tab]);
 
@@ -196,8 +261,9 @@ export function MyMaseraDemo({ today }: { today: string }) {
             <circle className="my-ring" pathLength={1} cx="26" cy="26" r="21" fill="none" stroke="#A3BE19" strokeWidth="7" strokeLinecap="round" transform="rotate(-90 26 26)" style={{ ["--my-left" as string]: String(1 - progress.ratio) }} />
           </svg>
           <span>
-            <span className="block text-[13px] text-verde">Al prossimo buono</span>
+            <span className="block text-[13px] text-verde">Al prossimo euro</span>
             <b className="text-[15px]">{progress.label}</b>
+            <span className="block text-[12px] text-verde">30 € di spesa = 100 punti = 1 €</span>
           </span>
         </div>
         <div className="rounded-3xl bg-bianco p-4">

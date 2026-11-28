@@ -2,6 +2,9 @@
 // Solo logica, con i test. La foto serve solo per il preventivo: l'originale resta obbligatorio.
 import { deliveryZone, formatEuro, isValidZip } from "./delivery";
 
+/** Le foto delle ricette si cancellano da sole dopo 7 giorni (decisione di Giovanni del 28/11/2026). */
+export const PRESCRIPTION_PHOTO_DAYS = 7;
+
 /** Le ricette si accettano solo da Seregno (CAP 20831). */
 export function prescriptionAllowed(zip: string): { ok: true } | { ok: false; message: string } {
   if (!isValidZip(zip)) return { ok: false, message: "Scrivi un CAP di 5 cifre, per esempio 20831." };
@@ -28,12 +31,12 @@ export function normalizeFiscalCode(input: string): string | null {
 }
 
 /**
- * Codice della ricetta elettronica (NRE): lettere e numeri, senza spazi.
- * [DA CONFERMARE] la lunghezza esatta con le farmaciste: per ora accettiamo da 10 a 20 caratteri.
+ * Codice della ricetta elettronica (NRE): 15 caratteri tra lettere e numeri (confermato da Giovanni il 28/11/2026).
+ * Spazi e trattini scritti dal cliente si tolgono.
  */
 export function normalizeNre(input: string): string | null {
   const n = input.replace(/[\s-]/g, "").toUpperCase();
-  return /^[A-Z0-9]{10,20}$/.test(n) ? n : null;
+  return /^[A-Z0-9]{15}$/.test(n) ? n : null;
 }
 
 export type PrescriptionSource = { kind: "foto"; files: number } | { kind: "nre"; nre: string; fiscalCode: string };
@@ -50,7 +53,7 @@ export function checkPrescriptionRequest(r: {
     if (r.source.files < 1) e.source = "Aggiungi la foto della ricetta.";
     if (r.source.files > 5) e.source = "Al massimo 5 foto per richiesta.";
   } else {
-    if (!normalizeNre(r.source.nre)) e.nre = "Controlla il codice della ricetta elettronica.";
+    if (!normalizeNre(r.source.nre)) e.nre = "Il codice della ricetta elettronica ha 15 caratteri, lettere e numeri.";
     if (!normalizeFiscalCode(r.source.fiscalCode)) e.fiscalCode = "Controlla il codice fiscale: 16 caratteri, come sulla tessera sanitaria.";
   }
   if (r.name.trim().length < 3) e.name = "Scrivi nome e cognome.";

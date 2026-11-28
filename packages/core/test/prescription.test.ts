@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  checkPrescriptionRequest, handoverNote, normalizeFiscalCode, normalizeNre, prescriptionAllowed, quoteLineLabel, quoteProblems, quoteTotalEur,
+  checkPrescriptionRequest, handoverNote, PRESCRIPTION_PHOTO_DAYS, normalizeFiscalCode, normalizeNre, prescriptionAllowed, quoteLineLabel, quoteProblems, quoteTotalEur,
 } from "../src";
 
 describe("Ricette solo da Seregno", () => {
@@ -26,8 +26,11 @@ describe("Codice fiscale", () => {
 });
 
 describe("Codice della ricetta elettronica", () => {
-  it("lettere e numeri, spazi e trattini tolti", () => {
+  it("15 caratteri, lettere e numeri, spazi e trattini tolti", () => {
     expect(normalizeNre("0301 A4 123456789")).toBe("0301A4123456789");
+    expect(normalizeNre("0301-a4-123456789")).toBe("0301A4123456789");
+    expect(normalizeNre("0301A412345678")).toBeNull(); // 14
+    expect(normalizeNre("0301A41234567890")).toBeNull(); // 16
     expect(normalizeNre("123")).toBeNull();
     expect(normalizeNre("ABC!12345678")).toBeNull();
   });
@@ -68,4 +71,5 @@ describe("Preventivo", () => {
     expect(handoverNote("consegna")).toContain("sigillato da un farmacista");
     expect(handoverNote("ritiro")).toContain("originale");
   });
+  it("foto tenute 7 giorni", () => expect(PRESCRIPTION_PHOTO_DAYS).toBe(7));
 });

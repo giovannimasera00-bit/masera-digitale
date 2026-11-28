@@ -2,7 +2,7 @@
 import "../prenota/prenota.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { checkPrescriptionRequest, handoverNote, normalizeMobile, prescriptionAllowed, type Handover } from "@masera/core";
+import { checkPrescriptionRequest, handoverNote, PRESCRIPTION_PHOTO_DAYS, normalizeMobile, prescriptionAllowed, type Handover } from "@masera/core";
 
 const field = "fm-focus mt-1 min-h-12 w-full rounded-xl border-2 border-verde-scuro/25 bg-bianco px-4 text-[17px]";
 const legend = "mb-3 text-[13px] font-bold uppercase tracking-[0.12em] text-verde";
@@ -17,7 +17,7 @@ function Err({ id, text }: { id: string; text?: string }) {
 
 /**
  * Modulo "Invia una ricetta" in PROVA: la foto si vede solo qui sul telefono, non viene inviata né salvata.
- * Con il database: foto in un archivio privato in Europa, solo per il personale, cancellata dopo [DA CONFERMARE] giorni.
+ * Con il database: foto in un archivio privato in Europa, solo per il personale, cancellata da sola dopo 7 giorni.
  */
 export function PrescriptionForm() {
   const [zip, setZip] = useState("");
@@ -131,7 +131,8 @@ export function PrescriptionForm() {
               <label htmlFor="rc-nre" className="block text-[16px] font-semibold">
                 Codice ricetta (NRE)
               </label>
-              <input id="rc-nre" autoComplete="off" value={nre} onChange={(e) => setNre(e.target.value)} className={field} />
+              <input id="rc-nre" autoComplete="off" autoCapitalize="characters" maxLength={19} aria-describedby="rc-nre-h" value={nre} onChange={(e) => setNre(e.target.value)} className={field} />
+              <p id="rc-nre-h" className="mt-1 text-[14px] text-verde">15 caratteri, li trovi sul promemoria della ricetta.</p>
               <Err id="rc-nre-e" text={show("nre")} />
             </div>
             <div>
@@ -191,7 +192,7 @@ export function PrescriptionForm() {
               <Link href="/privacy" target="_blank" className="font-semibold underline underline-offset-4">
                 informativa privacy
               </Link>
-              . La foto serve solo per il preventivo e la cancelliamo dopo [DA CONFERMARE] giorni.
+              . La foto serve solo per il preventivo e la cancelliamo dopo {PRESCRIPTION_PHOTO_DAYS} giorni.
             </span>
           </label>
           <Err id="rc-pr-e" text={show("privacy")} />

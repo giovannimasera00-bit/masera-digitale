@@ -338,7 +338,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   c) profilazione è descritta ma il modulo cartaceo non ha la sua casella (online non la chiediamo). Da Farmaconsult: saldo punti.
 - Per andare online: profili sul database (Francoforte), password salvate solo come impronta (scrypt), referti caricati dal personale.
 
-### Fase 3 – pezzi 7 e 8: motore SkinLab Routine e pannello al banco (in anteprima sul ramo fase3/routine-motore)
+### Fase 3 – pezzi 7 e 8: motore SkinLab Routine e pannello al banco (uniti in main il 28/11/2026)
 - In `packages/core/src/routine.ts` con test (core 168): ordine dei passaggi (detergente → tonico → siero → contorno occhi →
   crema → protezione solare; capelli: shampoo → trattamento → lozione) qualunque sia l'ordine in cui si passano i prodotti,
   sequenza della mattina e della sera, avvisi (solare la sera, due prodotti per lo stesso passaggio), i tre pulsanti

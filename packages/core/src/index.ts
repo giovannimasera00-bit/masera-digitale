@@ -10,3 +10,4 @@ export * from "./catalog";
 export * from "./shop";
 export * from "./rider";
 export * from "./prescription";
+export * from "./mymasera";

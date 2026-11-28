@@ -6,6 +6,9 @@ import { demoRiderOrders } from "@/content/rider-demo";
 import { staffRole } from "@/lib/staff-auth";
 import { RiderList } from "./RiderList";
 
+/** Partenza del giro: la farmacia, in via Garibaldi 103 (coordinate OpenStreetMap). */
+const FARMACIA_POINT = { lat: 45.6510625, lon: 9.201046 };
+
 export const metadata: Metadata = { title: "Consegne del giorno" };
 
 /** Elenco consegne per il rider (BRIEF §16). Per ora con ordini di prova: quelli veri arriveranno da Shopify. */
@@ -29,7 +32,7 @@ export default async function ConsegnePage() {
       <p className="mt-3 rounded-2xl border-2 border-dashed border-verde/40 bg-bianco px-4 py-3 text-[15px]">
         <b>Ordini di prova.</b> Nomi e importi sono finti: gli ordini veri arriveranno dal negozio online.
       </p>
-      <RiderList orders={demoRiderOrders(date)} date={date} origin={origin} />
+      <RiderList orders={demoRiderOrders(date)} date={date} origin={origin} start={FARMACIA_POINT} />
     </main>
   );
 }

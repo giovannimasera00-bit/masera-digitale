@@ -23,6 +23,9 @@ export type RiderOrder = {
   status: RiderStatus;
   /** Contiene farmaci su ricetta: pacco sigillato da un farmacista (BRIEF §11). */
   sealed: boolean;
+  /** Coordinate dell'indirizzo, se note (Shopify le calcola dall'indirizzo di consegna). */
+  lat?: number;
+  lon?: number;
 };
 
 /** Giorno di consegna di un ordine di Seregno: quello deciso quando è stato fatto (entro le 16 → in giornata). */
@@ -58,22 +61,73 @@ export type RiderRun = {
   sealedCount: number;
 };
 
+export type Point = { lat: number; lon: number };
+
+/** Distanza in metri tra due punti (formula dell'emisenoverso). */
+export function distanceM(a: Point, b: Point): number {
+  const R = 6_371_000;
+  const rad = (d: number) => (d * Math.PI) / 180;
+  const dLat = rad(b.lat - a.lat);
+  const dLon = rad(b.lon - a.lon);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+/** Lunghezza di un giro che parte da `origin` e tocca i punti in ordine (senza ritorno). */
+export const routeLengthM = (origin: Point, pts: Point[]): number =>
+  pts.reduce((acc, p, i) => acc + distanceM(i === 0 ? origin : pts[i - 1]!, p), 0);
+
 /**
- * Il giro di consegna di un giorno: ordini di Seregno di quel giorno, non annullati né già consegnati,
- * in ordine di via e numero civico (prima versione semplice; più avanti si può ottimizzare il percorso).
+ * Ordine delle tappe che accorcia il giro: prima la tappa più vicina ogni volta, poi si migliora
+ * invertendo tratti finché il percorso si accorcia (2-opt). In linea d'aria: per le vie di Seregno basta.
  */
-export function riderRun(orders: RiderOrder[], date: string, closedDates: readonly string[] = []): RiderRun {
+export function optimizeRoute<T extends Point>(origin: Point, stops: T[]): T[] {
+  const left = [...stops];
+  const route: T[] = [];
+  let cur: Point = origin;
+  while (left.length) {
+    let best = 0;
+    for (let i = 1; i < left.length; i++) if (distanceM(cur, left[i]!) < distanceM(cur, left[best]!)) best = i;
+    cur = left.splice(best, 1)[0]!;
+    route.push(cur as T);
+  }
+  let improved = true;
+  for (let pass = 0; improved && pass < 50; pass++) {
+    improved = false;
+    for (let i = 0; i < route.length - 1; i++) {
+      for (let k = i + 1; k < route.length; k++) {
+        const cand = [...route.slice(0, i), ...route.slice(i, k + 1).reverse(), ...route.slice(k + 1)];
+        if (routeLengthM(origin, cand) + 0.5 < routeLengthM(origin, route)) {
+          route.splice(0, route.length, ...cand);
+          improved = true;
+        }
+      }
+    }
+  }
+  return route;
+}
+
+const byStreet = (a: RiderOrder, b: RiderOrder) => {
+  const s = streetKey(a.street).localeCompare(streetKey(b.street), "it");
+  if (s) return s;
+  const [na, ra] = houseKey(a.houseNumber);
+  const [nb, rb] = houseKey(b.houseNumber);
+  return na - nb || ra.localeCompare(rb);
+};
+
+/**
+ * Il giro di consegna di un giorno: ordini di Seregno di quel giorno, non annullati né già consegnati.
+ * Con la partenza (la farmacia) e le coordinate degli indirizzi (Shopify le dà con l'indirizzo) le tappe
+ * seguono il percorso più corto; gli indirizzi senza coordinate vanno in fondo, in ordine di via e civico.
+ */
+export function riderRun(orders: RiderOrder[], date: string, closedDates: readonly string[] = [], origin?: Point): RiderRun {
   const ofDay = orders.filter((o) => o.status !== "annullato" && deliveryDateOf(o, closedDates) === date);
   const inArea = (o: RiderOrder) => isValidZip(o.zip) && SEREGNO_ZIPS.includes(o.zip.trim());
-  const stops = ofDay
-    .filter((o) => inArea(o) && o.status !== "consegnato")
-    .sort((a, b) => {
-      const s = streetKey(a.street).localeCompare(streetKey(b.street), "it");
-      if (s) return s;
-      const [na, ra] = houseKey(a.houseNumber);
-      const [nb, rb] = houseKey(b.houseNumber);
-      return na - nb || ra.localeCompare(rb);
-    });
+  const todo = ofDay.filter((o) => inArea(o) && o.status !== "consegnato");
+  const located = todo.filter((o): o is RiderOrder & Point => typeof o.lat === "number" && typeof o.lon === "number");
+  const stops = origin
+    ? [...optimizeRoute(origin, located), ...todo.filter((o) => !located.includes(o as RiderOrder & Point)).sort(byStreet)]
+    : [...todo].sort(byStreet);
   const cents = stops.reduce((acc, o) => acc + (o.payment === "contanti" ? Math.round(o.totalEur * 100) : 0), 0);
   return {
     date,

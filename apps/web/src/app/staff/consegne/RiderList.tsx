@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { formatEuro, paymentNote, riderRun, routeLinks, telHref, type RiderOrder, type RiderStatus } from "@masera/core";
+import { formatEuro, paymentNote, riderRun, routeLinks, telHref, type Point, type RiderOrder, type RiderStatus } from "@masera/core";
 
 const STATUS: Record<RiderStatus, string> = {
   da_preparare: "Da preparare",
@@ -11,10 +11,10 @@ const STATUS: Record<RiderStatus, string> = {
 };
 
 /** Lista del rider: tappe in ordine, cosa incassare, "Partito" e "Consegnato". In prova lo stato resta solo in questa pagina. */
-export function RiderList({ orders: initial, date, origin }: { orders: RiderOrder[]; date: string; origin: string }) {
+export function RiderList({ orders: initial, date, origin, start }: { orders: RiderOrder[]; date: string; origin: string; start: Point }) {
   const [orders, setOrders] = useState(initial);
   const [notice, setNotice] = useState<string | null>(null);
-  const run = useMemo(() => riderRun(orders, date), [orders, date]);
+  const run = useMemo(() => riderRun(orders, date, [], start), [orders, date, start]);
   const delivered = orders.filter((o) => o.status === "consegnato");
   const set = (id: string, status: RiderStatus) => setOrders((os) => os.map((o) => (o.id === id ? { ...o, status } : o)));
   const btn = "fm-focus fm-press inline-flex min-h-11 items-center rounded-full px-4 text-[15px] font-bold";

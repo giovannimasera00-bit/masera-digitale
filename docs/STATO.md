@@ -272,7 +272,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   File di prova con dati finti: `docs/esempi/catalogo-prova.csv`.
 - Manca: il collegamento a Shopify ogni 30 minuti (quando c'è il negozio) e la consegna del file da Farmaconsult (SFTP).
 
-### Fase 2 – pezzo 3: shop di prova (in anteprima sul ramo fase2/shop: …-git-fase2-shop-giovanni-7bbb.vercel.app/shop)
+### Fase 2 – pezzo 3: shop di prova (unito in main il 28/11/2026; sul sito principale nascosto, si vede nelle anteprime)
 - Pagine: `/shop` (reparti, Le Nostre Linee, promo), `/shop/[reparto]`, `/linee/[linea]`, `/promo`, `/prodotto/[handle]`, `/carrello`.
 - **Prodotti finti** (12, nomi "(prova)", in `content/shop-demo.ts`) con avviso "Shop di prova" su ogni pagina. Le pagine leggono i
   prodotti da `lib/shop.ts`: quando c'è Shopify si cambia solo lì.

@@ -74,6 +74,9 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
         <div className="flex flex-wrap gap-2">
           {role === "staff" && (
             <>
+              <Link href="/staff/skinlab" className={navBtn}>
+                SkinLab
+              </Link>
               <Link href="/staff/ricette" className={navBtn}>
                 Ricette
               </Link>

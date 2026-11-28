@@ -338,7 +338,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
   c) profilazione è descritta ma il modulo cartaceo non ha la sua casella (online non la chiediamo). Da Farmaconsult: saldo punti.
 - Per andare online: profili sul database (Francoforte), password salvate solo come impronta (scrypt), referti caricati dal personale.
 
-### Fase 3 – pezzo 7: motore SkinLab Routine (sul ramo fase3/routine-motore, solo logica: non cambia pagine)
+### Fase 3 – pezzi 7 e 8: motore SkinLab Routine e pannello al banco (in anteprima sul ramo fase3/routine-motore)
 - In `packages/core/src/routine.ts` con test (core 168): ordine dei passaggi (detergente → tonico → siero → contorno occhi →
   crema → protezione solare; capelli: shampoo → trattamento → lozione) qualunque sia l'ordine in cui si passano i prodotti,
   sequenza della mattina e della sera, avvisi (solare la sera, due prodotti per lo stesso passaggio), i tre pulsanti
@@ -348,6 +348,13 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - La dose usa la "dose standard in ml" della scheda prodotto; se manca, una dose indicativa per quantità (goccia 0,05 ml,
   pisello 0,3 ml, noce 1 ml, 2 erogazioni 0,3 ml) **[DA CONFERMARE con le farmaciste]**: serve solo a stimare la fine del prodotto.
 - Da decidere: giorni dei trattamenti "2–3 volte a settimana" (ora lun/mer/ven).
+- **Pannello `/staff/skinlab`** (password delle dottoresse, tasto "SkinLab" nell'agenda): campo della penna ottica sempre a fuoco
+  (torna a fuoco dopo ogni clic), tessera (lettera + 5 numeri) → profilo con ultima analisi e data del richiamo; EAN → il prodotto
+  entra da solo nel passaggio giusto; per ogni prodotto i tre pulsanti quando / quanto spesso / quanto e la data in cui finisce;
+  anteprima di mattina e sera in ordine; avvisi; allega l'analisi (foto o PDF); "Invia la routine"; cronometro per stare sotto i 2 minuti.
+- Provato sul computer con la tastiera al posto della penna: 4 prodotti in 16 secondi. Clienti e prodotti finti
+  (`content/skinlab-demo.ts`: tessere A12345, B54321; EAN 8009990000016…0092), niente salvato né inviato.
+- Mancano: nota vocale (da decidere se serve), schede SkinLab vere dei prodotti (capacità, passaggio, dose), invio su WhatsApp (4B).
 
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.

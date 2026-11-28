@@ -299,6 +299,20 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Logica in `packages/core/src/rider.ts` con test (core 127): giorno di consegna dell'ordine, giro, incassi, link al percorso.
 - Per ora la usano i farmacisti con la loro password; se in futuro le consegne le fa un rider, gli diamo una password sua (decisione del 28/11/2026).
 
+### Fase 2 – pezzo 5: Invia una ricetta (in anteprima sul ramo fase2/ricetta)
+- `/ricetta` (solo Seregno): CAP (fuori Seregno → "porta la ricetta in farmacia"), foto (fino a 5, anche dalla fotocamera)
+  oppure codice della ricetta elettronica + codice fiscale (controllato con il carattere finale), ritiro in farmacia o consegna
+  serale in pacco sigillato da un farmacista, nome, cellulare, informativa. L'originale resta sempre obbligatorio.
+- **In prova non invia niente**: la foto resta sul dispositivo del cliente. Sul sito principale la pagina è nascosta finché
+  `features.ricetta` è spento.
+- `/staff/ricette` (solo password delle dottoresse, tasto "Ricette" nell'agenda) con richieste di prova: "Valuta" → preventivo a
+  righe (descrizione, quantità, prezzo), quando è pronta, nota → "Invia il preventivo" → si vede come lo riceve il cliente
+  ("Approvo" / "No, grazie") → In preparazione → È pronta → Ritirata o consegnata. Niente salvato.
+- Logica in `packages/core/src/prescription.ts` con test (core 138).
+- **Prima di andare online serve**: durata di conservazione delle foto (BRIEF §21 n. 11, ora [DA CONFERMARE] anche nel testo del
+  modulo), parere del consulente privacy, parere di Ordine/Federfarma sulla consegna a domicilio dei farmaci su ricetta (n. 15),
+  lunghezza esatta del codice NRE (ora 10–20 caratteri). Poi: archivio privato su Supabase (Francoforte) e invio su WhatsApp (4B).
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.

@@ -2,9 +2,11 @@
 import "../prenota/prenota.css";
 import "./my.css";
 import Link from "next/link";
+import { consensoCarta, consensoMarketing, consensoMarketingIntro, INFORMATIVA_CARTA_VERSIONE } from "@/content/informativa-carta";
+import { InformativaCarta } from "./InformativaCarta";
 import { useMemo, useState } from "react";
 import {
-  checkNewPassword, CONSENT_LABELS, creditAvailable, creditExpiry, currentConsents, formatCardNumber, formatDay, formatEuro,
+  barsFromModules, checkNewPassword, code128BModules, CONSENT_LABELS, creditAvailable, creditExpiry, currentConsents, formatCardNumber, formatDay, formatEuro,
   loyaltyProgress, normalizeCardCode, normalizeMobile, pointsValueEur, recordConsent, type ConsentPurpose, type ConsentRecord,
 } from "@masera/core";
 
@@ -52,6 +54,9 @@ const TABS: { key: string; label: string; rows: Row[] }[] = [
   },
 ];
 
+const cardModules = code128BModules(DEMO.card)!;
+const cardBars = { bars: barsFromModules(cardModules), width: cardModules.length };
+
 function Card({ flipped, onFlip }: { flipped: boolean; onFlip: () => void }) {
   return (
     <div className="my-scene">
@@ -71,9 +76,15 @@ function Card({ flipped, onFlip }: { flipped: boolean; onFlip: () => void }) {
           </span>
         </span>
         <span className="my-face my-back flex flex-col items-center justify-center gap-3 rounded-3xl border border-[#E2DED2] bg-[#F4F1E8] p-6">
-          {/* Il codice a barre si disegna quando sappiamo che tipo è stampato sulle tessere (foto di una tessera). */}
-          <span className="flex h-[88px] w-[290px] max-w-full items-center justify-center rounded-xl border-2 border-dashed border-verde-scuro/25 text-[14px] text-verde">
-            Qui il codice a barre della tessera
+          {/* Code 128, come sulle tessere stampate: la penna ottica del banco lo legge anche dal telefono. */}
+          <span className="rounded-lg bg-bianco px-3 py-2">
+            <svg viewBox={`0 0 ${cardBars.width + 20} 60`} className="h-[88px] w-[290px] max-w-full" role="img" aria-label={`Codice a barre della tessera ${DEMO.card}`} preserveAspectRatio="none">
+              <g fill="#1D1D1B">
+                {cardBars.bars.map((b) => (
+                  <rect key={b.x} x={b.x + 10} y="0" width={b.w} height="60" />
+                ))}
+              </g>
+            </svg>
           </span>
           <span className="font-mono text-[22px] font-bold tracking-[0.2em] text-nero">{formatCardNumber(DEMO.card)}</span>
         </span>
@@ -84,8 +95,12 @@ function Card({ flipped, onFlip }: { flipped: boolean; onFlip: () => void }) {
 
 function Consents() {
   const [history, setHistory] = useState<ConsentRecord[]>([
+    { purpose: "carta", granted: true, at: "2026-11-10T09:00:00Z", textVersion: INFORMATIVA_CARTA_VERSIONE, channel: "banco_cartaceo" },
+    { purpose: "marketing", granted: false, at: "2026-11-10T09:00:00Z", textVersion: INFORMATIVA_CARTA_VERSIONE, channel: "banco_cartaceo" },
     { purpose: "prenotazioni", granted: true, at: "2026-11-10T09:00:00Z", textVersion: "prova-1", channel: "sito" },
   ]);
+  const version = (p: ConsentPurpose) => (p === "carta" || p === "marketing" ? INFORMATIVA_CARTA_VERSIONE : "prova-1");
+  const channelLabel = { sito: "sito", app: "app", banco_cartaceo: "modulo firmato al banco" } as const;
   const cur = currentConsents(history);
   return (
     <ul className="space-y-2">
@@ -97,7 +112,7 @@ function Consents() {
             <span className="min-w-0">
               <b className="block text-[16px]">{l.title}</b>
               <span className="block text-[14px] text-verde">{l.text}</span>
-              {cur[p] && <span className="mt-1 block text-[12px] text-verde">Ultima scelta: {formatDay(cur[p]!.at.slice(0, 10)).long} · testo {cur[p]!.textVersion} · dal {cur[p]!.channel}</span>}
+              {cur[p] && <span className="mt-1 block text-[12px] text-verde">Ultima scelta: {formatDay(cur[p]!.at.slice(0, 10)).long} · testo {cur[p]!.textVersion} · {channelLabel[cur[p]!.channel]}</span>}
             </span>
             <label className="flex shrink-0 cursor-pointer items-center gap-2 text-[14px] font-semibold">
               <input
@@ -105,7 +120,7 @@ function Consents() {
                 role="switch"
                 checked={on}
                 disabled={l.required}
-                onChange={(e) => setHistory((h) => recordConsent(h, { purpose: p, granted: e.target.checked, at: new Date().toISOString(), textVersion: "prova-1", channel: "sito" }))}
+                onChange={(e) => setHistory((h) => recordConsent(h, { purpose: p, granted: e.target.checked, at: new Date().toISOString(), textVersion: version(p), channel: "sito" }))}
                 className="fm-focus size-6 accent-[var(--color-verde-scuro)]"
               />
               <span className="sr-only">{l.title}: </span>
@@ -114,7 +129,10 @@ function Consents() {
           </li>
         );
       })}
-      <li className="px-1 text-[13px] text-verde">Ogni scelta resta nello storico con data, versione del testo e canale. Il consenso per gli appuntamenti serve al servizio.</li>
+      <li className="px-1 text-[13px] text-verde">Ogni scelta resta nello storico con data, versione del testo e canale. Carta Fedeltà e appuntamenti servono al servizio.</li>
+      <li>
+        <InformativaCarta />
+      </li>
     </ul>
   );
 }
@@ -128,6 +146,7 @@ function Register({ onBack }: { onBack: () => void }) {
   const [pw, setPw] = useState("");
   const [pw2, setPw2] = useState("");
   const [privacy, setPrivacy] = useState(false);
+  const [marketing, setMarketing] = useState<boolean | null>(null);
   const [tried, setTried] = useState(false);
   const [done, setDone] = useState(false);
   const mobile = normalizeMobile(phone);
@@ -136,7 +155,8 @@ function Register({ onBack }: { onBack: () => void }) {
     phone: mobile ? null : "Scrivi un numero di cellulare italiano.",
     pw: checkNewPassword(pw, mobile),
     pw2: pw && pw !== pw2 ? "Le due password non sono uguali." : null,
-    privacy: privacy ? null : "Serve la presa visione dell'informativa.",
+    privacy: privacy ? null : "Per avere la Carta serve questo consenso.",
+    marketing: marketing === null ? "Scegli \"Do il consenso\" oppure \"Nego il consenso\"." : null,
   };
   const ok = Object.values(e).every((x) => !x);
   const Err = ({ t }: { t: string | null }) => (tried && t ? <p className="mt-1 text-[15px] font-semibold text-[#9b2c1f]">{t}</p> : null);
@@ -186,13 +206,28 @@ function Register({ onBack }: { onBack: () => void }) {
         <input id="rg-pw2" type="password" autoComplete="new-password" value={pw2} onChange={(x) => setPw2(x.target.value)} className={field} />
         <Err t={e.pw2} />
       </div>
-      <label className="flex cursor-pointer items-start gap-3 text-[16px]">
+      <InformativaCarta />
+      <label className="flex cursor-pointer items-start gap-3 text-[15px]">
         <input type="checkbox" checked={privacy} onChange={(x) => setPrivacy(x.target.checked)} className="fm-focus mt-0.5 size-6 shrink-0 accent-[var(--color-verde-scuro)]" />
         <span>
-          Ho letto l&apos;<Link href="/privacy" target="_blank" className="font-semibold underline underline-offset-4">informativa privacy</Link>.
+          <b>Consenso per la Carta Fedeltà (obbligatorio).</b> {consensoCarta}
         </span>
       </label>
       <Err t={e.privacy} />
+      <fieldset>
+        <legend className="text-[15px]">
+          <b>Marketing (facoltativo).</b> {consensoMarketingIntro} {consensoMarketing}
+        </legend>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {([[true, "Do il consenso"], [false, "Nego il consenso"]] as const).map(([v, l]) => (
+            <label key={l} className="cursor-pointer">
+              <input type="radio" name="rg-mk" checked={marketing === v} onChange={() => setMarketing(v)} className="peer sr-only" />
+              <span className={`inline-flex min-h-11 items-center rounded-full border-2 px-4 text-[15px] font-bold peer-focus-visible:shadow-[0_0_0_3px_var(--color-carta),0_0_0_6px_var(--color-verde-scuro)] ${marketing === v ? "border-verde-scuro bg-verde-scuro text-carta" : "border-verde-scuro/25 bg-bianco"}`}>{l}</span>
+            </label>
+          ))}
+        </div>
+        <Err t={e.marketing} />
+      </fieldset>
       <button type="submit" className="fm-focus fm-press min-h-12 w-full rounded-full bg-verde-scuro text-[17px] font-bold text-carta">Crea il profilo</button>
       <button type="button" onClick={onBack} className="fm-focus block text-[15px] font-semibold underline underline-offset-4">Ho già un profilo</button>
     </form>

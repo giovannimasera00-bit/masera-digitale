@@ -314,7 +314,7 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Manca per andare online: archivio privato su Supabase (Francoforte) con cancellazione automatica dopo 7 giorni e invio del
   preventivo su WhatsApp (4B).
 
-### Fase 2 – pezzo 6: MyMasera di prova (in anteprima sul ramo fase2/mymasera: …-git-fase2-mymasera-giovanni-7bbb.vercel.app/my)
+### Fase 2 – pezzo 6: MyMasera di prova (unito in main il 28/11/2026; sul sito principale nascosto)
 - Decisioni di Giovanni (28/11/2026): **accesso con cellulare + password** (niente SMS né codici a pagamento); tessere nuove con
   codice **una lettera + 5 numeri** (es. A12345); punti **in proporzione: 30 € = 100 punti**, **100 punti = 1 €** da spendere su
   prodotti che non sono farmaci (niente "buoni").
@@ -328,8 +328,14 @@ Aggiornato da Claude Code a fine di ogni sessione.
   `features.mymasera` è spento.
 - Logica in `packages/core/src/mymasera.ts` con test (core 152): codice tessera, punti, credito 12 mesi, consensi, regole
   della password (almeno 8 caratteri, non banale, senza il numero di telefono), attesa di 15 minuti dopo 5 errori.
-- Da Giovanni: **foto del retro di una tessera** (per sapere che codice a barre è stampato: ora c'è un riquadro al suo posto) e
-  **testo definitivo del consenso privacy**. Da Farmaconsult: saldo punti per tessera.
+- **Codice a barre della tessera: Code 128** (dalla foto della "Farmacia Masera card" del 28/11/2026), disegnato in MyMasera
+  con il codice sotto come sulla tessera stampata (`packages/core/src/code128.ts`, con test). Da provare con la penna ottica.
+- **Informativa e consensi della Carta Fedeltà**: testo definitivo di Giovanni (PDF del 28/11/2026) in
+  `apps/web/src/content/informativa-carta.ts`, versione "carta-2026-11-28", parole invariate (tolta solo "conservati" ripetuto).
+  Nella registrazione: informativa apribile, consenso Carta **obbligatorio**, marketing diretto **"Do il consenso" / "Nego il
+  consenso"** da scegliere (nessuna casella già spuntata). Nel profilo i consensi riportano la versione del testo e il canale.
+- Da notare nell'informativa: titolare "FARMACIA S.VALERIA", contatto farmacia.masera@yahoo.it, conservazione 3 anni; la finalità
+  c) profilazione è descritta ma il modulo cartaceo non ha la sua casella (online non la chiediamo). Da Farmaconsult: saldo punti.
 - Per andare online: profili sul database (Francoforte), password salvate solo come impronta (scrypt), referti caricati dal personale.
 
 ## Manca per chiudere la Fase 0

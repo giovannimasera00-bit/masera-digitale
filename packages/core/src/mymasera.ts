@@ -44,8 +44,8 @@ export function barsFromModules(modules: string): { x: number; w: number }[] {
   return bars;
 }
 
-/** "A12345" → "A 12345", come sotto il codice a barre. */
-export const formatCardNumber = (code: string) => `${code[0]} ${code.slice(1)}`;
+/** Il codice come è stampato sotto il codice a barre della tessera: "A12345", tutto attaccato. */
+export const formatCardNumber = (code: string) => code.trim().toUpperCase();
 
 // ——— Punti (decisione di Giovanni del 28/11/2026) ———
 // 30 € di spesa = 100 punti, in proporzione (45 € = 150 punti). 100 punti = 1 € da spendere su prodotti che non sono farmaci.
@@ -85,7 +85,7 @@ export function creditAvailable(entries: CreditEntry[], usedEur: number, today: 
 }
 
 // ——— Consensi: separati, con data, versione del testo e canale (BRIEF §10) ———
-export type ConsentPurpose = "prenotazioni" | "ricette" | "referti" | "routine" | "promemoria_whatsapp" | "marketing";
+export type ConsentPurpose = "carta" | "prenotazioni" | "ricette" | "referti" | "routine" | "promemoria_whatsapp" | "marketing";
 export type ConsentRecord = {
   purpose: ConsentPurpose;
   granted: boolean;
@@ -96,12 +96,14 @@ export type ConsentRecord = {
 };
 
 export const CONSENT_LABELS: Record<ConsentPurpose, { title: string; text: string; required: boolean }> = {
+  // Carta e marketing: dall'informativa della Carta Fedeltà (testo definitivo del 28/11/2026). Gli altri: testi provvisori.
+  carta: { title: "Carta Fedeltà", text: "Rilascio della Carta, raccolta punti, sconti e promozioni.", required: true },
   prenotazioni: { title: "Appuntamenti", text: "Usiamo nome e cellulare per gestire le tue prenotazioni.", required: true },
   ricette: { title: "Ricette e preventivi", text: "Valutiamo le ricette che ci mandi e ti scriviamo il preventivo.", required: false },
   referti: { title: "Referti nel profilo", text: "Teniamo i referti degli esami fatti in farmacia nel tuo profilo.", required: false },
   routine: { title: "SkinLab Routine", text: "Teniamo la tua routine e ti avvisiamo quando un prodotto sta finendo.", required: false },
   promemoria_whatsapp: { title: "Promemoria su WhatsApp", text: "Conferme e promemoria di appuntamenti, ordini e ricette.", required: false },
-  marketing: { title: "Novità e promozioni", text: "Ogni tanto ti scriviamo novità e promozioni della farmacia.", required: false },
+  marketing: { title: "Marketing diretto", text: "Materiale pubblicitario e promozioni anche via e-mail, SMS e newsletter, compresi omaggi e campioni.", required: false },
 };
 
 /** Si aggiunge sempre un nuovo record: lo storico non si cancella mai. */

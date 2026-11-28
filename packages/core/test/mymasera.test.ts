@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  barsFromModules, checkNewPassword, loginWaitMinutes, normalizeCardCode, pointsForSpend, pointsValueEur, creditAvailable, creditExpiry, currentConsents, ean13CheckDigit, ean13Modules, formatCardNumber,
+  barsFromModules, code128BModules, code128BValues, checkNewPassword, loginWaitMinutes, normalizeCardCode, pointsForSpend, pointsValueEur, creditAvailable, creditExpiry, currentConsents, ean13CheckDigit, ean13Modules, formatCardNumber,
   loyaltyProgress, recordConsent, type ConsentRecord,
 } from "../src";
 
@@ -27,7 +27,7 @@ describe("Codice a barre della tessera (EAN-13)", () => {
   });
   it("barre unite e numero leggibile", () => {
     expect(barsFromModules("0110111")).toEqual([{ x: 1, w: 2 }, { x: 4, w: 3 }]);
-    expect(formatCardNumber("A12345")).toBe("A 12345");
+    expect(formatCardNumber(" a12345")).toBe("A12345");
   });
 });
 
@@ -100,5 +100,23 @@ describe("Password", () => {
     expect(loginWaitMinutes(4, "2026-11-28T09:59:00Z", now)).toBe(0);
     expect(loginWaitMinutes(5, "2026-11-28T09:59:00Z", now)).toBe(14);
     expect(loginWaitMinutes(5, "2026-11-28T09:40:00Z", now)).toBe(0);
+  });
+});
+
+describe("Codice a barre della tessera (Code 128)", () => {
+  it("esempio della tabella standard: PJJ123C con controllo 54 (in set A); in set B il controllo cambia", () => {
+    // In set B (start 104): 104 + somma(posizione × valore). Calcolo atteso fatto a mano per "A1".
+    // A = 33, 1 = 17 → 104 + 33 + 34 = 171 → 171 mod 103 = 68
+    expect(code128BValues("A1")).toEqual([104, 33, 17, 68]);
+  });
+  it("struttura: inizio, 11 moduli per simbolo, stop di 13, finisce con una barra", () => {
+    const m = code128BModules("A00712")!;
+    expect(m.length).toBe(11 * (1 + 6 + 1) + 13);
+    expect(m.slice(0, 11)).toBe("11010010000"); // Start B
+    expect(m.slice(-13)).toBe("1100011101011"); // Stop
+  });
+  it("caratteri non codificabili: niente codice", () => {
+    expect(code128BModules("è")).toBeNull();
+    expect(code128BModules("")).toBeNull();
   });
 });

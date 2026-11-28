@@ -338,6 +338,17 @@ Aggiornato da Claude Code a fine di ogni sessione.
   c) profilazione è descritta ma il modulo cartaceo non ha la sua casella (online non la chiediamo). Da Farmaconsult: saldo punti.
 - Per andare online: profili sul database (Francoforte), password salvate solo come impronta (scrypt), referti caricati dal personale.
 
+### Fase 3 – pezzo 7: motore SkinLab Routine (sul ramo fase3/routine-motore, solo logica: non cambia pagine)
+- In `packages/core/src/routine.ts` con test (core 168): ordine dei passaggi (detergente → tonico → siero → contorno occhi →
+  crema → protezione solare; capelli: shampoo → trattamento → lozione) qualunque sia l'ordine in cui si passano i prodotti,
+  sequenza della mattina e della sera, avvisi (solare la sera, due prodotti per lo stesso passaggio), i tre pulsanti
+  (quando / quanto spesso / quanto), cosa fare oggi (2–3 volte = lun, mer, ven; 1 volta = il giorno in cui si è iniziato),
+  **stima della data di fine** (capacità ÷ dose ÷ uso) con riordino negli ultimi 7 giorni, richiamo dell'analisi dopo 8 settimane,
+  serie di sere consecutive, EAN dalla penna ottica (8 o 13 cifre).
+- La dose usa la "dose standard in ml" della scheda prodotto; se manca, una dose indicativa per quantità (goccia 0,05 ml,
+  pisello 0,3 ml, noce 1 ml, 2 erogazioni 0,3 ml) **[DA CONFERMARE con le farmaciste]**: serve solo a stimare la fine del prodotto.
+- Da decidere: giorni dei trattamenti "2–3 volte a settimana" (ora lun/mer/ven).
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.

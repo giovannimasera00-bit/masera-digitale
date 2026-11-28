@@ -12,3 +12,4 @@ export * from "./rider";
 export * from "./prescription";
 export * from "./mymasera";
 export * from "./code128";
+export * from "./routine";

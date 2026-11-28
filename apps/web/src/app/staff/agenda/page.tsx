@@ -73,9 +73,14 @@ export default async function StaffAgendaPage({ searchParams }: { searchParams: 
         </div>
         <div className="flex flex-wrap gap-2">
           {role === "staff" && (
-            <Link href="/staff/catalogo" className={navBtn}>
-              Prova catalogo
-            </Link>
+            <>
+              <Link href="/staff/consegne" className={navBtn}>
+                Consegne
+              </Link>
+              <Link href="/staff/catalogo" className={navBtn}>
+                Prova catalogo
+              </Link>
+            </>
           )}
           <form action={logoutAction}>
             <button type="submit" className={navBtn}>

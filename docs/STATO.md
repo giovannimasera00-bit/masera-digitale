@@ -285,6 +285,18 @@ Aggiornato da Claude Code a fine di ogni sessione.
 - Logica in `packages/core/src/shop.ts` con test (core 117): reparti, linee, indirizzo del prodotto, disponibilità, prezzo promo, carrello.
 - Da decidere prima di andare online: tenere il carrello nel browser (dato tecnico) e aggiornare la pagina cookie; foto e testi veri.
 
+### Fase 2 – pezzo 4: consegne per il rider (in anteprima sul ramo fase2/staff-consegne)
+- `/staff/consegne` (solo password delle dottoresse; tasto "Consegne" nell'agenda): il giro di oggi, o il prossimo se oggi
+  non si consegna. Tappe in ordine di via e civico ("Via F.lli Cairoli" = "via Fratelli Cairoli"), cosa incassare
+  (contanti, POS, già pagato online), pacchi sigillati dal farmacista, note del citofono, tasto "Chiama".
+- Riassunto in alto: tappe, contanti da incassare, pagamenti col POS, pacchi sigillati. Ordini con CAP fuori Seregno → "da controllare".
+- "Partito: avvisa tutti i pronti" e "Consegnato" per ogni tappa. Il messaggio WhatsApp "il rider sta arrivando" partirà con la tappa 4B.
+- "Percorso su Maps": apre Google Maps con le tappe in ordine (9 per link). Manda a Google solo gli indirizzi, non i nomi.
+- **Ordini di prova** (nomi e importi finti, vie vere di Seregno): quelli veri arriveranno dal negozio Shopify.
+  In prova lo stato ("partito", "consegnato") resta solo nella pagina aperta.
+- Logica in `packages/core/src/rider.ts` con test (core 123): giorno di consegna dell'ordine, giro, incassi, link al percorso.
+- Da decidere: ordine delle tappe "per via" basta o serve un percorso ottimizzato; chi usa la pagina (rider con telefono?).
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.

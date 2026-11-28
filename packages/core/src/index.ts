@@ -8,3 +8,4 @@ export * from "./deblistering";
 export * from "./agenda";
 export * from "./catalog";
 export * from "./shop";
+export * from "./rider";

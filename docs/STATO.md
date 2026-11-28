@@ -356,6 +356,16 @@ Aggiornato da Claude Code a fine di ogni sessione.
   (`content/skinlab-demo.ts`: tessere A12345, B54321; EAN 8009990000016…0092), niente salvato né inviato.
 - Mancano: nota vocale (da decidere se serve), schede SkinLab vere dei prodotti (capacità, passaggio, dose), invio su WhatsApp (4B).
 
+### Fase 3 – pezzo 9: la routine del cliente (in anteprima sul ramo fase3/routine-cliente: …/routine/prova)
+- Pagina del link personale `/routine/[codice]` dal canvas SkinLab (colori tortora): interruttore mattina/sera con il cielo che
+  cambia (sole / luna), passaggi di oggi nell'ordine giusto da spuntare, barra di avanzamento, "Fai la routine passo passo"
+  (un passaggio alla volta, "Fatto, avanti"), serie di sere consecutive, trattamenti della settimana solo nei loro giorni,
+  **"Sta per finire"** con "Riordina", e **"Rifacciamo l'analisi?"** dopo 8 settimane con "Prenota l'analisi".
+- **Solo prova**: esiste solo `/routine/prova`, solo nelle anteprime (sul sito principale 404). Esclusa da Google, l'indirizzo
+  non passa ad altri siti. Le spunte restano solo nella pagina aperta.
+- Mancano: salvare routine e spunte sul database (Francoforte) con un link personale come per gli appuntamenti, foto dei prodotti,
+  animazione di applicazione e timer tra i passaggi (BRIEF §10: da decidere se servono), invio del link su WhatsApp (4B).
+
 ## Manca per chiudere la Fase 0
 - Collegare Supabase (Francoforte) e Sanity: proposto di farlo all'inizio della Fase 1, quando servono.
 - Piano Vercel Pro (password e dominio `nuovo.farmaciamasera.com`) prima di condividere i link fuori dalla farmacia.
